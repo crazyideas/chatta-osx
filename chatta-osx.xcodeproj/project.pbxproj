@@ -1,0 +1,465 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2712B38C15B266E000D73FEA /* status.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B38B15B266E000D73FEA /* status.png */; };
+		2712B39A15B26C0C00D73FEA /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B39915B26C0C00D73FEA /* background.png */; };
+		274D904215BA69CA002C168A /* chatta1.icns in Resources */ = {isa = PBXBuildFile; fileRef = 274D904115BA69CA002C168A /* chatta1.icns */; };
+		274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274D907A15BB2E2D002C168A /* libChattaKit.a */; };
+		2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2712B37C15B263D000D73FEA /* QuartzCore.framework */; };
+		2774A49115B5139C00D45B47 /* ContactPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */; };
+		2774A49215B5139C00D45B47 /* ContactPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */; };
+		279200C115B7D50C006CC188 /* PhoneNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279200C015B7D50C006CC188 /* PhoneNumberFormatter.m */; };
+		279200C515B7D520006CC188 /* EmailAddressFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279200C415B7D520006CC188 /* EmailAddressFormatter.m */; };
+		2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
+		2792010615B92734006CC188 /* Cookie-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
+		27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */; };
+		27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */; };
+		27DA222915ABCBBA00CEB105 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DA222815ABCBBA00CEB105 /* Cocoa.framework */; };
+		27DA223315ABCBBA00CEB105 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27DA223115ABCBBA00CEB105 /* InfoPlist.strings */; };
+		27DA223515ABCBBA00CEB105 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA223415ABCBBA00CEB105 /* main.m */; };
+		27DA223915ABCBBA00CEB105 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27DA223715ABCBBA00CEB105 /* Credits.rtf */; };
+		27DA223C15ABCBBA00CEB105 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA223B15ABCBBA00CEB105 /* AppDelegate.m */; };
+		27DA223F15ABCBBA00CEB105 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA223D15ABCBBA00CEB105 /* MainMenu.xib */; };
+		27DA224A15ABCCB700CEB105 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA224815ABCCB700CEB105 /* DetailViewController.m */; };
+		27DA224B15ABCCB700CEB105 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA224915ABCCB700CEB105 /* DetailViewController.xib */; };
+		27DA224F15ABCCE200CEB105 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA224D15ABCCE200CEB105 /* MasterViewController.m */; };
+		27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA224E15ABCCE200CEB105 /* MasterViewController.xib */; };
+		27DA225715ABCD3E00CEB105 /* RootWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA225615ABCD3E00CEB105 /* RootWindowController.m */; };
+		27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA226415ABD34000CEB105 /* RootWindow.xib */; };
+		27FAA82615AE7C8300C1C75E /* ConfigureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */; };
+		27FAA82715AE7C8300C1C75E /* ConfigureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */; };
+		27FAA84D15AFD47700C1C75E /* ContactCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FAA84C15AFD47700C1C75E /* ContactCellView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2792010215B926CB006CC188 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				2792010615B92734006CC188 /* Cookie-Regular.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2712B37C15B263D000D73FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2712B38B15B266E000D73FEA /* status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status.png; sourceTree = "<group>"; };
+		2712B39915B26C0C00D73FEA /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		274D904115BA69CA002C168A /* chatta1.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = chatta1.icns; sourceTree = "<group>"; };
+		274D907A15BB2E2D002C168A /* libChattaKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libChattaKit.a; path = "../../../Library/Developer/Xcode/DerivedData/chatta-fmqjzekevcvcawcwydtxhxcpyluh/Build/Products/Debug/libChattaKit.a"; sourceTree = "<group>"; };
+		2774A48E15B5139B00D45B47 /* ContactPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactPopoverViewController.h; sourceTree = "<group>"; };
+		2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactPopoverViewController.m; sourceTree = "<group>"; };
+		2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactPopoverViewController.xib; sourceTree = "<group>"; };
+		279200BF15B7D50C006CC188 /* PhoneNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneNumberFormatter.h; sourceTree = "<group>"; };
+		279200C015B7D50C006CC188 /* PhoneNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneNumberFormatter.m; sourceTree = "<group>"; };
+		279200C315B7D520006CC188 /* EmailAddressFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFormatter.h; sourceTree = "<group>"; };
+		279200C415B7D520006CC188 /* EmailAddressFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFormatter.m; sourceTree = "<group>"; };
+		2792010415B9272D006CC188 /* Cookie-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cookie-Regular.ttf"; sourceTree = "<group>"; };
+		27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPopoverViewController.h; sourceTree = "<group>"; };
+		27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPopoverViewController.m; sourceTree = "<group>"; };
+		27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsPopoverViewController.xib; sourceTree = "<group>"; };
+		27DA222415ABCBBA00CEB105 /* chatta-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatta-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27DA222815ABCBBA00CEB105 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		27DA222B15ABCBBA00CEB105 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		27DA222C15ABCBBA00CEB105 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		27DA222D15ABCBBA00CEB105 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		27DA223015ABCBBA00CEB105 /* chatta-osx-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "chatta-osx-Info.plist"; sourceTree = "<group>"; };
+		27DA223215ABCBBA00CEB105 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		27DA223415ABCBBA00CEB105 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		27DA223615ABCBBA00CEB105 /* chatta-osx-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "chatta-osx-Prefix.pch"; sourceTree = "<group>"; };
+		27DA223815ABCBBA00CEB105 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		27DA223A15ABCBBA00CEB105 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		27DA223B15ABCBBA00CEB105 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		27DA223E15ABCBBA00CEB105 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		27DA224715ABCCB700CEB105 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		27DA224815ABCCB700CEB105 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		27DA224915ABCCB700CEB105 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		27DA224C15ABCCE200CEB105 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		27DA224D15ABCCE200CEB105 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		27DA224E15ABCCE200CEB105 /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+		27DA225515ABCD3E00CEB105 /* RootWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootWindowController.h; sourceTree = "<group>"; };
+		27DA225615ABCD3E00CEB105 /* RootWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootWindowController.m; sourceTree = "<group>"; };
+		27DA226415ABD34000CEB105 /* RootWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootWindow.xib; sourceTree = "<group>"; };
+		27FAA82315AE7C8300C1C75E /* ConfigureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigureViewController.h; sourceTree = "<group>"; };
+		27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigureViewController.m; sourceTree = "<group>"; };
+		27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigureViewController.xib; sourceTree = "<group>"; };
+		27FAA84B15AFD47700C1C75E /* ContactCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCellView.h; sourceTree = "<group>"; };
+		27FAA84C15AFD47700C1C75E /* ContactCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCellView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		27DA222115ABCBBA00CEB105 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */,
+				2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */,
+				27DA222915ABCBBA00CEB105 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		279200C615B7D525006CC188 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				279200BF15B7D50C006CC188 /* PhoneNumberFormatter.h */,
+				279200C015B7D50C006CC188 /* PhoneNumberFormatter.m */,
+				279200C315B7D520006CC188 /* EmailAddressFormatter.h */,
+				279200C415B7D520006CC188 /* EmailAddressFormatter.m */,
+			);
+			name = Formatters;
+			sourceTree = "<group>";
+		};
+		27DA221915ABCBBA00CEB105 = {
+			isa = PBXGroup;
+			children = (
+				274D907A15BB2E2D002C168A /* libChattaKit.a */,
+				2712B37C15B263D000D73FEA /* QuartzCore.framework */,
+				27DA222E15ABCBBA00CEB105 /* chatta-osx */,
+				27DA222715ABCBBA00CEB105 /* Frameworks */,
+				27DA222515ABCBBA00CEB105 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		27DA222515ABCBBA00CEB105 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27DA222415ABCBBA00CEB105 /* chatta-osx.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		27DA222715ABCBBA00CEB105 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27DA222815ABCBBA00CEB105 /* Cocoa.framework */,
+				27DA222A15ABCBBA00CEB105 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		27DA222A15ABCBBA00CEB105 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27DA222B15ABCBBA00CEB105 /* AppKit.framework */,
+				27DA222C15ABCBBA00CEB105 /* CoreData.framework */,
+				27DA222D15ABCBBA00CEB105 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		27DA222E15ABCBBA00CEB105 /* chatta-osx */ = {
+			isa = PBXGroup;
+			children = (
+				27DA223A15ABCBBA00CEB105 /* AppDelegate.h */,
+				27DA223B15ABCBBA00CEB105 /* AppDelegate.m */,
+				27DA223D15ABCBBA00CEB105 /* MainMenu.xib */,
+				27FAA84A15AFCE4000C1C75E /* RootViewControllers */,
+				27FAA84815AFCDFA00C1C75E /* MasterViewControllers */,
+				27FAA84915AFCE2900C1C75E /* DetailViewControllers */,
+				279200C615B7D525006CC188 /* Formatters */,
+				27DA222F15ABCBBA00CEB105 /* Supporting Files */,
+			);
+			path = "chatta-osx";
+			sourceTree = "<group>";
+		};
+		27DA222F15ABCBBA00CEB105 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2792010415B9272D006CC188 /* Cookie-Regular.ttf */,
+				274D904115BA69CA002C168A /* chatta1.icns */,
+				2712B39915B26C0C00D73FEA /* background.png */,
+				2712B38B15B266E000D73FEA /* status.png */,
+				27DA223015ABCBBA00CEB105 /* chatta-osx-Info.plist */,
+				27DA223115ABCBBA00CEB105 /* InfoPlist.strings */,
+				27DA223415ABCBBA00CEB105 /* main.m */,
+				27DA223615ABCBBA00CEB105 /* chatta-osx-Prefix.pch */,
+				27DA223715ABCBBA00CEB105 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		27FAA84815AFCDFA00C1C75E /* MasterViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				27DA224C15ABCCE200CEB105 /* MasterViewController.h */,
+				27DA224D15ABCCE200CEB105 /* MasterViewController.m */,
+				27FAA84B15AFD47700C1C75E /* ContactCellView.h */,
+				27FAA84C15AFD47700C1C75E /* ContactCellView.m */,
+				2774A48E15B5139B00D45B47 /* ContactPopoverViewController.h */,
+				2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */,
+				27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */,
+				27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */,
+				27DA224E15ABCCE200CEB105 /* MasterViewController.xib */,
+				2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */,
+				27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */,
+			);
+			name = MasterViewControllers;
+			sourceTree = "<group>";
+		};
+		27FAA84915AFCE2900C1C75E /* DetailViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				27DA224715ABCCB700CEB105 /* DetailViewController.h */,
+				27DA224815ABCCB700CEB105 /* DetailViewController.m */,
+				27DA224915ABCCB700CEB105 /* DetailViewController.xib */,
+			);
+			name = DetailViewControllers;
+			sourceTree = "<group>";
+		};
+		27FAA84A15AFCE4000C1C75E /* RootViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				27DA225515ABCD3E00CEB105 /* RootWindowController.h */,
+				27DA225615ABCD3E00CEB105 /* RootWindowController.m */,
+				27FAA82315AE7C8300C1C75E /* ConfigureViewController.h */,
+				27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */,
+				27DA226415ABD34000CEB105 /* RootWindow.xib */,
+				27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */,
+			);
+			name = RootViewControllers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		27DA222315ABCBBA00CEB105 /* chatta-osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27DA224215ABCBBA00CEB105 /* Build configuration list for PBXNativeTarget "chatta-osx" */;
+			buildPhases = (
+				27DA222015ABCBBA00CEB105 /* Sources */,
+				27DA222115ABCBBA00CEB105 /* Frameworks */,
+				27DA222215ABCBBA00CEB105 /* Resources */,
+				2792010215B926CB006CC188 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "chatta-osx";
+			productName = "chatta-osx";
+			productReference = 27DA222415ABCBBA00CEB105 /* chatta-osx.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		27DA221B15ABCBBA00CEB105 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 27DA221E15ABCBBA00CEB105 /* Build configuration list for PBXProject "chatta-osx" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 27DA221915ABCBBA00CEB105;
+			productRefGroup = 27DA222515ABCBBA00CEB105 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27DA222315ABCBBA00CEB105 /* chatta-osx */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		27DA222215ABCBBA00CEB105 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27DA223315ABCBBA00CEB105 /* InfoPlist.strings in Resources */,
+				27DA223915ABCBBA00CEB105 /* Credits.rtf in Resources */,
+				27DA223F15ABCBBA00CEB105 /* MainMenu.xib in Resources */,
+				27DA224B15ABCCB700CEB105 /* DetailViewController.xib in Resources */,
+				27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */,
+				27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */,
+				27FAA82715AE7C8300C1C75E /* ConfigureViewController.xib in Resources */,
+				2712B38C15B266E000D73FEA /* status.png in Resources */,
+				2712B39A15B26C0C00D73FEA /* background.png in Resources */,
+				2774A49215B5139C00D45B47 /* ContactPopoverViewController.xib in Resources */,
+				27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */,
+				2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */,
+				274D904215BA69CA002C168A /* chatta1.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		27DA222015ABCBBA00CEB105 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27DA223515ABCBBA00CEB105 /* main.m in Sources */,
+				27DA223C15ABCBBA00CEB105 /* AppDelegate.m in Sources */,
+				27DA224A15ABCCB700CEB105 /* DetailViewController.m in Sources */,
+				27DA224F15ABCCE200CEB105 /* MasterViewController.m in Sources */,
+				27DA225715ABCD3E00CEB105 /* RootWindowController.m in Sources */,
+				27FAA82615AE7C8300C1C75E /* ConfigureViewController.m in Sources */,
+				27FAA84D15AFD47700C1C75E /* ContactCellView.m in Sources */,
+				2774A49115B5139C00D45B47 /* ContactPopoverViewController.m in Sources */,
+				27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */,
+				279200C115B7D50C006CC188 /* PhoneNumberFormatter.m in Sources */,
+				279200C515B7D520006CC188 /* EmailAddressFormatter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		27DA223115ABCBBA00CEB105 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27DA223215ABCBBA00CEB105 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		27DA223715ABCBBA00CEB105 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27DA223815ABCBBA00CEB105 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		27DA223D15ABCBBA00CEB105 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27DA223E15ABCBBA00CEB105 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		27DA224015ABCBBA00CEB105 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		27DA224115ABCBBA00CEB105 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		27DA224315ABCBBA00CEB105 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "chatta-osx/chatta-osx-Prefix.pch";
+				INFOPLIST_FILE = "chatta-osx/chatta-osx-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/chatta-fmqjzekevcvcawcwydtxhxcpyluh/Build/Products/Debug\"",
+				);
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		27DA224415ABCBBA00CEB105 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "chatta-osx/chatta-osx-Prefix.pch";
+				INFOPLIST_FILE = "chatta-osx/chatta-osx-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/chatta-fmqjzekevcvcawcwydtxhxcpyluh/Build/Products/Debug\"",
+				);
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27DA221E15ABCBBA00CEB105 /* Build configuration list for PBXProject "chatta-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27DA224015ABCBBA00CEB105 /* Debug */,
+				27DA224115ABCBBA00CEB105 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27DA224215ABCBBA00CEB105 /* Build configuration list for PBXNativeTarget "chatta-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27DA224315ABCBBA00CEB105 /* Debug */,
+				27DA224415ABCBBA00CEB105 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 27DA221B15ABCBBA00CEB105 /* Project object */;
+}
