@@ -46,6 +46,9 @@
     self.contactListTableView.dataSource   = self;
     self.contactListTableView.target       = self;
     self.contactListTableView.doubleAction = @selector(tableViewDoubleClick:);
+    self.contactListTableView.action       = @selector(tableViewSingleClick:);
+    self.contactListTableView.allowsEmptySelection = YES;
+    self.contactListTableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
     
     self.contactPopover.contentViewController = self.contactPopoverViewController;
     self.contactPopover.behavior = NSPopoverBehaviorTransient;
@@ -54,6 +57,8 @@
     self.settingsPopover.contentViewController = self.settingsPopoverViewController;
     self.settingsPopover.behavior = NSPopoverBehaviorTransient;
     self.settingsPopover.delegate = self.settingsPopoverViewController;
+    
+    currentlySelectedRow = -1;
 }
 
 #pragma mark - Add, Remove, Update Contact Actions
@@ -76,8 +81,13 @@
 
 - (void)tableViewDoubleClick:(id)sender
 {
+    currentlySelectedRow = [sender clickedRow];
+    if (currentlySelectedRow <  0) {
+        return;
+    }
+    
     // update sender to be clicked nstablerowview
-    sender = [sender rowViewAtRow:[sender clickedRow] makeIfNecessary:YES];
+    sender = [sender rowViewAtRow:currentlySelectedRow makeIfNecessary:YES];
     
     self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
 
@@ -163,10 +173,20 @@
     return contactCellView;
 }
 
+- (void)tableViewSingleClick:(id)sender
+{
+    currentlySelectedRow = [sender clickedRow];
+    if (currentlySelectedRow < 0) {
+        [self.contactListTableView deselectAll:self];
+    }
+}
 
 - (IBAction)reloadData:(id)sender
 {
     [self.contactListTableView reloadData];
+    
+    NSIndexSet *selectedIndexSet = [NSIndexSet indexSetWithIndex:currentlySelectedRow];
+    [self.contactListTableView selectRowIndexes:selectedIndexSet byExtendingSelection:NO];
 }
 
 
