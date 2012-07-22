@@ -9,16 +9,20 @@
 
 @implementation ConfigureViewController
 
-@synthesize delegate             = _delegate;
-@synthesize chattaTextField      = _chattaTextField;
+@synthesize delegate               = _delegate;
+@synthesize emailAddressFormatter  = _emailAddressFormatter;
+@synthesize chattaTextField        = _chattaTextField;
+@synthesize usernameTextField      = _usernameTextField;
+@synthesize passwordTextField      = _passwordTextField;
 @synthesize loginProgressIndicator = _loginProgressIndicator;
-@synthesize firstPreviousPressed = _firstPreviousPressed;
+@synthesize firstPreviousButton    = _firstPreviousPressed;
+@synthesize firstNextButton        = _firstNextButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code here.
+        self.emailAddressFormatter = [[EmailAddressFormatter alloc] init];
     }
     
     return self;
@@ -32,8 +36,57 @@
     self.chattaTextField.font = [NSFont fontWithName:@"Cookie-Regular" size:60];
     self.chattaTextField.textColor = [NSColor colorWithCalibratedRed:90/255.0 green:67/255.0 blue:210/255.0 alpha:1.0];
     
-    [self.firstPreviousPressed setEnabled:NO];
+    self.passwordTextField.delegate = self;
+    self.usernameTextField.delegate = self;
+    self.usernameTextField.formatter = self.emailAddressFormatter;
 }
+
+- (void)configureSheetWillOpen
+{
+    [self validateFieldsAndUpdateButtons];
+    [self.usernameTextField becomeFirstResponder];
+}
+
+- (void)configureSheetWillClose
+{
+    [self.loginProgressIndicator stopAnimation:self];        
+    self.usernameTextField.stringValue = @"";
+    self.passwordTextField.stringValue = @"";
+}
+
+- (void)validateFieldsAndUpdateButtons
+{
+    NSString *usernameString = self.usernameTextField.stringValue;
+    NSString *passwordString = self.passwordTextField.stringValue;
+    BOOL usernameValid = NO;
+    BOOL passwordValid = NO;
+    
+    // check if username is valid
+    if ([EmailAddressFormatter isValidEmailAddress:usernameString]) {
+        usernameValid = YES;
+    } else {
+        passwordValid = NO;
+    }
+    
+    // check if password is valid
+    if (passwordString.length > 0) {
+        passwordValid = YES;
+    } else { 
+        passwordValid = NO;
+    }
+    
+    [self.firstNextButton setEnabled:usernameValid && passwordValid];
+    [self.firstPreviousButton setEnabled:NO];
+}
+
+#pragma mark - NSTextFieldDelegate
+
+- (void)controlTextDidChange:(NSNotification *)object
+{
+    [self validateFieldsAndUpdateButtons];
+}
+
+#pragma mark - Core Animation Helper Methods
 
 - (void)transitionViewAnimationWithOffset:(NSInteger)offset
 {
@@ -56,22 +109,21 @@
     [self transitionViewAnimationWithOffset:+480];
 }
 
+#pragma mark - Button Action Methods
+
 - (IBAction)firstNextPushed:(id)sender
 {
     if (self.delegate != nil) {
-        [self.delegate loginPushedUsername:nil password:nil];
+        [self.delegate loginPushedUsername:self.usernameTextField.stringValue 
+                                  password:self.passwordTextField.stringValue];
     }
     
     self.loginProgressIndicator.usesThreadedAnimation = YES;
     [self.loginProgressIndicator startAnimation:self];
-    
-
 }
 
-- (IBAction)configurationComplete:(id)sender
-{
-    [self.loginProgressIndicator stopAnimation:self];
-    
+- (IBAction)firstCancelPushed:(id)sender
+{    
     if (self.delegate != nil) {
         [self.delegate configurationSheetDidComplete];
     }

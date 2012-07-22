@@ -9,6 +9,13 @@
 #import "DetailViewController.h"
 #import "ContactPopoverViewController.h"
 #import "SettingsPopoverViewController.h"
+#import "ChattaKit.h"
+
+@protocol MasterViewDelegate <NSObject>
+@optional
+- (void)logoutOfChatta;
+- (void)loginToChatta;
+@end
 
 @interface MasterViewController : NSViewController <NSTableViewDelegate, NSTableViewDataSource, 
                                                     ContactPopoverDelegate, SettingsPopoverDelegate>
@@ -24,6 +31,9 @@
 
 @property (weak) IBOutlet NSTableView *contactListTableView;
 @property (weak) IBOutlet NSTextField *unreadTextField;
+
+@property (nonatomic, assign) id <MasterViewDelegate> delegate;
+@property (nonatomic) ChattaState connectionState;
 
 - (IBAction)addContactPushed:(id)sender;
 - (IBAction)settingsPushed:(id)sender;

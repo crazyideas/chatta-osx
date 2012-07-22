@@ -10,6 +10,7 @@
 
 @implementation MasterViewController
 
+@synthesize delegate                      = _delegate;
 @synthesize contactListTableView          = _contactListTableView;
 @synthesize unreadTextField               = _unreadTextField;
 @synthesize detailViewController          = _detailViewController;
@@ -18,7 +19,13 @@
 @synthesize settingsPopoverViewController = _settingsPopoverViewController;
 @synthesize settingsPopover               = _settingsPopover;
 @synthesize contactPopover                = _contactPopover;
+@synthesize connectionState               = _connectionState;
 
+- (void)setConnectionState:(ChattaState)connectionState
+{
+    self.settingsPopoverViewController.connectionState = connectionState;
+    _connectionState = connectionState;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,7 +54,7 @@
     self.contactListTableView.target       = self;
     self.contactListTableView.doubleAction = @selector(tableViewDoubleClick:);
     self.contactListTableView.action       = @selector(tableViewSingleClick:);
-    self.contactListTableView.allowsEmptySelection = YES;
+    self.contactListTableView.allowsEmptySelection    = YES;
     self.contactListTableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
     
     self.contactPopover.contentViewController = self.contactPopoverViewController;
@@ -58,6 +65,10 @@
     self.settingsPopover.behavior = NSPopoverBehaviorTransient;
     self.settingsPopover.delegate = self.settingsPopoverViewController;
     
+    self.settingsPopoverViewController.delegate = self;
+    self.contactPopoverViewController.delegate  = self;
+    
+    self.connectionState = ChattaStateDisconnected;
     currentlySelectedRow = -1;
 }
 
@@ -98,13 +109,27 @@
     self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
 }
 
-#pragma mark - Settings Actions
+#pragma mark - Settings Actions and Delegates
 
 - (IBAction)settingsPushed:(id)sender
 {
     [self.settingsPopover showRelativeToRect:[sender bounds] 
                                       ofView:sender 
                                preferredEdge:NSMinYEdge];
+}
+
+- (void)loginToChatta
+{
+    if (self.delegate != nil) {
+        [self.delegate loginToChatta];
+    }
+}
+
+- (void)logoutOfChatta
+{
+    if (self.delegate != nil) {
+        [self.delegate logoutOfChatta];
+    }
 }
 
 #pragma mark - ContactPopoverDelegate

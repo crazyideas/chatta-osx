@@ -45,6 +45,7 @@
 						<string key="NSFrame">{{18, 112}, {164, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="880379450"/>
 						<string key="NSReuseIdentifierKey">_NS:771</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="346880158">
@@ -105,7 +106,7 @@
 						<string key="NSFrame">{{17, 153}, {166, 57}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="880379450"/>
+						<reference key="NSNextKeyView" ref="577946598"/>
 						<string key="NSReuseIdentifierKey">_NS:3944</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="840885155">
@@ -151,7 +152,7 @@
 						<object class="NSButtonCell" key="NSCell" id="520126354">
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Logout of Chatta</string>
+							<string key="NSContents">Label</string>
 							<reference key="NSSupport" ref="945078020"/>
 							<string key="NSCellIdentifier">_NS:687</string>
 							<reference key="NSControlView" ref="934012379"/>
@@ -212,6 +213,14 @@
 						<reference key="destination" ref="880379450"/>
 					</object>
 					<int key="connectionID">28</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">stateButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="934012379"/>
+					</object>
+					<int key="connectionID">29</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -323,7 +332,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">28</int>
+			<int key="maxID">29</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -344,6 +353,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="chattaTextField">NSTextField</string>
 						<string key="soundsButton">NSButton</string>
+						<string key="stateButton">NSButton</string>
 						<string key="timestampButton">NSButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -353,6 +363,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="soundsButton">
 							<string key="name">soundsButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="stateButton">
+							<string key="name">stateButton</string>
 							<string key="candidateClassName">NSButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="timestampButton">

@@ -405,14 +405,6 @@
 					<int key="connectionID">45</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">firstPreviousPressed</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="137113324"/>
-					</object>
-					<int key="connectionID">49</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">firstNextPushed:</string>
 						<reference key="source" ref="1001"/>
@@ -429,20 +421,44 @@
 					<int key="connectionID">52</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">configurationComplete:</string>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">usernameTextField</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="783235443"/>
+						<reference key="destination" ref="780789171"/>
 					</object>
-					<int key="connectionID">53</int>
+					<int key="connectionID">55</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">passwordTextField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="515012640"/>
+					</object>
+					<int key="connectionID">56</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">firstNextButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1059981975"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">firstPreviousButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="137113324"/>
+					</object>
+					<int key="connectionID">59</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">configurationComplete:</string>
+						<string key="label">firstCancelPushed:</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="384963695"/>
+						<reference key="destination" ref="783235443"/>
 					</object>
-					<int key="connectionID">54</int>
+					<int key="connectionID">60</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -671,12 +687,14 @@
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="31.userInterfaceItemIdentifier">usernameField</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="41.userInterfaceItemIdentifier">passwordField</string>
 				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="43.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -689,7 +707,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">54</int>
+			<int key="maxID">60</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -697,14 +715,14 @@
 					<string key="className">ConfigureViewController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="configurationComplete:">id</string>
+						<string key="firstCancelPushed:">id</string>
 						<string key="firstNextPushed:">id</string>
 						<string key="importBackPushed:">id</string>
 						<string key="importContinuePushed:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="configurationComplete:">
-							<string key="name">configurationComplete:</string>
+						<object class="IBActionInfo" key="firstCancelPushed:">
+							<string key="name">firstCancelPushed:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="firstNextPushed:">
@@ -722,21 +740,36 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="chattaTextField">NSTextFieldCell</string>
-						<string key="firstPreviousPressed">NSButton</string>
+						<string key="firstNextButton">NSButton</string>
+						<string key="firstPreviousButton">NSButton</string>
 						<string key="loginProgressIndicator">NSProgressIndicator</string>
+						<string key="passwordTextField">NSSecureTextField</string>
+						<string key="usernameTextField">NSTextField</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="chattaTextField">
 							<string key="name">chattaTextField</string>
 							<string key="candidateClassName">NSTextFieldCell</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="firstPreviousPressed">
-							<string key="name">firstPreviousPressed</string>
+						<object class="IBToOneOutletInfo" key="firstNextButton">
+							<string key="name">firstNextButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="firstPreviousButton">
+							<string key="name">firstPreviousButton</string>
 							<string key="candidateClassName">NSButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="loginProgressIndicator">
 							<string key="name">loginProgressIndicator</string>
 							<string key="candidateClassName">NSProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="passwordTextField">
+							<string key="name">passwordTextField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="usernameTextField">
+							<string key="name">usernameTextField</string>
+							<string key="candidateClassName">NSTextField</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

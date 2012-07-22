@@ -6,20 +6,23 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ChattaKit.h"
 
 @protocol SettingsPopoverDelegate <NSObject>
 @optional
-- (void)logoutChatta;
-- (void)loginChatta;
-- (void)closePopover;
+- (void)logoutOfChatta;
+- (void)loginToChatta;
 @end
 
 @interface SettingsPopoverViewController : NSViewController <NSPopoverDelegate>
 
-@property (nonatomic, assign) id <SettingsPopoverDelegate> delegate;
 @property (weak) IBOutlet NSTextField *chattaTextField;
 @property (weak) IBOutlet NSButton *timestampButton;
 @property (weak) IBOutlet NSButton *soundsButton;
+@property (weak) IBOutlet NSButton *stateButton;
+
+@property (nonatomic, assign) id <SettingsPopoverDelegate> delegate;
+@property (nonatomic) ChattaState connectionState;
 
 - (IBAction)stateButtonPushed:(id)sender;
 

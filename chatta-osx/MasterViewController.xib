@@ -53,6 +53,7 @@
 						<string key="NSFrame">{{270, 5}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:2466</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="519609417">
@@ -283,7 +284,7 @@
 										<string key="NSFrameSize">{300, 264}</string>
 										<reference key="NSSuperview" ref="1039421580"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="603179173"/>
+										<reference key="NSNextKeyView" ref="114796583"/>
 										<string key="NSReuseIdentifierKey">_NS:1828</string>
 										<bool key="NSEnabled">YES</bool>
 										<object class="_NSCornerView" key="NSCornerView">
@@ -353,10 +354,7 @@
 												</object>
 											</object>
 										</object>
-										<object class="NSColor" key="NSGridColor">
-											<int key="NSColorSpace">2</int>
-											<bytes key="NSRGB">MC45MTc2NDcxMjMzIDAuOTI5NDExODI4NSAwLjk0NTA5ODEwMjEAA</bytes>
-										</object>
+										<reference key="NSGridColor" ref="330244470"/>
 										<double key="NSRowHeight">46</double>
 										<int key="NSTvFlags">1447034880</int>
 										<reference key="NSDelegate"/>
@@ -407,7 +405,7 @@
 						<string key="NSFrame">{{0, 36}, {300, 264}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1039421580"/>
+						<reference key="NSNextKeyView" ref="603179173"/>
 						<string key="NSReuseIdentifierKey">_NS:1824</string>
 						<int key="NSsFlags">133648</int>
 						<reference key="NSVScroller" ref="603179173"/>
