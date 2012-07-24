@@ -39,6 +39,8 @@
     self.passwordTextField.delegate = self;
     self.usernameTextField.delegate = self;
     self.usernameTextField.formatter = self.emailAddressFormatter;
+    
+    [self configureSheetWillOpen];
 }
 
 - (void)configureSheetWillOpen

@@ -26,4 +26,13 @@
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;
 
+- (void)receivedSleepNotification:(NSNotification *)notification;
+- (void)receivedWakeNotification:(NSNotification *)notification;
+
+
+// debug panel support
+@property (strong) IBOutlet NSPanel *debugPanel;
+- (IBAction)debugSleepNotification:(id)sender;
+- (IBAction)debugWakeNotification:(id)sender;
+
 @end

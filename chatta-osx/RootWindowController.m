@@ -15,6 +15,7 @@
 
 @implementation RootWindowController
 
+@synthesize debugPanel              = _debugPanel;
 @synthesize splitView               = _splitView;
 @synthesize configureSheet          = _configureSheet;
 @synthesize configureSheetView      = _configureSheetView;
@@ -24,6 +25,7 @@
 @synthesize chattaKit               = _chattaKit;
 @synthesize username                = _username;
 @synthesize password                = _password;
+
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -37,8 +39,10 @@
 }
 
 - (void)windowDidLoad
-{
+{    
     [super windowDidLoad];
+    
+    // self.debugPanel.isVisible = YES;
         
     self.splitView.subviews = [NSArray arrayWithObjects:
         self.masterViewController.view, self.detailViewController.view, nil];
@@ -84,13 +88,15 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
         return;
     }
     
+    // adjust split view
     [self.splitView setPosition:140 ofDividerAtIndex:0];
     [self.splitView adjustSubviews];
     
+    // adjust window location
     CGFloat sizeX = 850;
     CGFloat sizeY = 650;
-    CGFloat originX = ((NSScreen.mainScreen.frame.size.width)  / 2) - (sizeX / 2);
-    CGFloat originY = ((NSScreen.mainScreen.frame.size.height) / 2) - (sizeY / 2) + 55;
+    CGFloat originX = ((self.window.screen.frame.size.width)  / 2) - (sizeX / 2);
+    CGFloat originY = ((self.window.screen.frame.size.height) / 2) - (sizeY / 2) + 55;
 
     NSRect windowFrame = NSMakeRect(originX, originY, sizeX, sizeY);
     [self.window setFrame:windowFrame display:YES animate:YES];
@@ -114,11 +120,6 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
         {
             CKDebug(@"ChattaStateDisconnected");
             self.masterViewController.connectionState = state;
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                if (self.configureSheet.isVisible == NO) {  
-                    [self showConfigureSheet:self.window];
-                }
-            });
             break;
         }
         default:
@@ -159,6 +160,33 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 {
     [self.configureViewController configureSheetWillClose];
     [self.configureSheet orderOut:self];
+}
+
+#pragma mark - Sleep/Wake Notifications
+
+- (void)receivedSleepNotification:(NSNotification *)notification
+{
+    [self logoutOfChatta];
+}
+
+- (void)receivedWakeNotification:(NSNotification *)notification
+{
+    [self loginToChatta];
+    self.configureViewController.usernameTextField.stringValue = self.username;
+    self.configureViewController.passwordTextField.stringValue = self.password;
+    [self.configureViewController firstNextPushed:self];
+}
+
+
+// debugging methods
+- (IBAction)debugSleepNotification:(id)sender
+{
+    [self receivedSleepNotification:nil];
+}
+
+- (IBAction)debugWakeNotification:(id)sender
+{
+    [self receivedWakeNotification:nil];
 }
 
 @end

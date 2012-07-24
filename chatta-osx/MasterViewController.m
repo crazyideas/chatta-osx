@@ -87,7 +87,7 @@
 
 - (IBAction)removeContactPushed:(id)sender
 {
-    NSLog(@"removeContactPushed");
+    CKDebug(@"removeContactPushed");
 }
 
 - (void)tableViewDoubleClick:(id)sender
@@ -136,12 +136,12 @@
 
 - (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
-    NSLog(@"addContactWithName: %@", name);
+    CKDebug(@"addContactWithName: %@", name);
 }
 
 - (void)updateContact:(id)contact withName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
-    NSLog(@"updateContact: %@", name);
+    CKDebug(@"updateContact: %@", name);
 }
 
 - (void)closePopover
