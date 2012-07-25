@@ -42,7 +42,7 @@
 {    
     [super windowDidLoad];
     
-    // self.debugPanel.isVisible = YES;
+    self.debugPanel.isVisible = YES;
         
     self.splitView.subviews = [NSArray arrayWithObjects:
         self.masterViewController.view, self.detailViewController.view, nil];
@@ -120,6 +120,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
         {
             CKDebug(@"ChattaStateDisconnected");
             self.masterViewController.connectionState = state;
+            [self.configureViewController loginStopped];
             break;
         }
         default:
@@ -130,7 +131,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
     }
 }
 
-#pragma mark - MasterViewController Delegates
+#pragma mark - MasterViewController and ConfigureViewController Delegates
 
 - (void)loginToChatta
 {
@@ -140,6 +141,11 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 - (void)logoutOfChatta
 {
     [self.chattaKit logoutOfService];
+}
+
+- (void)cancelChattaLogin
+{
+    [self logoutOfChatta];
 }
 
 #pragma mark - Sheet Methods
@@ -188,5 +194,21 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 {
     [self receivedWakeNotification:nil];
 }
+
+- (IBAction)debugConnectedNotification:(id)sender
+{
+    [self connectionStateNotification:ChattaStateConnected];
+}
+
+- (IBAction)debugconnectionInProgress:(id)sender
+{
+    [self.configureViewController loginInProgress];
+}
+
+- (IBAction)debugDisconnectedNotification:(id)sender
+{
+    [self connectionStateNotification:ChattaStateDisconnected];
+}
+
 
 @end

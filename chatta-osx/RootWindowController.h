@@ -34,5 +34,8 @@
 @property (strong) IBOutlet NSPanel *debugPanel;
 - (IBAction)debugSleepNotification:(id)sender;
 - (IBAction)debugWakeNotification:(id)sender;
+- (IBAction)debugConnectedNotification:(id)sender;
+- (IBAction)debugDisconnectedNotification:(id)sender;
+- (IBAction)debugconnectionInProgress:(id)sender;
 
 @end

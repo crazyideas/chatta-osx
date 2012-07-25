@@ -53,6 +53,7 @@
         } else { 
             [self.delegate loginToChatta];
         }
+        [self.delegate closePopover];
     }
 }
 @end

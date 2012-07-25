@@ -12,6 +12,7 @@
 @optional
 - (void)logoutOfChatta;
 - (void)loginToChatta;
+- (void)closePopover;
 @end
 
 @interface SettingsPopoverViewController : NSViewController <NSPopoverDelegate>

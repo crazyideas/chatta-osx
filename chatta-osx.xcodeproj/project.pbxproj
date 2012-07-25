@@ -20,6 +20,11 @@
 		2792010615B92734006CC188 /* Cookie-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
 		27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */; };
 		27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */; };
+		27D74F3D15BE6AEF009F522A /* CKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D74F3C15BE6AEF009F522A /* CKView.m */; };
+		27D74F6115BF9624009F522A /* CKProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D74F6015BF9624009F522A /* CKProgressIndicator.m */; };
+		27D74F8015BFA0CC009F522A /* light_texture_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D74F7D15BFA0CC009F522A /* light_texture_1.png */; };
+		27D74F8115BFA0CC009F522A /* light_texture_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D74F7E15BFA0CC009F522A /* light_texture_2.png */; };
+		27D74F8215BFA0CC009F522A /* light_texture_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D74F7F15BFA0CC009F522A /* light_texture_0.png */; };
 		27DA222915ABCBBA00CEB105 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DA222815ABCBBA00CEB105 /* Cocoa.framework */; };
 		27DA223315ABCBBA00CEB105 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27DA223115ABCBBA00CEB105 /* InfoPlist.strings */; };
 		27DA223515ABCBBA00CEB105 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA223415ABCBBA00CEB105 /* main.m */; };
@@ -67,6 +72,13 @@
 		27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPopoverViewController.h; sourceTree = "<group>"; };
 		27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPopoverViewController.m; sourceTree = "<group>"; };
 		27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsPopoverViewController.xib; sourceTree = "<group>"; };
+		27D74F3B15BE6AEF009F522A /* CKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKView.h; sourceTree = "<group>"; };
+		27D74F3C15BE6AEF009F522A /* CKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKView.m; sourceTree = "<group>"; };
+		27D74F5F15BF9624009F522A /* CKProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKProgressIndicator.h; sourceTree = "<group>"; };
+		27D74F6015BF9624009F522A /* CKProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKProgressIndicator.m; sourceTree = "<group>"; };
+		27D74F7D15BFA0CC009F522A /* light_texture_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_texture_1.png; sourceTree = "<group>"; };
+		27D74F7E15BFA0CC009F522A /* light_texture_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_texture_2.png; sourceTree = "<group>"; };
+		27D74F7F15BFA0CC009F522A /* light_texture_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_texture_0.png; sourceTree = "<group>"; };
 		27DA222415ABCBBA00CEB105 /* chatta-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatta-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DA222815ABCBBA00CEB105 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		27DA222B15ABCBBA00CEB105 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -121,6 +133,27 @@
 			name = Formatters;
 			sourceTree = "<group>";
 		};
+		27D74F6315BF9634009F522A /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				27D74F3B15BE6AEF009F522A /* CKView.h */,
+				27D74F3C15BE6AEF009F522A /* CKView.m */,
+				27D74F5F15BF9624009F522A /* CKProgressIndicator.h */,
+				27D74F6015BF9624009F522A /* CKProgressIndicator.m */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
+		27D74F7C15BFA0B6009F522A /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				27D74F7F15BFA0CC009F522A /* light_texture_0.png */,
+				27D74F7D15BFA0CC009F522A /* light_texture_1.png */,
+				27D74F7E15BFA0CC009F522A /* light_texture_2.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		27DA221915ABCBBA00CEB105 = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +198,7 @@
 				27DA223A15ABCBBA00CEB105 /* AppDelegate.h */,
 				27DA223B15ABCBBA00CEB105 /* AppDelegate.m */,
 				27DA223D15ABCBBA00CEB105 /* MainMenu.xib */,
+				27D74F6315BF9634009F522A /* CustomViews */,
 				27FAA84A15AFCE4000C1C75E /* RootViewControllers */,
 				27FAA84815AFCDFA00C1C75E /* MasterViewControllers */,
 				27FAA84915AFCE2900C1C75E /* DetailViewControllers */,
@@ -177,6 +211,7 @@
 		27DA222F15ABCBBA00CEB105 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				27D74F7C15BFA0B6009F522A /* Images */,
 				2792010415B9272D006CC188 /* Cookie-Regular.ttf */,
 				274D904115BA69CA002C168A /* chatta1.icns */,
 				2712B39915B26C0C00D73FEA /* background.png */,
@@ -295,6 +330,9 @@
 				27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */,
 				2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */,
 				274D904215BA69CA002C168A /* chatta1.icns in Resources */,
+				27D74F8015BFA0CC009F522A /* light_texture_1.png in Resources */,
+				27D74F8115BFA0CC009F522A /* light_texture_2.png in Resources */,
+				27D74F8215BFA0CC009F522A /* light_texture_0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +354,8 @@
 				27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */,
 				279200C115B7D50C006CC188 /* PhoneNumberFormatter.m in Sources */,
 				279200C515B7D520006CC188 /* EmailAddressFormatter.m in Sources */,
+				27D74F3D15BE6AEF009F522A /* CKView.m in Sources */,
+				27D74F6115BF9624009F522A /* CKProgressIndicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

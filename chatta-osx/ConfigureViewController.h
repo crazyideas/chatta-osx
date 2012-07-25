@@ -7,10 +7,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EmailAddressFormatter.h"
+#import "CKProgressIndicator.h"
 
 @protocol ConfigureViewDelegate <NSObject>
 @optional
 - (void)loginPushedUsername:(NSString *)username password:(NSString *)password;
+- (void)cancelChattaLogin;
 - (void)configurationSheetDidComplete;
 @end
 
@@ -22,12 +24,16 @@
 @property (weak) IBOutlet NSTextFieldCell *chattaTextField;
 @property (weak) IBOutlet NSTextField *usernameTextField;
 @property (weak) IBOutlet NSSecureTextField *passwordTextField;
-@property (weak) IBOutlet NSProgressIndicator *loginProgressIndicator;
+@property (weak) IBOutlet CKProgressIndicator *loginProgressIndicator;
+@property (weak) IBOutlet NSButton *firstCancelButton;
 @property (weak) IBOutlet NSButton *firstPreviousButton;
 @property (weak) IBOutlet NSButton *firstNextButton;
 
 - (void)showLoginView;
 - (void)showContactImportView;
+
+- (void)loginInProgress;
+- (void)loginStopped;
 
 - (void)configureSheetWillOpen;
 - (void)configureSheetWillClose;

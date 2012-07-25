@@ -6,6 +6,7 @@
 //
 
 #import "ConfigureViewController.h"
+#import "CKView.h"
 
 @implementation ConfigureViewController
 
@@ -15,6 +16,7 @@
 @synthesize usernameTextField      = _usernameTextField;
 @synthesize passwordTextField      = _passwordTextField;
 @synthesize loginProgressIndicator = _loginProgressIndicator;
+@synthesize firstCancelButton      = _firstCancelButton;
 @synthesize firstPreviousButton    = _firstPreviousPressed;
 @synthesize firstNextButton        = _firstNextButton;
 
@@ -30,8 +32,8 @@
 
 - (void)awakeFromNib
 {
-    NSDockTile *tile = [[NSApplication sharedApplication] dockTile];
-    tile.badgeLabel = @"1";
+    NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
+    dockTile.badgeLabel = @"1";
     
     self.chattaTextField.font = [NSFont fontWithName:@"Cookie-Regular" size:60];
     self.chattaTextField.textColor = [NSColor colorWithCalibratedRed:90/255.0 green:67/255.0 blue:210/255.0 alpha:1.0];
@@ -40,7 +42,30 @@
     self.usernameTextField.delegate = self;
     self.usernameTextField.formatter = self.emailAddressFormatter;
     
+    CKView *configureView = (CKView *)self.view;
+    configureView.backgroundImage = [NSImage imageNamed:@"light_texture_2.png"];
+    configureView.backgroundImageAlpha = 0.95;
+    configureView.needsDisplay = YES;
+    
     [self configureSheetWillOpen];
+}
+
+- (void)loginInProgress
+{
+    self.loginProgressIndicator.usesThreadedAnimation = YES;
+    [self.loginProgressIndicator startAnimation:self];
+    
+    [self.usernameTextField setEnabled:NO];
+    [self.passwordTextField setEnabled:NO];
+    [self.firstNextButton setEnabled:NO];
+}
+
+- (void)loginStopped
+{
+    [self.loginProgressIndicator stopAnimation:self];
+    [self.usernameTextField setEnabled:YES];
+    [self.passwordTextField setEnabled:YES];
+    [self.firstNextButton setEnabled:YES];
 }
 
 - (void)configureSheetWillOpen
@@ -51,7 +76,7 @@
 
 - (void)configureSheetWillClose
 {
-    [self.loginProgressIndicator stopAnimation:self];        
+    [self loginStopped];
     self.usernameTextField.stringValue = @"";
     self.passwordTextField.stringValue = @"";
 }
@@ -120,13 +145,20 @@
                                   password:self.passwordTextField.stringValue];
     }
     
-    self.loginProgressIndicator.usesThreadedAnimation = YES;
-    [self.loginProgressIndicator startAnimation:self];
+    [self loginInProgress];
 }
 
 - (IBAction)firstCancelPushed:(id)sender
-{    
+{
     if (self.delegate != nil) {
+        // if we are currently logging in, cancel just stops the login
+        if (self.loginProgressIndicator.inProgress == YES) {
+            [self loginStopped];
+            [self.delegate cancelChattaLogin];
+            return;
+        }
+        
+        // remove the configuration sheet
         [self.delegate configurationSheetDidComplete];
     }
 }
