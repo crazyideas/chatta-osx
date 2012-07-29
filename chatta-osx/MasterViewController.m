@@ -174,17 +174,17 @@
     switch (contactCellView.connectionState) {
         case 0:
         {
-            randStr = [NSString stringWithString:@"current state is indeterminate"];
+            randStr = @"current state is indeterminate";
             break;
         }
         case 1:
         {
-            randStr = [NSString stringWithString:@"current state is offline"];
+            randStr = @"current state is offline";
             break;
         }
         case 2:
         {
-            randStr = [NSString stringWithString:@"current state is online"];
+            randStr = @"current state is online";
             break;
         }
         default:
