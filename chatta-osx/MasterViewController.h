@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "ContactPopoverViewController.h"
 #import "SettingsPopoverViewController.h"
+#import "CKTableView.h"
 #import "ChattaKit.h"
 
 @protocol MasterViewDelegate <NSObject>
@@ -28,8 +29,10 @@
 @property (nonatomic, strong) SettingsPopoverViewController *settingsPopoverViewController;
 @property (nonatomic, strong) NSPopover *contactPopover;
 @property (nonatomic, strong) NSPopover *settingsPopover;
+@property (weak) IBOutlet NSButton *minusButton;
+@property (weak) IBOutlet NSButton *plusButton;
 
-@property (weak) IBOutlet NSTableView *contactListTableView;
+@property (weak) IBOutlet CKTableView *contactListTableView;
 @property (weak) IBOutlet NSTextField *unreadTextField;
 
 @property (nonatomic, assign) id <MasterViewDelegate> delegate;

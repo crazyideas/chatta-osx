@@ -7,6 +7,11 @@
 
 #import "MasterViewController.h"
 #import "ContactCellView.h"
+#import "CKTableRowView.h"
+#import "CKContactList.h"
+#import "CKContact.h"
+#import "CKMessage.h"
+#import "CKTableView.h"
 
 @implementation MasterViewController
 
@@ -18,6 +23,8 @@
 @synthesize contactPopoverViewController  = _contactPopoverViewController;
 @synthesize settingsPopoverViewController = _settingsPopoverViewController;
 @synthesize settingsPopover               = _settingsPopover;
+@synthesize minusButton                   = _minusButton;
+@synthesize plusButton                    = _plusButton;
 @synthesize contactPopover                = _contactPopover;
 @synthesize connectionState               = _connectionState;
 
@@ -31,7 +38,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code here.
         self.contactPopoverViewController = [[ContactPopoverViewController alloc] 
             initWithNibName:@"ContactPopoverViewController" bundle:nil];
         self.contactPopoverViewController.delegate = self;
@@ -56,6 +62,7 @@
     self.contactListTableView.action       = @selector(tableViewSingleClick:);
     self.contactListTableView.allowsEmptySelection    = YES;
     self.contactListTableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
+    self.contactListTableView.gridStyleMask           = NSTableViewSolidHorizontalGridLineMask;
     
     self.contactPopover.contentViewController = self.contactPopoverViewController;
     self.contactPopover.behavior = NSPopoverBehaviorTransient;
@@ -68,11 +75,36 @@
     self.settingsPopoverViewController.delegate = self;
     self.contactPopoverViewController.delegate  = self;
     
+    [self.minusButton setEnabled:NO];
     self.connectionState = ChattaStateDisconnected;
     currentlySelectedRow = -1;
+    
+    if ([[CKContactList sharedInstance] count] == 0) {
+        CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
+                                                          andDisplayName:@"John Smith" andPhoneNumber:@"1-800-555-1212" andContactState:ConnectionStateIndeterminate];
+        [[CKContactList sharedInstance] addContact:contact];
+        CKContact *contact2 = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
+                                                          andDisplayName:@"John Smith" andPhoneNumber:@"1-800-555-1111" andContactState:ConnectionStateIndeterminate];
+        [[CKContactList sharedInstance] addContact:contact2];
+        [self reloadContactTableView:self];
+
+    }
 }
 
 #pragma mark - Add, Remove, Update Contact Actions
+
+- (void)reloadContactTableView:(id)sender
+{
+    [self.contactListTableView reloadData];
+    
+    if (currentlySelectedRow < 0) {
+        [self.minusButton setEnabled:NO];
+        [self.contactListTableView deselectAll:self];
+    }
+    
+    NSIndexSet *selectedIndexSet = [NSIndexSet indexSetWithIndex:currentlySelectedRow];
+    [self.contactListTableView selectRowIndexes:selectedIndexSet byExtendingSelection:NO];
+}
 
 - (IBAction)addContactPushed:(id)sender
 {
@@ -87,7 +119,15 @@
 
 - (IBAction)removeContactPushed:(id)sender
 {
-    CKDebug(@"removeContactPushed");
+    if (currentlySelectedRow < 0) {
+        return;
+    }
+    
+    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:currentlySelectedRow];
+    [[CKContactList sharedInstance] removeContact:rmContact];
+    
+    currentlySelectedRow = -1;
+    [self reloadContactTableView:sender];
 }
 
 - (void)tableViewDoubleClick:(id)sender
@@ -107,6 +147,8 @@
                               preferredEdge:NSMaxXEdge];
     
     self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
+    self.contactPopoverViewController.contact =
+        [[CKContactList sharedInstance] contactWithIndex:currentlySelectedRow];
 }
 
 #pragma mark - Settings Actions and Delegates
@@ -136,12 +178,21 @@
 
 - (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
-    CKDebug(@"addContactWithName: %@", name);
+    CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:address
+        andDisplayName:name andPhoneNumber:number andContactState:ConnectionStateIndeterminate];
+    [[CKContactList sharedInstance] addContact:contact];
+    
+    [self reloadContactTableView:self];
 }
 
-- (void)updateContact:(id)contact withName:(NSString *)name email:(NSString *)address phone:(NSString *)number
+- (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address
+                phone:(NSString *)number
 {
-    CKDebug(@"updateContact: %@", name);
+    contact.displayName      = name;
+    contact.jabberIdentifier = address;
+    contact.phoneNumber      = number;
+    
+    [self reloadContactTableView:self];
 }
 
 - (void)closePopover
@@ -154,64 +205,67 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    if (self.contactList == nil) {
-        self.contactList = [NSArray arrayWithObjects:@"0", @"1", @"2", nil];
+    return [[CKContactList sharedInstance] count];
+}
+
+- (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row
+{
+    CKTableRowView *tableRowView = [tableView makeViewWithIdentifier:@"ckRow" owner:self];
+    if (tableRowView == nil) {
+        NSRect rowFrame = [tableView frameOfCellAtColumn:0 row:row];
+        tableRowView = [[CKTableRowView alloc] initWithFrame:rowFrame];
+        tableRowView.identifier = @"ckRow";
+        tableRowView.separatorStyle = CKTableRowSeparatorStyleSingleLineEtched;
     }
-    return [self.contactList count];
+    return tableRowView;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView 
    viewForTableColumn:(NSTableColumn *)tableColumn 
                   row:(NSInteger)row
 {
-    ContactCellView *contactCellView = [tableView makeViewWithIdentifier:@"contactCell" owner:self];
-    
-    contactCellView.displayName.stringValue = @"John Smith";
-    contactCellView.lastMessageTimestamp.stringValue = (row == 0) ? @"12:22 AM" : @"12/12/12";
-    contactCellView.connectionState = arc4random_uniform(3);
-    
-    NSString *randStr;
-    switch (contactCellView.connectionState) {
-        case 0:
-        {
-            randStr = @"current state is indeterminate";
-            break;
-        }
-        case 1:
-        {
-            randStr = @"current state is offline";
-            break;
-        }
-        case 2:
-        {
-            randStr = @"current state is online";
-            break;
-        }
-        default:
-        {
-            break;
-        }
+    // test by setting contactcell == nil
+    ContactCellView *contactCell = [tableView makeViewWithIdentifier:@"contactCell" owner:self];
+    if (contactCell == nil) {
+        NSRect cellFrame = [tableView frameOfCellAtColumn:0 row:row];
+        contactCell = [[ContactCellView alloc] initWithFrame:cellFrame];
+        contactCell.identifier = @"contactCell";
     }
-    contactCellView.lastMessage.stringValue = randStr;
     
+    CKContact *contact = [[CKContactList sharedInstance] contactWithIndex:row];
+    if (contact == nil) {        
+        return nil;
+    }
     
-    return contactCellView;
+    contactCell.displayName.stringValue = contact.displayName;
+    contactCell.connectionState = contact.connectionState;
+    
+    CKMessage *lastMessage = contact.messages.lastObject;
+    if (lastMessage == nil) {
+        contactCell.lastMessage.stringValue          = @"";
+        contactCell.lastMessageTimestamp.stringValue = @"";
+        return contactCell;
+    }
+    contactCell.lastMessage.stringValue          = lastMessage.text;
+    contactCell.lastMessageTimestamp.stringValue = lastMessage.timestampString;
+
+    return contactCell;
 }
 
 - (void)tableViewSingleClick:(id)sender
 {
     currentlySelectedRow = [sender clickedRow];
     if (currentlySelectedRow < 0) {
+        [self.minusButton setEnabled:NO];
         [self.contactListTableView deselectAll:self];
+        return;
     }
+    [self.minusButton setEnabled:YES];
 }
 
 - (IBAction)reloadData:(id)sender
 {
-    [self.contactListTableView reloadData];
-    
-    NSIndexSet *selectedIndexSet = [NSIndexSet indexSetWithIndex:currentlySelectedRow];
-    [self.contactListTableView selectRowIndexes:selectedIndexSet byExtendingSelection:NO];
+    [self reloadContactTableView:sender];
 }
 
 

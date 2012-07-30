@@ -41,7 +41,7 @@
 }
 
 - (void)setConnectionState:(ConnectionState)toState
-{
+{    
     NSNumber *stateNumber = [NSNumber numberWithInt:toState];
     
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {

@@ -23,11 +23,11 @@
 
 #pragma mark - Properties
 
-- (void)setContact:(id)contact
+- (void)setContact:(CKContact *)contact
 {    
-    self.nameTextField.stringValue  = nil;
-    self.emailTextField.stringValue = nil;
-    self.phoneTextField.stringValue = nil;
+    self.nameTextField.stringValue  = contact.displayName;
+    self.emailTextField.stringValue = contact.jabberIdentifier;
+    self.phoneTextField.stringValue = contact.phoneNumber;
     
     _contact = contact;
 }
@@ -81,9 +81,7 @@
     self.phoneTextField.formatter = self.phoneNumberFormatter;
     self.emailTextField.formatter = self.emailAddressFormatter;
     
-    nameValid  = NO;
-    emailValid = NO;
-    phoneValid = NO;
+    self.titleTextField.textColor = [NSColor grayColor];
 }
 
 #pragma mark - Button Actions
@@ -132,20 +130,14 @@
 
 - (void)controlTextDidChange:(NSNotification *)object
 {
-    NSTextField *textField = (NSTextField *)object.object;
-
-    if ([textField.identifier isEqualToString:@"nameField"]) {
-        nameValid = (textField.stringValue.length > 0) ? YES : NO;
-    }
+    BOOL nameValid  = NO;
+    BOOL emailValid = NO;
+    BOOL phoneValid = NO;
     
-    if ([textField.identifier isEqualToString:@"emailField"]) {
-        emailValid = [EmailAddressFormatter isValidEmailAddress:textField.stringValue];
-    }
+    nameValid = (self.nameTextField.stringValue.length > 0) ? YES : NO;
+    emailValid = [EmailAddressFormatter isValidEmailAddress:self.emailTextField.stringValue];
+    phoneValid = [PhoneNumberFormatter isValidPhoneNumber:self.phoneTextField.stringValue];
     
-    if ([textField.identifier isEqualToString:@"phoneField"]) {
-        phoneValid = [PhoneNumberFormatter isValidPhoneNumber:textField.stringValue];
-    }
-
     if (nameValid && emailValid && phoneValid) {
         [self.rightButton setEnabled:YES];
     } else {
@@ -156,7 +148,7 @@
 #pragma mark - NSPopover Delegates
 
 - (void)popoverWillShow:(NSNotification *)notification
-{
+{    
     switch (self.popoverType) {
         case PopoverTypeAddContact:
         {
@@ -168,7 +160,6 @@
         }
         case PopoverTypeUpdateContact:
         {
-            // load contact information into fields
             [self.rightButton setEnabled:NO];
         }
         default:
@@ -180,7 +171,6 @@
 
 - (void)popoverDidShow:(NSNotification *)notification
 {
-    
 }
 
 - (void)popoverWillClose:(NSNotification *)notification

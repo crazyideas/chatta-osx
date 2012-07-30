@@ -6,22 +6,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CKContact.h"
 #import "PhoneNumberFormatter.h"
 #import "EmailAddressFormatter.h"
 
 @protocol ContactPopoverDelegate <NSObject>
 @optional
 - (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number;
-- (void)updateContact:(id)contact withName:(NSString *)name email:(NSString *)address phone:(NSString *)number;
+- (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address
+                phone:(NSString *)number;
 - (void)closePopover;
 @end
 
 @interface ContactPopoverViewController : NSViewController <NSPopoverDelegate, NSTextFieldDelegate>
-{
-    BOOL nameValid;
-    BOOL emailValid;
-    BOOL phoneValid;
-}
 
 typedef enum {
     PopoverTypeAddContact,
@@ -29,7 +26,7 @@ typedef enum {
 } PopoverType;
 
 @property (nonatomic) PopoverType popoverType;
-@property (nonatomic, strong) id contact;
+@property (nonatomic, strong) CKContact *contact;
 @property (nonatomic, strong) PhoneNumberFormatter *phoneNumberFormatter;
 @property (nonatomic, strong) EmailAddressFormatter *emailAddressFormatter;
 @property (nonatomic, assign) id <ContactPopoverDelegate> delegate;

@@ -42,7 +42,7 @@
 {    
     [super windowDidLoad];
     
-    self.debugPanel.isVisible = YES;
+    self.debugPanel.isVisible = NO;
         
     self.splitView.subviews = [NSArray arrayWithObjects:
         self.masterViewController.view, self.detailViewController.view, nil];

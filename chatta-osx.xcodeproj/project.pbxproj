@@ -19,6 +19,8 @@
 		2792010615B92734006CC188 /* Cookie-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
 		27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */; };
 		27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */; };
+		27BAF53A15C5D6DF009B12F3 /* CKTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BAF53915C5D6DF009B12F3 /* CKTableRowView.m */; };
+		27BAF56215C602EC009B12F3 /* CKTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BAF56115C602EC009B12F3 /* CKTableView.m */; };
 		27D74F3D15BE6AEF009F522A /* CKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D74F3C15BE6AEF009F522A /* CKView.m */; };
 		27D74F6115BF9624009F522A /* CKProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D74F6015BF9624009F522A /* CKProgressIndicator.m */; };
 		27DA222915ABCBBA00CEB105 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DA222815ABCBBA00CEB105 /* Cocoa.framework */; };
@@ -67,6 +69,10 @@
 		27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPopoverViewController.h; sourceTree = "<group>"; };
 		27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPopoverViewController.m; sourceTree = "<group>"; };
 		27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsPopoverViewController.xib; sourceTree = "<group>"; };
+		27BAF53815C5D6DF009B12F3 /* CKTableRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableRowView.h; sourceTree = "<group>"; };
+		27BAF53915C5D6DF009B12F3 /* CKTableRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTableRowView.m; sourceTree = "<group>"; };
+		27BAF56015C602EC009B12F3 /* CKTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableView.h; sourceTree = "<group>"; };
+		27BAF56115C602EC009B12F3 /* CKTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTableView.m; sourceTree = "<group>"; };
 		27D74F3B15BE6AEF009F522A /* CKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKView.h; sourceTree = "<group>"; };
 		27D74F3C15BE6AEF009F522A /* CKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKView.m; sourceTree = "<group>"; };
 		27D74F5F15BF9624009F522A /* CKProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKProgressIndicator.h; sourceTree = "<group>"; };
@@ -133,6 +139,10 @@
 			children = (
 				27D74F3B15BE6AEF009F522A /* CKView.h */,
 				27D74F3C15BE6AEF009F522A /* CKView.m */,
+				27BAF56015C602EC009B12F3 /* CKTableView.h */,
+				27BAF56115C602EC009B12F3 /* CKTableView.m */,
+				27BAF53815C5D6DF009B12F3 /* CKTableRowView.h */,
+				27BAF53915C5D6DF009B12F3 /* CKTableRowView.m */,
 				27D74F5F15BF9624009F522A /* CKProgressIndicator.h */,
 				27D74F6015BF9624009F522A /* CKProgressIndicator.m */,
 			);
@@ -346,6 +356,8 @@
 				279200C515B7D520006CC188 /* EmailAddressFormatter.m in Sources */,
 				27D74F3D15BE6AEF009F522A /* CKView.m in Sources */,
 				27D74F6115BF9624009F522A /* CKProgressIndicator.m in Sources */,
+				27BAF53A15C5D6DF009B12F3 /* CKTableRowView.m in Sources */,
+				27BAF56215C602EC009B12F3 /* CKTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
