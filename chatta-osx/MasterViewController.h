@@ -18,11 +18,8 @@
 - (void)loginToChatta;
 @end
 
-@interface MasterViewController : NSViewController <NSTableViewDelegate, NSTableViewDataSource, 
+@interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
                                                     ContactPopoverDelegate, SettingsPopoverDelegate>
-{
-    NSInteger currentlySelectedRow;
-}
 
 @property (nonatomic, strong) DetailViewController *detailViewController;
 @property (nonatomic, strong) ContactPopoverViewController *contactPopoverViewController;

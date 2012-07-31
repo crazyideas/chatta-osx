@@ -9,14 +9,63 @@
 
 @implementation CKTableView
 
-- (id)initWithFrame:(NSRect)frame
+- (id)initWithCoder:(NSCoder *)decoder
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithCoder:decoder];
     if (self) {
-        // Initialization code here.
+        // Initialization code here.        
+    }
+    return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.target = self;
+    self.action = @selector(ckTableViewSingleClick:);
+    self.doubleAction = @selector(ckTableViewDoubleClick:);
+}
+
+- (void)ckTableViewSingleClick:(id)sender
+{
+    if (self.clickedRow < 0) {
+        [self deselectAll:self];
     }
     
-    return self;
+    if (self.delegate != nil) {
+        if ([self.delegate respondsToSelector:@selector(tableView:didSingleClickRow:)]) {
+            [(id)self.delegate tableView:self didSingleClickRow:self.clickedRow];
+        }
+    }
+}
+
+- (void)ckTableViewDoubleClick:(id)sender
+{
+    if (self.clickedRow < 0) {
+        [self deselectAll:self];
+    }
+    
+    if (self.delegate != nil) {
+        if ([self.delegate respondsToSelector:@selector(tableView:didDoubleClickRow:)]) {
+            [(id)self.delegate tableView:self didDoubleClickRow:self.clickedRow];
+        }
+    }
+}
+
+#pragma mark - Overridden Methods
+
+- (void)reloadData
+{
+    // save previously selected row
+    NSInteger previouslySelectedRow = self.selectedRow;
+
+    // reload data
+    [super reloadData];
+    
+    // reselect row
+    NSIndexSet *selectedIndexSet = [NSIndexSet indexSetWithIndex:previouslySelectedRow];
+    [self selectRowIndexes:selectedIndexSet byExtendingSelection:NO];
 }
 
 - (void)drawGridInClipRect:(NSRect)clipRect

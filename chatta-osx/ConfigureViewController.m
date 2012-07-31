@@ -92,7 +92,7 @@
     if ([EmailAddressFormatter isValidEmailAddress:usernameString]) {
         usernameValid = YES;
     } else {
-        passwordValid = NO;
+        usernameValid = NO;
     }
     
     // check if password is valid

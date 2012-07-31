@@ -57,9 +57,6 @@
 {
     self.contactListTableView.delegate     = self;
     self.contactListTableView.dataSource   = self;
-    self.contactListTableView.target       = self;
-    self.contactListTableView.doubleAction = @selector(tableViewDoubleClick:);
-    self.contactListTableView.action       = @selector(tableViewSingleClick:);
     self.contactListTableView.allowsEmptySelection    = YES;
     self.contactListTableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
     self.contactListTableView.gridStyleMask           = NSTableViewSolidHorizontalGridLineMask;
@@ -77,7 +74,6 @@
     
     [self.minusButton setEnabled:NO];
     self.connectionState = ChattaStateDisconnected;
-    currentlySelectedRow = -1;
     
     if ([[CKContactList sharedInstance] count] == 0) {
         CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
@@ -86,25 +82,14 @@
         CKContact *contact2 = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
                                                           andDisplayName:@"John Smith" andPhoneNumber:@"1-800-555-1111" andContactState:ConnectionStateIndeterminate];
         [[CKContactList sharedInstance] addContact:contact2];
-        [self reloadContactTableView:self];
-
+        CKContact *contact3 = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
+                                                           andDisplayName:@"John Smith" andPhoneNumber:@"1-800-555-2222" andContactState:ConnectionStateIndeterminate];
+        [[CKContactList sharedInstance] addContact:contact3];
+        [self.contactListTableView reloadData];
     }
 }
 
 #pragma mark - Add, Remove, Update Contact Actions
-
-- (void)reloadContactTableView:(id)sender
-{
-    [self.contactListTableView reloadData];
-    
-    if (currentlySelectedRow < 0) {
-        [self.minusButton setEnabled:NO];
-        [self.contactListTableView deselectAll:self];
-    }
-    
-    NSIndexSet *selectedIndexSet = [NSIndexSet indexSetWithIndex:currentlySelectedRow];
-    [self.contactListTableView selectRowIndexes:selectedIndexSet byExtendingSelection:NO];
-}
 
 - (IBAction)addContactPushed:(id)sender
 {
@@ -119,36 +104,16 @@
 
 - (IBAction)removeContactPushed:(id)sender
 {
-    if (currentlySelectedRow < 0) {
+    NSInteger selectedRow = self.contactListTableView.selectedRow;
+    if (selectedRow < 0) {
         return;
     }
-    
-    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:currentlySelectedRow];
+
+    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     [[CKContactList sharedInstance] removeContact:rmContact];
-    
-    currentlySelectedRow = -1;
-    [self reloadContactTableView:sender];
-}
 
-- (void)tableViewDoubleClick:(id)sender
-{
-    currentlySelectedRow = [sender clickedRow];
-    if (currentlySelectedRow <  0) {
-        return;
-    }
-    
-    // update sender to be clicked nstablerowview
-    sender = [sender rowViewAtRow:currentlySelectedRow makeIfNecessary:YES];
-    
-    self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
-
-    [self.contactPopover showRelativeToRect:[sender bounds] 
-                                     ofView:sender 
-                              preferredEdge:NSMaxXEdge];
-    
-    self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
-    self.contactPopoverViewController.contact =
-        [[CKContactList sharedInstance] contactWithIndex:currentlySelectedRow];
+    [self.contactListTableView deselectAll:self];
+    [self.contactListTableView reloadData];
 }
 
 #pragma mark - Settings Actions and Delegates
@@ -182,7 +147,7 @@
         andDisplayName:name andPhoneNumber:number andContactState:ConnectionStateIndeterminate];
     [[CKContactList sharedInstance] addContact:contact];
     
-    [self reloadContactTableView:self];
+    [self.contactListTableView reloadData];
 }
 
 - (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address
@@ -192,7 +157,7 @@
     contact.jabberIdentifier = address;
     contact.phoneNumber      = number;
     
-    [self reloadContactTableView:self];
+    [self.contactListTableView reloadData];
 }
 
 - (void)closePopover
@@ -201,7 +166,7 @@
     [self.settingsPopover close];
 }
 
-#pragma mark - NSTableView Delegate and NSTableView DataSource
+#pragma mark - CKTableView Delegate and NSTableView DataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
@@ -252,20 +217,42 @@
     return contactCell;
 }
 
-- (void)tableViewSingleClick:(id)sender
+- (void)tableView:(CKTableView *)tableView didSingleClickRow:(NSInteger)row
 {
-    currentlySelectedRow = [sender clickedRow];
-    if (currentlySelectedRow < 0) {
+    // tableView:didSingleClickRow:
+}
+
+- (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
+{
+    NSInteger selectedRow = self.contactListTableView.selectedRow;
+    id sender = [tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
+    
+    self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
+    
+    [self.contactPopover showRelativeToRect:[sender bounds]
+                                     ofView:sender
+                              preferredEdge:NSMaxXEdge];
+    
+    self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
+    self.contactPopoverViewController.contact =
+        [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    NSInteger selectedRow = self.contactListTableView.selectedRow;
+    if (selectedRow < 0) {
         [self.minusButton setEnabled:NO];
-        [self.contactListTableView deselectAll:self];
-        return;
+    } else {
+        [self.minusButton setEnabled:YES];
     }
-    [self.minusButton setEnabled:YES];
+    
+    CKDebug(@"tableViewSelectionDidChange: %li", self.contactListTableView.selectedRow);
 }
 
 - (IBAction)reloadData:(id)sender
 {
-    [self reloadContactTableView:sender];
+    [self.contactListTableView reloadData];
 }
 
 
