@@ -64,7 +64,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
            ofSubviewAt:(NSInteger)dividerIndex
 {
     if (dividerIndex == 0) {
-        return 140;
+        return 140.0;
     }
     return proposedMinimumPosition;
 }
@@ -89,7 +89,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
     }
     
     // adjust split view
-    [self.splitView setPosition:140 ofDividerAtIndex:0];
+    [self.splitView setPosition:140.0 ofDividerAtIndex:0];
     [self.splitView adjustSubviews];
     
     // adjust window location

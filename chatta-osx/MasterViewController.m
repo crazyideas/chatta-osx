@@ -74,17 +74,38 @@
     
     [self.minusButton setEnabled:NO];
     self.connectionState = ChattaStateDisconnected;
+    previouslySelectedRow = -1;
     
     if ([[CKContactList sharedInstance] count] == 0) {
+        CKContact *me = [CKContactList sharedInstance].me;
+        
+        // fake contact #1
         CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
-                                                          andDisplayName:@"John Smith" andPhoneNumber:@"1-800-555-1212" andContactState:ConnectionStateIndeterminate];
+            andDisplayName:@"John Smith" andPhoneNumber:@"1-800-555-1212"
+            andContactState:ConnectionStateOnline];
+        CKMessage *message1 = [[CKMessage alloc] initWithContact:me timestamp:[NSDate date]
+            messageText:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius"];
+        [contact addMessage:message1];
         [[CKContactList sharedInstance] addContact:contact];
-        CKContact *contact2 = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
-                                                          andDisplayName:@"John Smith" andPhoneNumber:@"1-800-555-1111" andContactState:ConnectionStateIndeterminate];
+        
+        // fake contact #2
+        CKContact *contact2 = [[CKContact alloc] initWithJabberIdentifier:@"a.vandelay@gmail.com"
+            andDisplayName:@"Art Vandelay" andPhoneNumber:@"1-800-555-1111"
+            andContactState:ConnectionStateOffline];
+        CKMessage *message2 = [[CKMessage alloc] initWithContact:me timestamp:[NSDate date]
+            messageText:@"Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud"];
+        [contact2 addMessage:message2];
         [[CKContactList sharedInstance] addContact:contact2];
-        CKContact *contact3 = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
-                                                           andDisplayName:@"John Smith" andPhoneNumber:@"1-800-555-2222" andContactState:ConnectionStateIndeterminate];
+        
+        // fake contact #3
+        CKContact *contact3 = [[CKContact alloc] initWithJabberIdentifier:@"bender@gmail.com"
+            andDisplayName:@"Bender Rodriguez" andPhoneNumber:@"1-800-555-2222"
+            andContactState:ConnectionStateIndeterminate];
+        CKMessage *message3 = [[CKMessage alloc] initWithContact:me timestamp:[NSDate date]
+            messageText:@"ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute iru"];
+        [contact3 addMessage:message3];
         [[CKContactList sharedInstance] addContact:contact3];
+        
         [self.contactListTableView reloadData];
     }
 }
@@ -173,6 +194,11 @@
     return [[CKContactList sharedInstance] count];
 }
 
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+{
+    return 58.0;
+}
+
 - (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row
 {
     CKTableRowView *tableRowView = [tableView makeViewWithIdentifier:@"ckRow" owner:self];
@@ -213,13 +239,16 @@
     }
     contactCell.lastMessage.stringValue          = lastMessage.text;
     contactCell.lastMessageTimestamp.stringValue = lastMessage.timestampString;
+    contactCell.unreadMessageCount               = contact.unreadCount;
 
     return contactCell;
 }
 
 - (void)tableView:(CKTableView *)tableView didSingleClickRow:(NSInteger)row
 {
-    // tableView:didSingleClickRow:
+    // set unread message count to zero
+    [[CKContactList sharedInstance] contactWithIndex:row].unreadCount = 0;
+    [self.contactListTableView reloadData];
 }
 
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
@@ -241,17 +270,27 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
     NSInteger selectedRow = self.contactListTableView.selectedRow;
+    
     if (selectedRow < 0) {
         [self.minusButton setEnabled:NO];
     } else {
         [self.minusButton setEnabled:YES];
     }
     
+    if (selectedRow == previouslySelectedRow) {
+        return;
+    }
+
     CKDebug(@"tableViewSelectionDidChange: %li", self.contactListTableView.selectedRow);
+
+    previouslySelectedRow = selectedRow;
 }
 
 - (IBAction)reloadData:(id)sender
 {
+    CKContact *tmp = [[CKContactList sharedInstance] contactWithIndex:arc4random_uniform(3)];
+    tmp.unreadCount = arc4random_uniform(3);
+    
     [self.contactListTableView reloadData];
 }
 

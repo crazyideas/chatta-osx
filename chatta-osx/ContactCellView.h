@@ -24,5 +24,6 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet NSImageView *connectionStateImageView;
 
 @property (nonatomic) ConnectionState connectionState;
+@property (nonatomic) NSUInteger unreadMessageCount;
 
 @end

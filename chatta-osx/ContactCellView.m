@@ -6,6 +6,7 @@
 //
 
 #import "ContactCellView.h"
+#import "CKViewAnimationUtility.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation ContactCellView
@@ -15,6 +16,21 @@
 @synthesize lastMessageTimestamp     = _lastMessageTimestamp;
 @synthesize connectionStateImageView = _statusImageView;
 @synthesize connectionState          = _connectionState;
+@synthesize unreadMessageCount       = _unreadMessageCount;
+
+
+- (void)setUnreadMessageCount:(NSUInteger)unreadMessageCount
+{
+    if (unreadMessageCount == 0) {
+        [CKViewAnimationUtility stopOpacityAnimationOnLayer:self.connectionStateImageView.layer];
+    }
+    
+    if (unreadMessageCount > 0) {
+        [CKViewAnimationUtility startOpacityAnimationOnLayer:self.connectionStateImageView.layer];
+    }
+
+    _unreadMessageCount = unreadMessageCount;
+}
 
 - (NSDictionary *)connectionStateLookup
 {
@@ -22,13 +38,13 @@
     
     if(_lookupDict == nil) { 
         _lookupDict = [[NSMutableDictionary alloc] initWithCapacity:3];
-        [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 92)] 
+        [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 0)]
                         forKey:[NSNumber numberWithInt:ConnectionStateIndeterminate]];
         
         [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 46)] 
                         forKey:[NSNumber numberWithInt:ConnectionStateOffline]];
         
-        [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 0)] 
+        [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 92)]
                         forKey:[NSNumber numberWithInt:ConnectionStateOnline]];
     }
     return [_lookupDict copy];
@@ -38,6 +54,7 @@
 {
     originPoint = NSMakePoint(self.connectionStateImageView.frame.origin.x, 
                               self.connectionStateImageView.frame.origin.y);
+    self.connectionStateImageView.wantsLayer = YES;
 }
 
 - (void)setConnectionState:(ConnectionState)toState

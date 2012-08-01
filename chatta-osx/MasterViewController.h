@@ -20,6 +20,9 @@
 
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
                                                     ContactPopoverDelegate, SettingsPopoverDelegate>
+{
+    NSInteger previouslySelectedRow;
+}
 
 @property (nonatomic, strong) DetailViewController *detailViewController;
 @property (nonatomic, strong) ContactPopoverViewController *contactPopoverViewController;

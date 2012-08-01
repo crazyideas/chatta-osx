@@ -18,12 +18,22 @@
     _separatorStyle = separatorStyle;
 }
 
++ (NSColor *)defaultPrimaryColor
+{
+    return [NSColor colorWithCalibratedRed:208/255.0 green:211/255.0 blue:212/255.0 alpha:1.0];
+}
+
++ (NSColor *)defaultSecondaryColor
+{
+    return [NSColor colorWithCalibratedRed:235/255.0 green:236/255.0 blue:235/255.0 alpha:1.0];
+}
+
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.primaryColor   = [NSColor lightGrayColor];
-        self.secondaryColor = [NSColor whiteColor];
+        self.primaryColor   = [CKTableRowView defaultPrimaryColor];
+        self.secondaryColor = [CKTableRowView defaultSecondaryColor];
     }
     
     return self;

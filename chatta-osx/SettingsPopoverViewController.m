@@ -18,7 +18,8 @@
 
 - (void)setConnectionState:(ChattaState)connectionState
 {
-    self.stateButton.title = (connectionState == ChattaStateConnected) ? @"Logout of Chatta" : @"Login to Chatta";
+    self.stateButton.title = (connectionState == ChattaStateConnected) ?
+        @"Logout of Chatta" : @"Login to Chatta";
     _connectionState = connectionState;
 }
 

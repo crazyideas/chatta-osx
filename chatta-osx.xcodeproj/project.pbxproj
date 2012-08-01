@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2712B38C15B266E000D73FEA /* status.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B38B15B266E000D73FEA /* status.png */; };
 		2712B39A15B26C0C00D73FEA /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B39915B26C0C00D73FEA /* background.png */; };
+		2742591515C8D8ED00648E02 /* CKViewAnimationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742591415C8D8ED00648E02 /* CKViewAnimationUtility.m */; };
 		274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274D907A15BB2E2D002C168A /* libChattaKit.a */; };
 		2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2712B37C15B263D000D73FEA /* QuartzCore.framework */; };
 		2774A49115B5139C00D45B47 /* ContactPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */; };
@@ -57,6 +58,8 @@
 		2712B37C15B263D000D73FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2712B38B15B266E000D73FEA /* status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status.png; sourceTree = "<group>"; };
 		2712B39915B26C0C00D73FEA /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		2742591315C8D8ED00648E02 /* CKViewAnimationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKViewAnimationUtility.h; sourceTree = "<group>"; };
+		2742591415C8D8ED00648E02 /* CKViewAnimationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKViewAnimationUtility.m; sourceTree = "<group>"; };
 		274D907A15BB2E2D002C168A /* libChattaKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libChattaKit.a; path = "../../../Library/Developer/Xcode/DerivedData/chatta-fmqjzekevcvcawcwydtxhxcpyluh/Build/Products/Debug/libChattaKit.a"; sourceTree = "<group>"; };
 		2774A48E15B5139B00D45B47 /* ContactPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactPopoverViewController.h; sourceTree = "<group>"; };
 		2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactPopoverViewController.m; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				27BAF53915C5D6DF009B12F3 /* CKTableRowView.m */,
 				27D74F5F15BF9624009F522A /* CKProgressIndicator.h */,
 				27D74F6015BF9624009F522A /* CKProgressIndicator.m */,
+				2742591315C8D8ED00648E02 /* CKViewAnimationUtility.h */,
+				2742591415C8D8ED00648E02 /* CKViewAnimationUtility.m */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -358,6 +363,7 @@
 				27D74F6115BF9624009F522A /* CKProgressIndicator.m in Sources */,
 				27BAF53A15C5D6DF009B12F3 /* CKTableRowView.m in Sources */,
 				27BAF56215C602EC009B12F3 /* CKTableView.m in Sources */,
+				2742591515C8D8ED00648E02 /* CKViewAnimationUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
