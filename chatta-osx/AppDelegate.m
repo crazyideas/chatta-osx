@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "CKPersistence.h"
 
 @implementation AppDelegate
 
@@ -50,6 +51,11 @@
     // if window closed, and click dock icon, bring window back to front
     [self.rootWindowController.window makeKeyAndOrderFront:self];
     return YES;
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification
+{
+    [CKPersistence saveContactsToPersistentStorage];
 }
 
 #pragma mark - Sleep/Wake Notifications

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2712B38C15B266E000D73FEA /* status.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B38B15B266E000D73FEA /* status.png */; };
+		2700383E15CA2A8E00F2320C /* CKPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 2700383D15CA2A8E00F2320C /* CKPersistence.m */; };
+		2700389E15CA532C00F2320C /* status.png in Resources */ = {isa = PBXBuildFile; fileRef = 2700389D15CA532C00F2320C /* status.png */; };
 		2712B39A15B26C0C00D73FEA /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B39915B26C0C00D73FEA /* background.png */; };
 		2742591515C8D8ED00648E02 /* CKViewAnimationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742591415C8D8ED00648E02 /* CKViewAnimationUtility.m */; };
 		274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274D907A15BB2E2D002C168A /* libChattaKit.a */; };
@@ -55,8 +56,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2700383C15CA2A8E00F2320C /* CKPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPersistence.h; sourceTree = "<group>"; };
+		2700383D15CA2A8E00F2320C /* CKPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPersistence.m; sourceTree = "<group>"; };
+		2700389D15CA532C00F2320C /* status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status.png; sourceTree = "<group>"; };
 		2712B37C15B263D000D73FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		2712B38B15B266E000D73FEA /* status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status.png; sourceTree = "<group>"; };
 		2712B39915B26C0C00D73FEA /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		2742591315C8D8ED00648E02 /* CKViewAnimationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKViewAnimationUtility.h; sourceTree = "<group>"; };
 		2742591415C8D8ED00648E02 /* CKViewAnimationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKViewAnimationUtility.m; sourceTree = "<group>"; };
@@ -224,7 +227,7 @@
 				27D74F7C15BFA0B6009F522A /* Images */,
 				2792010415B9272D006CC188 /* Cookie-Regular.ttf */,
 				2712B39915B26C0C00D73FEA /* background.png */,
-				2712B38B15B266E000D73FEA /* status.png */,
+				2700389D15CA532C00F2320C /* status.png */,
 				27DA223015ABCBBA00CEB105 /* chatta-osx-Info.plist */,
 				27DA223115ABCBBA00CEB105 /* InfoPlist.strings */,
 				27DA223415ABCBBA00CEB105 /* main.m */,
@@ -269,6 +272,8 @@
 				27DA225615ABCD3E00CEB105 /* RootWindowController.m */,
 				27FAA82315AE7C8300C1C75E /* ConfigureViewController.h */,
 				27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */,
+				2700383C15CA2A8E00F2320C /* CKPersistence.h */,
+				2700383D15CA2A8E00F2320C /* CKPersistence.m */,
 				27DA226415ABD34000CEB105 /* RootWindow.xib */,
 				27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */,
 			);
@@ -333,11 +338,11 @@
 				27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */,
 				27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */,
 				27FAA82715AE7C8300C1C75E /* ConfigureViewController.xib in Resources */,
-				2712B38C15B266E000D73FEA /* status.png in Resources */,
 				2712B39A15B26C0C00D73FEA /* background.png in Resources */,
 				2774A49215B5139C00D45B47 /* ContactPopoverViewController.xib in Resources */,
 				27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */,
 				2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */,
+				2700389E15CA532C00F2320C /* status.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +369,7 @@
 				27BAF53A15C5D6DF009B12F3 /* CKTableRowView.m in Sources */,
 				27BAF56215C602EC009B12F3 /* CKTableView.m in Sources */,
 				2742591515C8D8ED00648E02 /* CKViewAnimationUtility.m in Sources */,
+				2700383E15CA2A8E00F2320C /* CKPersistence.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

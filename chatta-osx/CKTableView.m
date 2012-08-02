@@ -31,6 +31,7 @@
 {
     if (self.clickedRow < 0) {
         [self deselectAll:self];
+        return;
     }
     
     if (self.delegate != nil) {
@@ -44,6 +45,7 @@
 {
     if (self.clickedRow < 0) {
         [self deselectAll:self];
+        return;
     }
     
     if (self.delegate != nil) {

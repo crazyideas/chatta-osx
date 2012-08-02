@@ -6,6 +6,7 @@
 //
 
 #import "RootWindowController.h"
+#import "CKPersistence.h"
 #import "CKContact.h"
 
 @interface RootWindowController (PrivateMethods)
@@ -57,6 +58,9 @@
     self.chattaKit.delegate = self;
     
     [self showConfigureSheet:self.window];
+    
+    [CKPersistence loadContactsFromPersistentStorage];
+    [self.masterViewController.contactListTableView reloadData];
 }
 
 -   (CGFloat)splitView:(NSSplitView *)splitView 
@@ -163,7 +167,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)ctxInfo
-{
+{    
     [self.configureViewController configureSheetWillClose];
     [self.configureSheet orderOut:self];
 }

@@ -43,9 +43,8 @@
 - (IBAction)removeContactPushed:(id)sender;
 
 
-
 // tmp
-@property (nonatomic, strong) NSArray *contactList;
 - (IBAction)reloadData:(id)sender;
+- (void)loadFakeData;
 
 @end

@@ -29,7 +29,6 @@
 - (void)receivedSleepNotification:(NSNotification *)notification;
 - (void)receivedWakeNotification:(NSNotification *)notification;
 
-
 // debug panel support
 @property (strong) IBOutlet NSPanel *debugPanel;
 - (IBAction)debugSleepNotification:(id)sender;
