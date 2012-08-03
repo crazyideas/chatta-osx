@@ -10,5 +10,7 @@
 @interface PhoneNumberFormatter : NSFormatter
 
 + (BOOL)isValidPhoneNumber:(NSString *)phoneNumber;
++ (NSString *)stripPhoneNumberFormatting:(NSString *)number;
+//+ (NSString *)stringInDisplayFormat:(NSString *)number;
 
 @end

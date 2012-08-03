@@ -25,9 +25,9 @@
 
 - (void)setContact:(CKContact *)contact
 {    
-    self.nameTextField.stringValue  = contact.displayName;
-    self.emailTextField.stringValue = contact.jabberIdentifier;
-    self.phoneTextField.stringValue = contact.phoneNumber;
+    self.nameTextField.stringValue  = (contact.displayName)      ? contact.displayName      : @"";
+    self.emailTextField.stringValue = (contact.jabberIdentifier) ? contact.jabberIdentifier : @"";
+    self.phoneTextField.stringValue = (contact.phoneNumber)      ? contact.phoneNumber      : @"";
     
     _contact = contact;
 }

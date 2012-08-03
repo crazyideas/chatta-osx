@@ -43,7 +43,7 @@
 {    
     [super windowDidLoad];
     
-    self.debugPanel.isVisible = NO;
+    self.debugPanel.isVisible = YES;
         
     self.splitView.subviews = [NSArray arrayWithObjects:
         self.masterViewController.view, self.detailViewController.view, nil];
@@ -52,6 +52,7 @@
         initWithNibName:@"ConfigureViewController" bundle:nil];
     self.configureViewController.delegate = self;
     
+    self.masterViewController.chattaKit = self.chattaKit;
     self.masterViewController.connectionState = ChattaStateDisconnected;
     self.masterViewController.delegate = self;
     
@@ -214,5 +215,17 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
     [self connectionStateNotification:ChattaStateDisconnected];
 }
 
+- (IBAction)debugUpdateConnectionState:(id)sender
+{
+    CKContactList *contactList = [CKContactList sharedInstance];
+    CKContact *dbg_cnt = [contactList contactWithName:self.debugContactNameTextField.stringValue];
+    [dbg_cnt updateConnectionState:self.debugContactStateTextField.intValue];
+}
 
+- (IBAction)debugNewMessageForContact:(id)sender
+{
+    CKContactList *contactList = [CKContactList sharedInstance];
+    CKContact *dbg_cnt = [contactList contactWithName:self.debugContactNameTextField.stringValue];
+    dbg_cnt.unreadCount = dbg_cnt.unreadCount + 1;
+}
 @end

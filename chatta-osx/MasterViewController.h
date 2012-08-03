@@ -10,7 +10,9 @@
 #import "ContactPopoverViewController.h"
 #import "SettingsPopoverViewController.h"
 #import "CKTableView.h"
+#import "CKContactList.h"
 #import "ChattaKit.h"
+
 
 @protocol MasterViewDelegate <NSObject>
 @optional
@@ -19,7 +21,8 @@
 @end
 
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
-                                                    ContactPopoverDelegate, SettingsPopoverDelegate>
+                                                    ContactPopoverDelegate, SettingsPopoverDelegate,
+                                                    CKContactListDelegate>
 {
     NSInteger previouslySelectedRow;
 }
@@ -36,6 +39,7 @@
 @property (weak) IBOutlet NSTextField *unreadTextField;
 
 @property (nonatomic, assign) id <MasterViewDelegate> delegate;
+@property (nonatomic, strong) ChattaKit *chattaKit;
 @property (nonatomic) ChattaState connectionState;
 
 - (IBAction)addContactPushed:(id)sender;

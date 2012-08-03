@@ -10,7 +10,7 @@
 
 @implementation CKViewAnimationUtility
 
-+ (void)startOpacityAnimationOnLayer:(CALayer *)layer
++ (void)startOpacityAnimationOnLayer:(NSView *)view
 {
     CABasicAnimation *opacityAnimation = [CABasicAnimation animation];
     opacityAnimation.keyPath      = @"opacity";
@@ -21,22 +21,23 @@
     opacityAnimation.toValue      = @(0.0);
     opacityAnimation.removedOnCompletion     = NO;
 
-    
-    [layer addAnimation:opacityAnimation forKey:@"animateOpacity"];
+    view.wantsLayer = YES;
+    [view.layer addAnimation:opacityAnimation forKey:@"animateOpacity"];
 }
 
-+ (void)stopOpacityAnimationOnLayer:(CALayer *)layer
++ (void)stopOpacityAnimationOnLayer:(NSView *)view
 {
-    [layer removeAnimationForKey:@"animateOpacity"];
+    view.wantsLayer = NO;
+    [view.layer removeAnimationForKey:@"animateOpacity"];
 }
 
-+ (void)startPulseAnimationOnLayer:(CALayer *)layer
++ (void)startPulseAnimationOnLayer:(NSView *)view
 {
     CIFilter *filter = [CIFilter filterWithName:@"CIBloom"];
     [filter setDefaults];
     [filter setValue:[NSNumber numberWithFloat:2.0] forKey:@"inputRadius"];
     [filter setName:@"pulseFilter"];
-    [layer setFilters:[NSArray arrayWithObject:filter]];
+    [view.layer setFilters:[NSArray arrayWithObject:filter]];
     
     CABasicAnimation *pulseAnimation = [CABasicAnimation animation];
     pulseAnimation.keyPath        = @"filters.pulseFilter.inputIntensity";
@@ -48,12 +49,14 @@
     pulseAnimation.timingFunction =
     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     
-    [layer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
+    view.wantsLayer = YES;
+    [view.layer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
 }
 
-+ (void)stopPulseAnimationOnLayer:(CALayer *)layer
++ (void)stopPulseAnimationOnLayer:(NSView *)view
 {
-    [layer removeAnimationForKey:@"pulseAnimation"];
+    view.wantsLayer = NO;
+    [view.layer removeAnimationForKey:@"pulseAnimation"];
 }
 
 @end

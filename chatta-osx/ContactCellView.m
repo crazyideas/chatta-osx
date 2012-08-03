@@ -22,11 +22,11 @@
 - (void)setUnreadMessageCount:(NSUInteger)unreadMessageCount
 {
     if (unreadMessageCount == 0) {
-        [CKViewAnimationUtility stopOpacityAnimationOnLayer:self.connectionStateImageView.layer];
+        [CKViewAnimationUtility stopOpacityAnimationOnLayer:self.connectionStateImageView];
     }
     
     if (unreadMessageCount > 0) {
-        [CKViewAnimationUtility startOpacityAnimationOnLayer:self.connectionStateImageView.layer];
+        [CKViewAnimationUtility startOpacityAnimationOnLayer:self.connectionStateImageView];
     }
 
     _unreadMessageCount = unreadMessageCount;
@@ -54,7 +54,6 @@
 {
     originPoint = NSMakePoint(self.connectionStateImageView.frame.origin.x, 
                               self.connectionStateImageView.frame.origin.y);
-    self.connectionStateImageView.wantsLayer = YES;
 }
 
 - (void)setConnectionState:(ConnectionState)toState

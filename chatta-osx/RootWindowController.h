@@ -31,10 +31,14 @@
 
 // debug panel support
 @property (strong) IBOutlet NSPanel *debugPanel;
+@property (weak) IBOutlet NSTextField *debugContactNameTextField;
+@property (weak) IBOutlet NSTextField *debugContactStateTextField;
 - (IBAction)debugSleepNotification:(id)sender;
 - (IBAction)debugWakeNotification:(id)sender;
 - (IBAction)debugConnectedNotification:(id)sender;
 - (IBAction)debugDisconnectedNotification:(id)sender;
 - (IBAction)debugconnectionInProgress:(id)sender;
+- (IBAction)debugUpdateConnectionState:(id)sender;
+- (IBAction)debugNewMessageForContact:(id)sender;
 
 @end

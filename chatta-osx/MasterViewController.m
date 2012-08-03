@@ -26,6 +26,7 @@
 @synthesize plusButton                    = _plusButton;
 @synthesize contactPopover                = _contactPopover;
 @synthesize connectionState               = _connectionState;
+@synthesize chattaKit                     = _chattaKit;
 
 - (void)setConnectionState:(ChattaState)connectionState
 {
@@ -47,6 +48,8 @@
         
         self.contactPopover  = [[NSPopover alloc] init];
         self.settingsPopover = [[NSPopover alloc] init];
+        
+        [CKContactList sharedInstance].delegate = self;
     }
     
     return self;
@@ -74,6 +77,36 @@
     [self.minusButton setEnabled:NO];
     self.connectionState = ChattaStateDisconnected;
     previouslySelectedRow = -1;
+}
+
+#pragma mark - CKContactList Delegates
+
+- (void)addedContact:(CKContact *)contact
+{
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.contactListTableView reloadData];
+    });
+}
+
+- (void)removedContact:(CKContact *)contact
+{
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.contactListTableView reloadData];
+    });
+}
+
+- (void)newMessage:(CKMessage *)message forContact:(CKContact *)contact
+{
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.contactListTableView reloadData];
+    });
+}
+
+- (void)contactConnectionStateUpdated:(ContactConnectionState)state forContact:(CKContact *)contact
+{
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.contactListTableView reloadData];
+    });
 }
 
 #pragma mark - Add, Remove, Update Contact Actions
@@ -130,10 +163,12 @@
 
 - (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
+    NSString *phoneNumber = [PhoneNumberFormatter stripPhoneNumberFormatting:number];
     CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:address
-        andDisplayName:name andPhoneNumber:number andContactState:ConnectionStateIndeterminate];
+        andDisplayName:name andPhoneNumber:phoneNumber andContactState:ConnectionStateOffline];
     [[CKContactList sharedInstance] addContact:contact];
     
+    [self.chattaKit requestContactStatus:contact];    
     [self.contactListTableView reloadData];
 }
 

@@ -80,4 +80,10 @@
     return YES;
 }
 
++ (NSString *)stripPhoneNumberFormatting:(NSString *)number
+{
+    NSString *strippedString = [number stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    return [NSString stringWithFormat:@"+%@", strippedString];
+}
+
 @end

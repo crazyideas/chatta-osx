@@ -9,10 +9,10 @@
 
 @interface CKViewAnimationUtility : NSObject
 
-+ (void)startOpacityAnimationOnLayer:(CALayer *)layer;
-+ (void)stopOpacityAnimationOnLayer:(CALayer *)layer;
++ (void)startOpacityAnimationOnLayer:(NSView *)layer;
++ (void)stopOpacityAnimationOnLayer:(NSView *)layer;
 
-+ (void)startPulseAnimationOnLayer:(CALayer *)layer;
-+ (void)stopPulseAnimationOnLayer:(CALayer *)layer;
++ (void)startPulseAnimationOnLayer:(NSView *)layer;
++ (void)stopPulseAnimationOnLayer:(NSView *)layer;
 
 @end
