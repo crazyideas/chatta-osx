@@ -31,10 +31,7 @@
 }
 
 - (void)awakeFromNib
-{
-    NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
-    dockTile.badgeLabel = @"1";
-    
+{    
     self.chattaTextField.font = [NSFont fontWithName:@"Cookie-Regular" size:60];
     self.chattaTextField.textColor = [NSColor colorWithCalibratedRed:90/255.0 green:67/255.0 blue:210/255.0 alpha:1.0];
     

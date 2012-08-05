@@ -8,6 +8,7 @@
 #import "RootWindowController.h"
 #import "CKPersistence.h"
 #import "CKContact.h"
+#import "CKMessage.h"
 
 @interface RootWindowController (PrivateMethods)
 - (void)showConfigureSheet:(NSWindow *)window;
@@ -62,6 +63,22 @@
     
     [CKPersistence loadContactsFromPersistentStorage];
     [self.masterViewController.contactListTableView reloadData];
+}
+
+- (void)windowDidBecomeMain:(NSNotification *)notification
+{
+    if (self.masterViewController != nil) {
+        self.masterViewController.isVisible = YES;
+    }
+    NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
+    dockTile.badgeLabel = @"";
+}
+
+- (void)windowDidResignMain:(NSNotification *)notification
+{
+    if (self.masterViewController != nil) {
+        self.masterViewController.isVisible = NO;
+    }
 }
 
 -   (CGFloat)splitView:(NSSplitView *)splitView 
@@ -226,6 +243,9 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 {
     CKContactList *contactList = [CKContactList sharedInstance];
     CKContact *dbg_cnt = [contactList contactWithName:self.debugContactNameTextField.stringValue];
-    dbg_cnt.unreadCount = dbg_cnt.unreadCount + 1;
+    NSString *randomMessage = [NSString randomStringWithLength:8];
+    CKMessage *dbg_msg = [[CKMessage alloc] initWithContact:dbg_cnt
+        timestamp:[NSDate date] messageText:randomMessage];
+    [contactList newMessage:dbg_msg forContact:dbg_cnt];
 }
 @end

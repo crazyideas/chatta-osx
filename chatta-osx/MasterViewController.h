@@ -34,6 +34,8 @@
 @property (nonatomic, strong) NSPopover *settingsPopover;
 @property (weak) IBOutlet NSButton *minusButton;
 @property (weak) IBOutlet NSButton *plusButton;
+@property (weak) IBOutlet NSButton *refreshButton;
+@property (nonatomic) BOOL isVisible;
 
 @property (weak) IBOutlet CKTableView *contactListTableView;
 @property (weak) IBOutlet NSTextField *unreadTextField;

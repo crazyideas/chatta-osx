@@ -10,9 +10,11 @@
 #import "ConfigureViewController.h"
 #import "DetailViewController.h"
 #import "ChattaKit.h"
+#import "NSString+CKAdditions.h"
 
-@interface RootWindowController : NSWindowController <NSSplitViewDelegate, MasterViewDelegate,
-                                                      ChattaKitDelegate, ConfigureViewDelegate>
+@interface RootWindowController : NSWindowController <NSSplitViewDelegate, NSWindowDelegate,
+                                                      MasterViewDelegate, ConfigureViewDelegate,
+                                                      ChattaKitDelegate>
 
 @property (weak)   IBOutlet NSSplitView *splitView;
 @property (weak)   IBOutlet NSView *configureSheetView;
