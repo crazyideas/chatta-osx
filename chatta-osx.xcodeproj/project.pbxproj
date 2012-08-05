@@ -15,8 +15,8 @@
 		2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2712B37C15B263D000D73FEA /* QuartzCore.framework */; };
 		2774A49115B5139C00D45B47 /* ContactPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */; };
 		2774A49215B5139C00D45B47 /* ContactPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */; };
-		279200C115B7D50C006CC188 /* PhoneNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279200C015B7D50C006CC188 /* PhoneNumberFormatter.m */; };
-		279200C515B7D520006CC188 /* EmailAddressFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279200C415B7D520006CC188 /* EmailAddressFormatter.m */; };
+		279200C115B7D50C006CC188 /* CKPhoneNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279200C015B7D50C006CC188 /* CKPhoneNumberFormatter.m */; };
+		279200C515B7D520006CC188 /* CKEmailAddressFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279200C415B7D520006CC188 /* CKEmailAddressFormatter.m */; };
 		2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
 		2792010615B92734006CC188 /* Cookie-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
 		27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */; };
@@ -67,10 +67,10 @@
 		2774A48E15B5139B00D45B47 /* ContactPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactPopoverViewController.h; sourceTree = "<group>"; };
 		2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactPopoverViewController.m; sourceTree = "<group>"; };
 		2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactPopoverViewController.xib; sourceTree = "<group>"; };
-		279200BF15B7D50C006CC188 /* PhoneNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneNumberFormatter.h; sourceTree = "<group>"; };
-		279200C015B7D50C006CC188 /* PhoneNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneNumberFormatter.m; sourceTree = "<group>"; };
-		279200C315B7D520006CC188 /* EmailAddressFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAddressFormatter.h; sourceTree = "<group>"; };
-		279200C415B7D520006CC188 /* EmailAddressFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAddressFormatter.m; sourceTree = "<group>"; };
+		279200BF15B7D50C006CC188 /* CKPhoneNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPhoneNumberFormatter.h; sourceTree = "<group>"; };
+		279200C015B7D50C006CC188 /* CKPhoneNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPhoneNumberFormatter.m; sourceTree = "<group>"; };
+		279200C315B7D520006CC188 /* CKEmailAddressFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKEmailAddressFormatter.h; sourceTree = "<group>"; };
+		279200C415B7D520006CC188 /* CKEmailAddressFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKEmailAddressFormatter.m; sourceTree = "<group>"; };
 		2792010415B9272D006CC188 /* Cookie-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cookie-Regular.ttf"; sourceTree = "<group>"; };
 		27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPopoverViewController.h; sourceTree = "<group>"; };
 		27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPopoverViewController.m; sourceTree = "<group>"; };
@@ -132,10 +132,10 @@
 		279200C615B7D525006CC188 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
-				279200BF15B7D50C006CC188 /* PhoneNumberFormatter.h */,
-				279200C015B7D50C006CC188 /* PhoneNumberFormatter.m */,
-				279200C315B7D520006CC188 /* EmailAddressFormatter.h */,
-				279200C415B7D520006CC188 /* EmailAddressFormatter.m */,
+				279200BF15B7D50C006CC188 /* CKPhoneNumberFormatter.h */,
+				279200C015B7D50C006CC188 /* CKPhoneNumberFormatter.m */,
+				279200C315B7D520006CC188 /* CKEmailAddressFormatter.h */,
+				279200C415B7D520006CC188 /* CKEmailAddressFormatter.m */,
 			);
 			name = Formatters;
 			sourceTree = "<group>";
@@ -362,8 +362,8 @@
 				27FAA84D15AFD47700C1C75E /* ContactCellView.m in Sources */,
 				2774A49115B5139C00D45B47 /* ContactPopoverViewController.m in Sources */,
 				27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */,
-				279200C115B7D50C006CC188 /* PhoneNumberFormatter.m in Sources */,
-				279200C515B7D520006CC188 /* EmailAddressFormatter.m in Sources */,
+				279200C115B7D50C006CC188 /* CKPhoneNumberFormatter.m in Sources */,
+				279200C515B7D520006CC188 /* CKEmailAddressFormatter.m in Sources */,
 				27D74F3D15BE6AEF009F522A /* CKView.m in Sources */,
 				27D74F6115BF9624009F522A /* CKProgressIndicator.m in Sources */,
 				27BAF53A15C5D6DF009B12F3 /* CKTableRowView.m in Sources */,

@@ -12,6 +12,8 @@
 #import "CKContact.h"
 #import "CKMessage.h"
 #import "CKTableView.h"
+#import "CKRoster.h"
+#import "CKRosterItem.h"
 
 @implementation MasterViewController
 
@@ -163,12 +165,12 @@
 
 - (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
-    NSString *phoneNumber = [PhoneNumberFormatter stripPhoneNumberFormatting:number];
     CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:address
-        andDisplayName:name andPhoneNumber:phoneNumber andContactState:ConnectionStateOffline];
+        andDisplayName:name andPhoneNumber:number andContactState:ConnectionStateOffline];
     [[CKContactList sharedInstance] addContact:contact];
     
-    [self.chattaKit requestContactStatus:contact];    
+    [self.chattaKit requestContactStatus:contact];
+    
     [self.contactListTableView reloadData];
 }
 
@@ -216,7 +218,6 @@
    viewForTableColumn:(NSTableColumn *)tableColumn 
                   row:(NSInteger)row
 {
-    // test by setting contactcell == nil
     ContactCellView *contactCell = [tableView makeViewWithIdentifier:@"contactCell" owner:self];
     if (contactCell == nil) {
         NSRect cellFrame = [tableView frameOfCellAtColumn:0 row:row];

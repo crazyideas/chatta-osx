@@ -5,9 +5,9 @@
 //  Copyright (c) 2012 CRAZY IDEAS. All rights reserved.
 //
 
-#import "EmailAddressFormatter.h"
+#import "CKEmailAddressFormatter.h"
 
-@implementation EmailAddressFormatter
+@implementation CKEmailAddressFormatter
 
 - (NSString *)stringForObjectValue:(id)object
 {

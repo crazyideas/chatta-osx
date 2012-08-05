@@ -6,7 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "EmailAddressFormatter.h"
+#import "CKEmailAddressFormatter.h"
 #import "CKProgressIndicator.h"
 
 @protocol ConfigureViewDelegate <NSObject>
@@ -19,7 +19,7 @@
 @interface ConfigureViewController : NSViewController <NSTextFieldDelegate>
 
 @property (nonatomic, assign) id <ConfigureViewDelegate> delegate;
-@property (nonatomic, strong) EmailAddressFormatter *emailAddressFormatter;
+@property (nonatomic, strong) CKEmailAddressFormatter *emailAddressFormatter;
 
 @property (weak) IBOutlet NSTextFieldCell *chattaTextField;
 @property (weak) IBOutlet NSTextField *usernameTextField;

@@ -7,10 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PhoneNumberFormatter : NSFormatter
+@interface CKPhoneNumberFormatter : NSFormatter
 
 + (BOOL)isValidPhoneNumber:(NSString *)phoneNumber;
-+ (NSString *)stripPhoneNumberFormatting:(NSString *)number;
-//+ (NSString *)stringInDisplayFormat:(NSString *)number;
+
++ (NSString *)phoneNumberInServiceFormat:(NSString *)number;
++ (NSString *)phoneNumberInDisplayFormat:(NSString *)number;
 
 @end

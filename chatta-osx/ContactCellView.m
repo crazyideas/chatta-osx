@@ -60,10 +60,12 @@
 {    
     NSNumber *stateNumber = [NSNumber numberWithInt:toState];
     
+    
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        __weak ContactCellView *weak_self = self;
         context.duration = 0.22;
         NSPoint newPosition = [[[self connectionStateLookup] objectForKey:stateNumber] pointValue];
-        [self.connectionStateImageView.animator setFrameOrigin:newPosition];
+        [weak_self.connectionStateImageView.animator setFrameOrigin:newPosition];
     } completionHandler:nil];
     
     _connectionState = toState;

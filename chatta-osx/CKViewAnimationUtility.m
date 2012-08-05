@@ -22,6 +22,7 @@
     opacityAnimation.removedOnCompletion     = NO;
 
     view.wantsLayer = YES;
+    CKDebug(@"%@", (view.wantsLayer) ? @"Wants Layer" : @"Doesn't Want Layer");
     [view.layer addAnimation:opacityAnimation forKey:@"animateOpacity"];
 }
 

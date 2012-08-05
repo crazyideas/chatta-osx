@@ -7,8 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CKContact.h"
-#import "PhoneNumberFormatter.h"
-#import "EmailAddressFormatter.h"
+#import "CKPhoneNumberFormatter.h"
+#import "CKEmailAddressFormatter.h"
 
 @protocol ContactPopoverDelegate <NSObject>
 @optional
@@ -27,8 +27,8 @@ typedef enum {
 
 @property (nonatomic) PopoverType popoverType;
 @property (nonatomic, strong) CKContact *contact;
-@property (nonatomic, strong) PhoneNumberFormatter *phoneNumberFormatter;
-@property (nonatomic, strong) EmailAddressFormatter *emailAddressFormatter;
+@property (nonatomic, strong) CKPhoneNumberFormatter *phoneNumberFormatter;
+@property (nonatomic, strong) CKEmailAddressFormatter *emailAddressFormatter;
 @property (nonatomic, assign) id <ContactPopoverDelegate> delegate;
 
 @property (weak) IBOutlet NSTextField *titleTextField;

@@ -24,10 +24,13 @@
 #pragma mark - Properties
 
 - (void)setContact:(CKContact *)contact
-{    
+{
     self.nameTextField.stringValue  = (contact.displayName)      ? contact.displayName      : @"";
     self.emailTextField.stringValue = (contact.jabberIdentifier) ? contact.jabberIdentifier : @"";
-    self.phoneTextField.stringValue = (contact.phoneNumber)      ? contact.phoneNumber      : @"";
+    
+    NSString *displayPhoneNumber = (contact.phoneNumber) ? contact.phoneNumber : @"";
+    displayPhoneNumber = [CKPhoneNumberFormatter phoneNumberInDisplayFormat:contact.phoneNumber];
+    self.phoneTextField.stringValue = displayPhoneNumber;
     
     _contact = contact;
 }
@@ -65,8 +68,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Initialization code here.
-        self.phoneNumberFormatter  = [[PhoneNumberFormatter alloc] init];
-        self.emailAddressFormatter = [[EmailAddressFormatter alloc] init];
+        self.phoneNumberFormatter  = [[CKPhoneNumberFormatter alloc] init];
+        self.emailAddressFormatter = [[CKEmailAddressFormatter alloc] init];
     }
     
     return self;
@@ -88,13 +91,16 @@
 
 - (IBAction)rightButtonPushed:(id)sender
 {
+    NSString *servicePhoneNumber =
+        [CKPhoneNumberFormatter phoneNumberInServiceFormat:self.phoneTextField.stringValue];
+    
     switch (self.popoverType) {
         case PopoverTypeAddContact:
         {
-            if (self.delegate != nil) {                
+            if (self.delegate != nil) {
                 [self.delegate addContactWithName:self.nameTextField.stringValue 
                                             email:self.emailTextField.stringValue 
-                                            phone:self.phoneTextField.stringValue];
+                                            phone:servicePhoneNumber];
                 
                 [self.delegate closePopover];
             }
@@ -106,7 +112,7 @@
                 [self.delegate updateContact:self.contact 
                                     withName:self.nameTextField.stringValue 
                                        email:self.emailTextField.stringValue 
-                                       phone:self.phoneTextField.stringValue];
+                                       phone:servicePhoneNumber];
                 
                 [self.delegate closePopover];
             }
@@ -135,8 +141,8 @@
     BOOL phoneValid = NO;
     
     nameValid = (self.nameTextField.stringValue.length > 0) ? YES : NO;
-    emailValid = [EmailAddressFormatter isValidEmailAddress:self.emailTextField.stringValue];
-    phoneValid = [PhoneNumberFormatter isValidPhoneNumber:self.phoneTextField.stringValue];
+    emailValid = [CKEmailAddressFormatter isValidEmailAddress:self.emailTextField.stringValue];
+    phoneValid = [CKPhoneNumberFormatter isValidPhoneNumber:self.phoneTextField.stringValue];
     
     if (nameValid && emailValid && phoneValid) {
         [self.rightButton setEnabled:YES];

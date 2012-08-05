@@ -24,7 +24,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.emailAddressFormatter = [[EmailAddressFormatter alloc] init];
+        self.emailAddressFormatter = [[CKEmailAddressFormatter alloc] init];
     }
     
     return self;
@@ -89,7 +89,7 @@
     BOOL passwordValid = NO;
     
     // check if username is valid
-    if ([EmailAddressFormatter isValidEmailAddress:usernameString]) {
+    if ([CKEmailAddressFormatter isValidEmailAddress:usernameString]) {
         usernameValid = YES;
     } else {
         usernameValid = NO;

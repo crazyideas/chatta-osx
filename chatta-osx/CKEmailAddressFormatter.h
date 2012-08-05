@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface EmailAddressFormatter : NSFormatter
+@interface CKEmailAddressFormatter : NSFormatter
 
 + (BOOL)isValidEmailAddress:(NSString *)emailAddress;
 

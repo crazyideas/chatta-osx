@@ -5,9 +5,9 @@
 //  Copyright (c) 2012 CRAZY IDEAS. All rights reserved.
 //
 
-#import "PhoneNumberFormatter.h"
+#import "CKPhoneNumberFormatter.h"
 
-@implementation PhoneNumberFormatter
+@implementation CKPhoneNumberFormatter
 
 - (NSString *)stringForObjectValue:(id)object
 {
@@ -80,10 +80,20 @@
     return YES;
 }
 
-+ (NSString *)stripPhoneNumberFormatting:(NSString *)number
++ (NSString *)phoneNumberInServiceFormat:(NSString *)number
 {
     NSString *strippedString = [number stringByReplacingOccurrencesOfString:@"-" withString:@""];
     return [NSString stringWithFormat:@"+%@", strippedString];
+}
+
++ (NSString *)phoneNumberInDisplayFormat:(NSString *)number
+{
+    NSString *callingCode      = [number substringWithRange:NSMakeRange(1, 1)];
+    NSString *areaCode         = [number substringWithRange:NSMakeRange(2, 3)];
+    NSString *exchangeCode     = [number substringWithRange:NSMakeRange(5, 3)];
+    NSString *subscriberNumber = [number substringWithRange:NSMakeRange(8, 4)];
+    return [NSString stringWithFormat:@"%@-%@-%@-%@",
+            callingCode, areaCode, exchangeCode, subscriberNumber];
 }
 
 @end
