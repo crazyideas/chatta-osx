@@ -55,6 +55,7 @@
     
     self.masterViewController.chattaKit = self.chattaKit;
     self.masterViewController.connectionState = ChattaStateDisconnected;
+    self.masterViewController.detailViewController = self.detailViewController;
     self.masterViewController.delegate = self;
     
     self.chattaKit.delegate = self;

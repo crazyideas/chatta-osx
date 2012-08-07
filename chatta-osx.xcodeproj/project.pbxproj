@@ -37,6 +37,8 @@
 		27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA224E15ABCCE200CEB105 /* MasterViewController.xib */; };
 		27DA225715ABCD3E00CEB105 /* RootWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA225615ABCD3E00CEB105 /* RootWindowController.m */; };
 		27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA226415ABD34000CEB105 /* RootWindow.xib */; };
+		27E95B9315D0BC34008C7D68 /* CKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E95B9215D0BC34008C7D68 /* CKTextView.m */; };
+		27E95B9715D0C2D5008C7D68 /* CKScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E95B9615D0C2D5008C7D68 /* CKScrollView.m */; };
 		27FAA82615AE7C8300C1C75E /* ConfigureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */; };
 		27FAA82715AE7C8300C1C75E /* ConfigureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */; };
 		27FAA84D15AFD47700C1C75E /* ContactCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FAA84C15AFD47700C1C75E /* ContactCellView.m */; };
@@ -108,6 +110,10 @@
 		27DA225515ABCD3E00CEB105 /* RootWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootWindowController.h; sourceTree = "<group>"; };
 		27DA225615ABCD3E00CEB105 /* RootWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootWindowController.m; sourceTree = "<group>"; };
 		27DA226415ABD34000CEB105 /* RootWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootWindow.xib; sourceTree = "<group>"; };
+		27E95B9115D0BC34008C7D68 /* CKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTextView.h; sourceTree = "<group>"; };
+		27E95B9215D0BC34008C7D68 /* CKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTextView.m; sourceTree = "<group>"; };
+		27E95B9515D0C2D5008C7D68 /* CKScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKScrollView.h; sourceTree = "<group>"; };
+		27E95B9615D0C2D5008C7D68 /* CKScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKScrollView.m; sourceTree = "<group>"; };
 		27FAA82315AE7C8300C1C75E /* ConfigureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigureViewController.h; sourceTree = "<group>"; };
 		27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigureViewController.m; sourceTree = "<group>"; };
 		27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigureViewController.xib; sourceTree = "<group>"; };
@@ -145,6 +151,10 @@
 			children = (
 				27D74F3B15BE6AEF009F522A /* CKView.h */,
 				27D74F3C15BE6AEF009F522A /* CKView.m */,
+				27E95B9115D0BC34008C7D68 /* CKTextView.h */,
+				27E95B9215D0BC34008C7D68 /* CKTextView.m */,
+				27E95B9515D0C2D5008C7D68 /* CKScrollView.h */,
+				27E95B9615D0C2D5008C7D68 /* CKScrollView.m */,
 				27BAF56015C602EC009B12F3 /* CKTableView.h */,
 				27BAF56115C602EC009B12F3 /* CKTableView.m */,
 				27BAF53815C5D6DF009B12F3 /* CKTableRowView.h */,
@@ -370,6 +380,8 @@
 				27BAF56215C602EC009B12F3 /* CKTableView.m in Sources */,
 				2742591515C8D8ED00648E02 /* CKViewAnimationUtility.m in Sources */,
 				2700383E15CA2A8E00F2320C /* CKPersistence.m in Sources */,
+				27E95B9315D0BC34008C7D68 /* CKTextView.m in Sources */,
+				27E95B9715D0C2D5008C7D68 /* CKScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

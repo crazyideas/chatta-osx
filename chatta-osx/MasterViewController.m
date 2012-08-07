@@ -43,16 +43,12 @@
     if (self) {
         self.contactPopoverViewController = [[ContactPopoverViewController alloc] 
             initWithNibName:@"ContactPopoverViewController" bundle:nil];
-        self.contactPopoverViewController.delegate = self;
         
         self.settingsPopoverViewController = [[SettingsPopoverViewController alloc]
             initWithNibName:@"SettingsPopoverViewController" bundle:nil];
-        self.settingsPopoverViewController.delegate = self;
         
         self.contactPopover  = [[NSPopover alloc] init];
         self.settingsPopover = [[NSPopover alloc] init];
-                
-        [CKContactList sharedInstance].delegate = self;
     }
     
     return self;
@@ -60,6 +56,9 @@
 
 - (void) awakeFromNib
 {
+    self.detailViewController.contact = nil;
+    self.detailViewController.delegate = self;
+
     self.contactListTableView.delegate     = self;
     self.contactListTableView.dataSource   = self;
     self.contactListTableView.allowsEmptySelection    = YES;
@@ -77,6 +76,8 @@
     self.settingsPopoverViewController.delegate = self;
     self.contactPopoverViewController.delegate  = self;
     
+    [CKContactList sharedInstance].delegate = self;
+    
     [self.minusButton setEnabled:NO];
     self.connectionState = ChattaStateDisconnected;
     previouslySelectedRow = -1;
@@ -90,13 +91,23 @@
     // sum up unread messages
     NSUInteger unreadMessages = 0;
     NSArray *allContacts = [CKContactList sharedInstance].allContacts;
-    for (CKContact *lcont in allContacts) {
-        unreadMessages += lcont.unreadCount;
+    for (CKContact *contact in allContacts) {
+        unreadMessages += contact.unreadCount;
     }
     
     // update unreadTextField
     self.unreadTextField.stringValue = (unreadMessages == 0) ? @"" :
     [NSString stringWithFormat:@"Unread (%li)", unreadMessages];
+}
+
+#pragma mark - DetailViewController Delegate
+
+- (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact
+{
+    CKDebug(@"sendNewMessage: %@, to contact: %@", message, contact);
+    if (self.chattaKit != nil) {
+        [self.chattaKit sendMessage:message toContact:contact];
+    }
 }
 
 #pragma mark - CKContactList Delegates
@@ -133,6 +144,11 @@
             int dockValue = ([dockTile.badgeLabel isEqualToString:@""])
                 ? 0 : [dockTile.badgeLabel intValue];
             dockTile.badgeLabel = [NSString stringWithFormat:@"%i", ++dockValue];
+        }
+        
+        // if new message is for selected contact, update detailViewController
+        if ([selectedContact isEqualToContact:contact]) {
+            [self.detailViewController updateTextViewWithNewMessage:message playSound:NO];
         }
         
         [weak_self updateUnreadCount];
@@ -286,7 +302,10 @@
 
 - (void)tableView:(CKTableView *)tableView didSingleClickRow:(NSInteger)row
 {
-    [[CKContactList sharedInstance] contactWithIndex:row].unreadCount = 0;
+    CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:row];
+    
+    // update unread count
+    selectedContact.unreadCount = 0;
     [self updateUnreadCount];
     [self.contactListTableView reloadData];
 }
@@ -321,8 +340,11 @@
         return;
     }
 
+    // update selected contact
+    CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+    self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
     CKDebug(@"tableViewSelectionDidChange: %li", self.contactListTableView.selectedRow);
-
+    
     previouslySelectedRow = selectedRow;
 }
 
@@ -345,7 +367,7 @@
     CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
         andDisplayName:@"John Smith" andPhoneNumber:@"+18005551212"
         andContactState:ConnectionStateOnline];
-    CKMessage *message1 = [[CKMessage alloc] initWithContact:me timestamp:[NSDate date]
+    CKMessage *message1 = [[CKMessage alloc] initWithContact:contact timestamp:[NSDate date]
         messageText:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius"];
     [contact addMessage:message1];
     [[CKContactList sharedInstance] addContact:contact];

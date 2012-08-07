@@ -22,7 +22,7 @@
 
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
                                                     ContactPopoverDelegate, SettingsPopoverDelegate,
-                                                    CKContactListDelegate>
+                                                    CKContactListDelegate, DetailViewDelegate>
 {
     NSInteger previouslySelectedRow;
 }
