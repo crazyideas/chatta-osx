@@ -26,7 +26,7 @@
 @property (nonatomic, strong) CKContact *contact;
 @property (nonatomic, assign) id <DetailViewDelegate> delegate;
 
-- (void)updateTextViewWithNewMessage:(CKMessage *)message playSound:(BOOL)sound;
+- (void)updateTextViewWithNewMessage:(CKMessage *)message;
 
 - (IBAction)newMessageEntered:(id)sender;
 

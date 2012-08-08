@@ -88,6 +88,10 @@
 
 + (NSString *)phoneNumberInDisplayFormat:(NSString *)number
 {
+    if (number == nil || [number isEqualToString:@""]) {
+        return @"";
+    }
+    
     NSString *callingCode      = [number substringWithRange:NSMakeRange(1, 1)];
     NSString *areaCode         = [number substringWithRange:NSMakeRange(2, 3)];
     NSString *exchangeCode     = [number substringWithRange:NSMakeRange(5, 3)];

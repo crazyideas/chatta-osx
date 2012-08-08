@@ -27,10 +27,8 @@
 {
     self.nameTextField.stringValue  = (contact.displayName)      ? contact.displayName      : @"";
     self.emailTextField.stringValue = (contact.jabberIdentifier) ? contact.jabberIdentifier : @"";
-    
-    NSString *displayPhoneNumber = (contact.phoneNumber) ? contact.phoneNumber : @"";
-    displayPhoneNumber = [CKPhoneNumberFormatter phoneNumberInDisplayFormat:contact.phoneNumber];
-    self.phoneTextField.stringValue = displayPhoneNumber;
+    self.phoneTextField.stringValue =
+        [CKPhoneNumberFormatter phoneNumberInDisplayFormat:contact.phoneNumber];
     
     _contact = contact;
 }

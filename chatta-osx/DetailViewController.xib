@@ -157,7 +157,7 @@
 										<string key="NSFrameSize">{300, 264}</string>
 										<reference key="NSSuperview" ref="165809781"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="627736030"/>
+										<reference key="NSNextKeyView" ref="543901020"/>
 										<string key="NSReuseIdentifierKey">_NS:1480</string>
 										<object class="NSTextContainer" key="NSTextContainer" id="312153314">
 											<object class="NSLayoutManager" key="NSLayoutManager">
@@ -178,7 +178,7 @@
 											<int key="NSTCFlags">1</int>
 										</object>
 										<object class="NSTextViewSharedData" key="NSSharedData">
-											<int key="NSFlags">10341</int>
+											<int key="NSFlags">67119205</int>
 											<int key="NSTextCheckingTypes">0</int>
 											<nil key="NSMarkedAttributes"/>
 											<reference key="NSBackgroundColor" ref="140739519"/>
@@ -227,8 +227,8 @@
 								<string key="NSReuseIdentifierKey">_NS:1478</string>
 								<reference key="NSDocView" ref="452418892"/>
 								<object class="NSColor" key="NSBGColor">
-									<int key="NSColorSpace">2</int>
-									<bytes key="NSRGB">MC45MTc2NDcxMjMzIDAuOTI5NDExODI4NSAwLjk0NTA5ODEwMjEAA</bytes>
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MSAxIDEAA</bytes>
 								</object>
 								<object class="NSCursor" key="NSCursor">
 									<string key="NSHotSpot">{4, 5}</string>
@@ -418,7 +418,7 @@ wGw</bytes>
 						<string key="NSFrame">{{0, 36}, {300, 264}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="543901020"/>
+						<reference key="NSNextKeyView" ref="165809781"/>
 						<string key="NSReuseIdentifierKey">_NS:940</string>
 						<int key="NSsFlags">133136</int>
 						<reference key="NSVScroller" ref="627736030"/>

@@ -22,14 +22,39 @@
 - (void)setUnreadMessageCount:(NSUInteger)unreadMessageCount
 {
     if (unreadMessageCount == 0) {
+        self.lastMessage.font = [NSFont fontWithName:@"Helvetica" size:11];
+        self.lastMessageTimestamp.font = [NSFont fontWithName:@"Helvetica" size:12];
         [CKViewAnimationUtility stopOpacityAnimationOnLayer:self.connectionStateImageView];
+        [CKViewAnimationUtility stopPulseAnimationOnLayer:self.connectionStateImageView];
+
     }
     
     if (unreadMessageCount > 0) {
+        self.lastMessage.font = [NSFont fontWithName:@"Helvetica-Bold" size:11];
+        self.lastMessageTimestamp.font = [NSFont fontWithName:@"Helvetica-Bold" size:12];
         [CKViewAnimationUtility startOpacityAnimationOnLayer:self.connectionStateImageView];
+        [CKViewAnimationUtility startPulseAnimationOnLayer:self.connectionStateImageView];
     }
 
     _unreadMessageCount = unreadMessageCount;
+}
+
+- (void)setConnectionState:(ConnectionState)toState
+{
+    if (_connectionState == toState) {
+        return;
+    }
+    
+    NSNumber *stateNumber = [NSNumber numberWithInt:toState];
+    
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        __weak ContactCellView *weak_self = self;
+        context.duration = 0.22;
+        NSPoint newPosition = [[[self connectionStateLookup] objectForKey:stateNumber] pointValue];
+        [weak_self.connectionStateImageView.animator setFrameOrigin:newPosition];
+    } completionHandler:nil];
+    
+    _connectionState = toState;
 }
 
 - (NSDictionary *)connectionStateLookup
@@ -41,10 +66,10 @@
         [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 0)]
                         forKey:[NSNumber numberWithInt:ConnectionStateIndeterminate]];
         
-        [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 46)] 
+        [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 42)]
                         forKey:[NSNumber numberWithInt:ConnectionStateOffline]];
         
-        [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 92)]
+        [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 99)]
                         forKey:[NSNumber numberWithInt:ConnectionStateOnline]];
     }
     return [_lookupDict copy];
@@ -54,21 +79,6 @@
 {
     originPoint = NSMakePoint(self.connectionStateImageView.frame.origin.x, 
                               self.connectionStateImageView.frame.origin.y);
-}
-
-- (void)setConnectionState:(ConnectionState)toState
-{    
-    NSNumber *stateNumber = [NSNumber numberWithInt:toState];
-    
-    
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-        __weak ContactCellView *weak_self = self;
-        context.duration = 0.22;
-        NSPoint newPosition = [[[self connectionStateLookup] objectForKey:stateNumber] pointValue];
-        [weak_self.connectionStateImageView.animator setFrameOrigin:newPosition];
-    } completionHandler:nil];
-    
-    _connectionState = toState;
 }
 
 - (void)setBackgroundStyle:(NSBackgroundStyle)backgroundStyle

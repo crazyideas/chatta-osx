@@ -57,8 +57,6 @@
     }
     
     NSDictionary *rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    
-    rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
     [[CKContactList sharedInstance]
         setMe:[rootObject valueForKey:@"CKContactList-Me"]];
     [[CKContactList sharedInstance]

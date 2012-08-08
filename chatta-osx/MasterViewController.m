@@ -148,7 +148,7 @@
         
         // if new message is for selected contact, update detailViewController
         if ([selectedContact isEqualToContact:contact]) {
-            [self.detailViewController updateTextViewWithNewMessage:message playSound:NO];
+            [self.detailViewController updateTextViewWithNewMessage:message];
         }
         
         [weak_self updateUnreadCount];

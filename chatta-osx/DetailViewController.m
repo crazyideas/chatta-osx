@@ -23,7 +23,7 @@
             setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
         // update textview
         for (CKMessage *message in contact.messages) {
-            [self updateTextViewWithNewMessage:message playSound:NO];
+            [self updateTextViewWithNewMessage:message];
         }
         [self.messagesTextView setEnabled:YES];
         [self.messagesInputTextField setEnabled:YES];
@@ -44,7 +44,8 @@
 
 - (void)awakeFromNib
 {
-    [self.messagesTextView setEditable:NO];
+    //[self.messagesTextView setEditable:NO];
+    [self.messagesTextView setSelectable:NO];
 }
 
 - (IBAction)newMessageEntered:(id)sender 
@@ -63,15 +64,18 @@
 }
 
 
-- (void)updateTextViewWithNewMessage:(CKMessage *)message playSound:(BOOL)playSound
+- (void)updateTextViewWithNewMessage:(CKMessage *)message
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         NSMutableAttributedString *attrString =
             [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:
             @"[%@] %@: %@\n", message.timestampString, message.contact.displayName, message.text]];
         NSRange boldRange = [attrString.string rangeOfString:message.contact.displayName];
-        
+        NSRange greyRange = [attrString.string rangeOfString:
+            [NSString stringWithFormat:@"[%@]", message.timestampString]];
+
         [attrString beginEditing];
+
         [attrString addAttribute:NSFontAttributeName
                            value:[NSFont fontWithName:@"Helvetica" size:14]
                            range:NSMakeRange(0, [attrString length])];
@@ -79,6 +83,11 @@
         [attrString addAttribute:NSFontAttributeName
                            value:[NSFont fontWithName:@"Helvetica-Bold" size:14]
                            range:boldRange];
+        
+        [attrString addAttribute:NSForegroundColorAttributeName
+                           value:[NSColor disabledControlTextColor]
+                           range:greyRange];
+        
         [attrString endEditing];
         
         [self.messagesTextView.textStorage appendAttributedString:attrString];
@@ -86,16 +95,6 @@
         // scroll the bottom of screen
         [self.scrollView scrollToBottom];
     });
-    
-    if (playSound == YES) {
-        NSString *soundResourcePath =
-            [[NSBundle mainBundle] pathForResource:@"new-message" ofType:@"aif"];
-        NSSound *newMessageSound =
-            [[NSSound alloc] initWithContentsOfFile:soundResourcePath byReference:YES];
-        if (newMessageSound) {
-            [newMessageSound play];
-        }
-    }
 }
 
 @end
