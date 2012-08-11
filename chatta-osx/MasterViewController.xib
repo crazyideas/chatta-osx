@@ -44,7 +44,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="1005">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">282</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="664479945">
@@ -52,7 +52,6 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{270, 5}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:2466</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="519609417">
@@ -84,7 +83,6 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{246, 5}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="664479945"/>
 						<bool key="NSViewIsLayerTreeHost">YES</bool>
 						<string key="NSReuseIdentifierKey">_NS:687</string>
@@ -114,7 +112,6 @@
 						<int key="NSvFlags">295</int>
 						<string key="NSFrame">{{59, 9}, {182, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="426504588"/>
 						<string key="NSReuseIdentifierKey">_NS:3944</string>
 						<bool key="NSEnabled">YES</bool>
@@ -155,7 +152,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{29, 5}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="862464151"/>
 						<string key="NSReuseIdentifierKey">_NS:2466</string>
 						<bool key="NSEnabled">YES</bool>
@@ -184,7 +180,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{5, 5}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="132035698"/>
 						<string key="NSReuseIdentifierKey">_NS:2466</string>
 						<bool key="NSEnabled">YES</bool>
@@ -221,7 +216,6 @@
 						</set>
 						<string key="NSFrameSize">{300, 35}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="200166368"/>
 						<string key="NSReuseIdentifierKey">_NS:2141</string>
 						<bool key="NSEnabled">YES</bool>
@@ -246,7 +240,6 @@
 						<int key="NSvFlags">39</int>
 						<string key="NSFrame">{{0, 33}, {300, 5}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="240337739"/>
 						<string key="NSReuseIdentifierKey">_NS:2411</string>
 						<string key="NSOffsets">{0, 0}</string>
@@ -288,7 +281,6 @@
 										<array class="NSMutableArray" key="NSSubviews"/>
 										<string key="NSFrameSize">{300, 264}</string>
 										<reference key="NSSuperview" ref="1039421580"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="603179173"/>
 										<string key="NSReuseIdentifierKey">_NS:1828</string>
 										<bool key="NSEnabled">YES</bool>
@@ -376,7 +368,6 @@
 								</array>
 								<string key="NSFrameSize">{300, 264}</string>
 								<reference key="NSSuperview" ref="2148256"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="364168445"/>
 								<string key="NSReuseIdentifierKey">_NS:1826</string>
 								<reference key="NSDocView" ref="364168445"/>
@@ -388,7 +379,6 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{-100, -100}, {15, 102}}</string>
 								<reference key="NSSuperview" ref="2148256"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="676336666"/>
 								<string key="NSReuseIdentifierKey">_NS:1845</string>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -401,7 +391,6 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{-100, -100}, {300, 15}}</string>
 								<reference key="NSSuperview" ref="2148256"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1039421580"/>
 								<string key="NSReuseIdentifierKey">_NS:1847</string>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -413,7 +402,6 @@
 						</array>
 						<string key="NSFrame">{{0, 36}, {300, 264}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1039421580"/>
 						<string key="NSReuseIdentifierKey">_NS:1824</string>
 						<int key="NSsFlags">133648</int>
@@ -427,8 +415,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{300, 300}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="2148256"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -908,7 +894,7 @@
 					<reference ref="114796583"/>
 				</array>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="34.CustomClassName">ContactCellView</string>
+				<string key="34.CustomClassName">CKTableViewCellStyleDetailed</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="34.userInterfaceItemIdentifier">contactCell</string>
 				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -953,38 +939,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/CKTableView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ContactCellView</string>
-					<string key="superclassName">NSTableCellView</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="connectionStateImageView">NSImageView</string>
-						<string key="displayName">NSTextField</string>
-						<string key="lastMessage">NSTextField</string>
-						<string key="lastMessageTimestamp">NSTextField</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="connectionStateImageView">
-							<string key="name">connectionStateImageView</string>
-							<string key="candidateClassName">NSImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="displayName">
-							<string key="name">displayName</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lastMessage">
-							<string key="name">lastMessage</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lastMessageTimestamp">
-							<string key="name">lastMessageTimestamp</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ContactCellView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

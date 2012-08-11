@@ -33,7 +33,8 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        CKContact *me = [[CKContact alloc] initWithJabberIdentifier:nil andDisplayName:@"Me" andPhoneNumber:nil];
+        CKContact *me
+            = [[CKContact alloc] initWithJabberIdentifier:nil andDisplayName:@"Me" andPhoneNumber:nil];
         self.chattaKit = [[ChattaKit alloc] initWithMe:me];
     }
     
@@ -57,7 +58,7 @@
     self.masterViewController.connectionState = ChattaStateDisconnected;
     self.masterViewController.detailViewController = self.detailViewController;
     self.masterViewController.delegate = self;
-    
+            
     self.chattaKit.delegate = self;
     
     [self showConfigureSheet:self.window];
@@ -132,7 +133,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
     switch (state) {
         case ChattaStateConnected:
         {
-            CKDebug(@"ChattaStateConnected");
+            CKDebug(@"[+] received ChattaStateConnected notification");
             self.masterViewController.connectionState = state;
             dispatch_async(dispatch_get_main_queue(), ^(void){ 
                 [self configurationSheetDidComplete];
@@ -141,7 +142,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
         }
         case ChattaStateDisconnected:
         {
-            CKDebug(@"ChattaStateDisconnected");
+            CKDebug(@"[+] received ChattaStateDisconnected notification");
             self.masterViewController.connectionState = state;
             [self.configureViewController loginStopped];
             break;
@@ -169,6 +170,11 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 - (void)cancelChattaLogin
 {
     [self logoutOfChatta];
+}
+
+- (void)makeTextFieldFirstResponder
+{
+    [[self window] makeFirstResponder:self.detailViewController.messagesInputTextField];
 }
 
 #pragma mark - Sheet Methods
@@ -220,6 +226,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 
 - (IBAction)debugConnectedNotification:(id)sender
 {
+    self.chattaKit.chattaState = ChattaStateConnected;
     [self connectionStateNotification:ChattaStateConnected];
 }
 
@@ -230,6 +237,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 
 - (IBAction)debugDisconnectedNotification:(id)sender
 {
+    self.chattaKit.chattaState = ChattaStateDisconnected;
     [self connectionStateNotification:ChattaStateDisconnected];
 }
 
@@ -237,7 +245,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 {
     CKContactList *contactList = [CKContactList sharedInstance];
     CKContact *dbg_cnt = [contactList contactWithName:self.debugContactNameTextField.stringValue];
-    [dbg_cnt updateConnectionState:self.debugContactStateTextField.intValue];
+    dbg_cnt.connectionState = self.debugContactStateTextField.intValue;
 }
 
 - (IBAction)debugNewMessageForContact:(id)sender
@@ -245,7 +253,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
     CKContactList *contactList = [CKContactList sharedInstance];
     CKContact *dbg_cnt = [contactList contactWithName:self.debugContactNameTextField.stringValue];
     NSString *randomMessage = [NSString randomStringWithLength:8];
-    CKMessage *dbg_msg = [[CKMessage alloc] initWithContact:dbg_cnt
+    CKMessage *dbg_msg = [[CKMessage alloc] initWithContact:contactList.me
         timestamp:[NSDate date] messageText:randomMessage];
     [contactList newMessage:dbg_msg forContact:dbg_cnt];
 }

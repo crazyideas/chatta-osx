@@ -18,6 +18,7 @@
 @optional
 - (void)logoutOfChatta;
 - (void)loginToChatta;
+- (void)makeTextFieldFirstResponder;
 @end
 
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,

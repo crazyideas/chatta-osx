@@ -49,6 +49,7 @@
 						<string key="NSFrame">{{10, 6}, {280, 22}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:903</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="761975606">
@@ -153,11 +154,11 @@
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="NSTextView" id="452418892">
 										<reference key="NSNextResponder" ref="165809781"/>
-										<int key="NSvFlags">2322</int>
+										<int key="NSvFlags">6418</int>
 										<string key="NSFrameSize">{300, 264}</string>
 										<reference key="NSSuperview" ref="165809781"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="543901020"/>
+										<reference key="NSNextKeyView" ref="627736030"/>
 										<string key="NSReuseIdentifierKey">_NS:1480</string>
 										<object class="NSTextContainer" key="NSTextContainer" id="312153314">
 											<object class="NSLayoutManager" key="NSLayoutManager">
@@ -178,7 +179,7 @@
 											<int key="NSTCFlags">1</int>
 										</object>
 										<object class="NSTextViewSharedData" key="NSSharedData">
-											<int key="NSFlags">67119205</int>
+											<int key="NSFlags">67119141</int>
 											<int key="NSTextCheckingTypes">0</int>
 											<nil key="NSMarkedAttributes"/>
 											<reference key="NSBackgroundColor" ref="140739519"/>
@@ -418,7 +419,7 @@ wGw</bytes>
 						<string key="NSFrame">{{0, 36}, {300, 264}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="165809781"/>
+						<reference key="NSNextKeyView" ref="543901020"/>
 						<string key="NSReuseIdentifierKey">_NS:940</string>
 						<int key="NSsFlags">133136</int>
 						<reference key="NSVScroller" ref="627736030"/>

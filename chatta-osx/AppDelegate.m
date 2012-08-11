@@ -17,7 +17,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-    CKDebug(@"applicationDidFinishLaunching");
+    CKDebug(@"[+] applicationDidFinishLaunching");
 
     // alloc/init master and detail view controllers
     if (self.rootWindowController == nil) {
@@ -46,7 +46,7 @@
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
 {
-    CKDebug(@"applicationShouldHandleReopen: %@", sender);
+    CKDebug(@"[+] applicationShouldHandleReopen: %@", sender);
     
     // if window closed, and click dock icon, bring window back to front
     [self.rootWindowController.window makeKeyAndOrderFront:self];
@@ -62,7 +62,7 @@
 
 - (void)receivedSleepNotification:(NSNotification *)notification
 {
-    CKDebug(@"receivedSleepNotification: %@", [notification name]);
+    CKDebug(@"[+] receivedSleepNotification: %@", [notification name]);
     
     // send root controller sleep notification, logout user
     [self.rootWindowController receivedSleepNotification:notification];
@@ -70,7 +70,7 @@
 
 - (void)receivedWakeNotification:(NSNotification *)notification
 {
-    CKDebug(@"receivedWakeNotification: %@", notification.name);
+    CKDebug(@"[+] receivedWakeNotification: %@", notification.name);
     
     // send root controller wake notification, login user
     [self.rootWindowController receivedWakeNotification:notification];

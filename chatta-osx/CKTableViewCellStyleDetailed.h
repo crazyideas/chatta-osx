@@ -6,24 +6,16 @@
 //
 
 #import <AppKit/AppKit.h>
+#import "CKContact.h"
+#import "CKMessage.h"
 
-typedef enum {
-    ConnectionStateOnline,
-    ConnectionStateOffline,
-    ConnectionStateIndeterminate
-} ConnectionState;
-
-@interface ContactCellView : NSTableCellView
-{
-    NSPoint originPoint;
-}
+@interface CKTableViewCellStyleDetailed : NSTableCellView
 
 @property (nonatomic, retain) IBOutlet NSTextField *displayName;
 @property (nonatomic, retain) IBOutlet NSTextField *lastMessage;
 @property (nonatomic, retain) IBOutlet NSTextField *lastMessageTimestamp;
 @property (nonatomic, retain) IBOutlet NSImageView *connectionStateImageView;
 
-@property (nonatomic) ConnectionState connectionState;
-@property (nonatomic) NSUInteger unreadMessageCount;
+@property (nonatomic, strong) CKContact *contact;
 
 @end

@@ -23,7 +23,7 @@
     }
     
     if (error != nil) {
-        CKDebug(@"error creating application support dir: %@", error);
+        CKDebug(@"[-] error creating application support dir: %@", error);
         return nil;
     }
     
@@ -35,7 +35,7 @@
 {
     NSString *path = [CKPersistence pathForContactsFile];
     if (path == nil) {
-        CKDebug(@"path to save is nil");
+        CKDebug(@"[-] path to persistent storage is nil");
         return;
     }
     
@@ -46,21 +46,29 @@
     [rootObject setValue:[CKContactList sharedInstance].allContacts
                   forKey:@"CKContactList-ContactList"];
     [NSKeyedArchiver archiveRootObject:rootObject toFile:path];
+    
+    CKDebug(@"[+] saved contacts to persistent storage");
 }
 
 + (void)loadContactsFromPersistentStorage
 {
     NSString *path = [CKPersistence pathForContactsFile];
     if (path == nil) {
-        CKDebug(@"path to save is nil");
+        CKDebug(@"[-] path to persistent storage is nil");
         return;
     }
     
     NSDictionary *rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    if (rootObject == nil) {
+        CKDebug(@"[-] rootObject is nil, creating new data structures");
+        return;
+    }
     [[CKContactList sharedInstance]
         setMe:[rootObject valueForKey:@"CKContactList-Me"]];
     [[CKContactList sharedInstance]
         replaceAllContacts:[rootObject valueForKey:@"CKContactList-ContactList"]];
+    
+    CKDebug(@"[+] loaded contacts from persistent storage");
 }
 
 @end

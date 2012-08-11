@@ -5,21 +5,13 @@
 //  Copyright (c) 2012 CRAZY IDEAS. All rights reserved.
 //
 
-#import "ContactCellView.h"
+#import "CKTableViewCellStyleDetailed.h"
 #import "CKViewAnimationUtility.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation ContactCellView
+@implementation CKTableViewCellStyleDetailed
 
-@synthesize displayName              = _displayName;
-@synthesize lastMessage              = _lastMessage;
-@synthesize lastMessageTimestamp     = _lastMessageTimestamp;
-@synthesize connectionStateImageView = _statusImageView;
-@synthesize connectionState          = _connectionState;
-@synthesize unreadMessageCount       = _unreadMessageCount;
-
-
-- (void)setUnreadMessageCount:(NSUInteger)unreadMessageCount
+- (void)updateUnreadMessageCount:(NSUInteger)unreadMessageCount
 {
     if (unreadMessageCount == 0) {
         self.lastMessage.font = [NSFont fontWithName:@"Helvetica" size:11];
@@ -35,50 +27,64 @@
         [CKViewAnimationUtility startOpacityAnimationOnLayer:self.connectionStateImageView];
         [CKViewAnimationUtility startPulseAnimationOnLayer:self.connectionStateImageView];
     }
-
-    _unreadMessageCount = unreadMessageCount;
 }
 
-- (void)setConnectionState:(ConnectionState)toState
+- (void)transitionToConnectionState:(ContactState)state withAnimation:(BOOL)animated
 {
-    if (_connectionState == toState) {
-        return;
+    NSNumber *stateNumber = [NSNumber numberWithInt:state];
+    
+    if (animated) {
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+            __weak CKTableViewCellStyleDetailed *weak_self = self;
+            context.duration = 0.22;
+            NSPoint newPosition =
+                [[[self connectionStateLookup] objectForKey:stateNumber] pointValue];
+            [weak_self.connectionStateImageView.animator setFrameOrigin:newPosition];
+        } completionHandler:nil];
     }
-    
-    NSNumber *stateNumber = [NSNumber numberWithInt:toState];
-    
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-        __weak ContactCellView *weak_self = self;
-        context.duration = 0.22;
+    // not animated
+    else {
         NSPoint newPosition = [[[self connectionStateLookup] objectForKey:stateNumber] pointValue];
-        [weak_self.connectionStateImageView.animator setFrameOrigin:newPosition];
-    } completionHandler:nil];
-    
-    _connectionState = toState;
+        CGSize newSize = self.connectionStateImageView.frame.size;
+        self.connectionStateImageView.frame =
+            NSMakeRect(newPosition.x, newPosition.y, newSize.width, newSize.height);
+    }
 }
 
 - (NSDictionary *)connectionStateLookup
 {
     static NSMutableDictionary *_lookupDict = nil;
+    NSPoint originPoint = NSMakePoint(self.connectionStateImageView.frame.origin.x,
+                                      self.connectionStateImageView.frame.origin.y);
     
-    if(_lookupDict == nil) { 
+    if(_lookupDict == nil) {
         _lookupDict = [[NSMutableDictionary alloc] initWithCapacity:3];
         [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 0)]
-                        forKey:[NSNumber numberWithInt:ConnectionStateIndeterminate]];
+                        forKey:[NSNumber numberWithInt:ContactStateIndeterminate]];
         
         [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 42)]
-                        forKey:[NSNumber numberWithInt:ConnectionStateOffline]];
+                        forKey:[NSNumber numberWithInt:ContactStateOffline]];
         
         [_lookupDict setObject:[NSValue valueWithPoint:NSMakePoint(originPoint.x, originPoint.y + 99)]
-                        forKey:[NSNumber numberWithInt:ConnectionStateOnline]];
+                        forKey:[NSNumber numberWithInt:ContactStateOnline]];
     }
     return [_lookupDict copy];
 }
 
-- (void)awakeFromNib
+- (void)setContact:(CKContact *)contact
 {
-    originPoint = NSMakePoint(self.connectionStateImageView.frame.origin.x, 
-                              self.connectionStateImageView.frame.origin.y);
+    self.displayName.stringValue = contact.displayName;
+    
+    CKMessage *lastMessage = contact.messages.lastObject;
+    self.lastMessage.stringValue = (lastMessage == nil) ? @"" : lastMessage.text;
+    
+    self.lastMessageTimestamp.stringValue =
+        (lastMessage == nil) ? @"" : lastMessage.timestampString;
+    
+    [self transitionToConnectionState:contact.connectionState withAnimation:NO];
+    [self updateUnreadMessageCount:contact.unreadCount];
+    
+    _contact = contact;
 }
 
 - (void)setBackgroundStyle:(NSBackgroundStyle)backgroundStyle

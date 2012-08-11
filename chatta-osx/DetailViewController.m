@@ -9,13 +9,24 @@
 
 @implementation DetailViewController
 
+- (void)setEnabled:(BOOL)enabled
+{
+    if (enabled == YES) {
+        [self.messagesInputTextField.cell setPlaceholderString:@"Type message here..."];
+    } else {
+        [self.messagesInputTextField.cell setPlaceholderString:@"Login to send messages..."];
+    }
+    
+    [self.messagesTextView setEnabled:enabled];
+    [self.messagesInputTextField setEnabled:enabled];
+    _enabled = enabled;
+}
+
 - (void)setContact:(CKContact *)contact
 {
     if (contact == nil) {
         [self.messagesTextView.textStorage
             setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
-        [self.messagesTextView setEnabled:NO];
-        [self.messagesInputTextField setEnabled:NO];
     }
     else {
         // clear out textview
@@ -25,8 +36,6 @@
         for (CKMessage *message in contact.messages) {
             [self updateTextViewWithNewMessage:message];
         }
-        [self.messagesTextView setEnabled:YES];
-        [self.messagesInputTextField setEnabled:YES];
     }
     
     _contact = contact;
@@ -44,8 +53,8 @@
 
 - (void)awakeFromNib
 {
-    //[self.messagesTextView setEditable:NO];
-    [self.messagesTextView setSelectable:NO];
+    self.messagesTextView.delegate = self;
+    self.messagesTextView.textContainerInset = NSMakeSize(1.0, 3.0);
 }
 
 - (IBAction)newMessageEntered:(id)sender 
@@ -67,9 +76,16 @@
 - (void)updateTextViewWithNewMessage:(CKMessage *)message
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        NSMutableAttributedString *attrString =
-            [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:
-            @"[%@] %@: %@\n", message.timestampString, message.contact.displayName, message.text]];
+        NSMutableAttributedString *attrString;
+        if ([self.messagesTextView.textStorage.string isEqualToString:@""]) {
+            attrString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:
+            @"[%@] %@: %@", message.timestampString, message.contact.displayName, message.text]];
+        }
+        else {
+            attrString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:
+            @"\n[%@] %@: %@", message.timestampString, message.contact.displayName, message.text]];
+        }
+         
         NSRange boldRange = [attrString.string rangeOfString:message.contact.displayName];
         NSRange greyRange = [attrString.string rangeOfString:
             [NSString stringWithFormat:@"[%@]", message.timestampString]];
@@ -92,9 +108,24 @@
         
         [self.messagesTextView.textStorage appendAttributedString:attrString];
         
+        [self.messagesTextView setNeedsDisplay:YES];
+        
         // scroll the bottom of screen
         [self.scrollView scrollToBottom];
     });
+}
+
+#pragma mark - NSTextView Delegate
+
+- (void)textView:(NSTextView *)textView clickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellFrame atIndex:(NSUInteger)charIndex
+{
+    CKDebug(@"clicked");
+
+}
+
+- (void)textView:(NSTextView *)textView clickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellFrame
+{
+    CKDebug(@"clicked");
 }
 
 @end

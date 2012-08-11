@@ -17,17 +17,17 @@
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact;
 @end
 
-@interface DetailViewController : NSViewController
+@interface DetailViewController : NSViewController <NSTextViewDelegate>
 
 @property (unsafe_unretained) IBOutlet CKTextView *messagesTextView;
 @property (weak) IBOutlet NSTextField *messagesInputTextField;
 @property (weak) IBOutlet CKScrollView *scrollView;
 
+@property (nonatomic) BOOL enabled;
 @property (nonatomic, strong) CKContact *contact;
 @property (nonatomic, assign) id <DetailViewDelegate> delegate;
 
 - (void)updateTextViewWithNewMessage:(CKMessage *)message;
-
 - (IBAction)newMessageEntered:(id)sender;
 
 @end

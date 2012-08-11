@@ -20,4 +20,14 @@
     _enabled = enabled;
 }
 
+- (BOOL)shouldDrawInsertionPoint
+{
+    return NO;
+}
+
+- (NSRange)rangeForUserTextChange
+{
+    return NSMakeRange(NSNotFound, 0);
+}
+
 @end

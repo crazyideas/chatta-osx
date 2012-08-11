@@ -6,7 +6,7 @@
 //
 
 #import "MasterViewController.h"
-#import "ContactCellView.h"
+#import "CKTableViewCellStyleDetailed.h"
 #import "CKTableRowView.h"
 #import "CKContactList.h"
 #import "CKContact.h"
@@ -34,6 +34,8 @@
 - (void)setConnectionState:(ChattaState)connectionState
 {
     self.settingsPopoverViewController.connectionState = connectionState;
+    self.detailViewController.enabled = (connectionState == ChattaStateConnected) ? YES : NO;
+    
     _connectionState = connectionState;
 }
 
@@ -57,6 +59,8 @@
 - (void) awakeFromNib
 {
     self.detailViewController.contact = nil;
+    self.detailViewController.enabled =
+        (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
     self.detailViewController.delegate = self;
 
     self.contactListTableView.delegate     = self;
@@ -83,7 +87,7 @@
     previouslySelectedRow = -1;
     
     // for debugging
-    [self.refreshButton setHidden:YES];
+    [self.refreshButton setHidden:NO];
 }
 
 - (void)updateUnreadCount
@@ -156,7 +160,7 @@
     });
 }
 
-- (void)contactConnectionStateUpdated:(ContactConnectionState)state forContact:(CKContact *)contact
+- (void)contactConnectionStateUpdated:(ContactState)state forContact:(CKContact *)contact
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         [self.contactListTableView reloadData];
@@ -218,10 +222,12 @@
 - (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
     CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:address
-        andDisplayName:name andPhoneNumber:number andContactState:ConnectionStateOffline];
+        andDisplayName:name andPhoneNumber:number andContactState:ContactStateIndeterminate];
     [[CKContactList sharedInstance] addContact:contact];
     
-    [self.chattaKit requestContactStatus:contact];
+    if (self.chattaKit.chattaState == ChattaStateConnected) {
+        [self.chattaKit requestContactStatus:contact];
+    }
     
     [self.contactListTableView reloadData];
 }
@@ -272,10 +278,10 @@
    viewForTableColumn:(NSTableColumn *)tableColumn 
                   row:(NSInteger)row
 {
-    ContactCellView *contactCell = [tableView makeViewWithIdentifier:@"contactCell" owner:self];
+    CKTableViewCellStyleDetailed *contactCell = [tableView makeViewWithIdentifier:@"contactCell" owner:self];
     if (contactCell == nil) {
         NSRect cellFrame = [tableView frameOfCellAtColumn:0 row:row];
-        contactCell = [[ContactCellView alloc] initWithFrame:cellFrame];
+        contactCell = [[CKTableViewCellStyleDetailed alloc] initWithFrame:cellFrame];
         contactCell.identifier = @"contactCell";
     }
     
@@ -284,18 +290,8 @@
         return nil;
     }
     
-    contactCell.displayName.stringValue = contact.displayName;
-    contactCell.connectionState = contact.connectionState;
-    
-    CKMessage *lastMessage = contact.messages.lastObject;
-    if (lastMessage == nil) {
-        contactCell.lastMessage.stringValue          = @"";
-        contactCell.lastMessageTimestamp.stringValue = @"";
-        return contactCell;
-    }
-    contactCell.lastMessage.stringValue          = lastMessage.text;
-    contactCell.lastMessageTimestamp.stringValue = lastMessage.timestampString;
-    contactCell.unreadMessageCount               = contact.unreadCount;
+    // update contact for cell
+    contactCell.contact = contact;
 
     return contactCell;
 }
@@ -308,6 +304,11 @@
     selectedContact.unreadCount = 0;
     [self updateUnreadCount];
     [self.contactListTableView reloadData];
+    
+    // make textfield first responder
+    if (self.delegate != nil) {
+        [self.delegate makeTextFieldFirstResponder];
+    }
 }
 
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
@@ -343,30 +344,36 @@
     // update selected contact
     CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
-    CKDebug(@"tableViewSelectionDidChange: %li", self.contactListTableView.selectedRow);
+    self.detailViewController.enabled =
+        (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
+    CKDebug(@"[+] tableViewSelectionDidChange: %li", self.contactListTableView.selectedRow);
     
     previouslySelectedRow = selectedRow;
 }
 
 - (IBAction)reloadData:(id)sender
 {
+    /*
     CKContactList *contactList = [CKContactList sharedInstance];
     NSUInteger contactCount = contactList.count;
     if (contactCount > 0) {
         CKContact *tmp = [contactList contactWithIndex:arc4random_uniform((unsigned int)contactCount)];
         tmp.unreadCount = arc4random_uniform(contactCount);
-    }    
+    }
+    */
+    [self loadFakeData];
     [self.contactListTableView reloadData];
 }
 
 - (void)loadFakeData
 {
     CKContact *me = [CKContactList sharedInstance].me;
+    me.displayName = @"Me";
     
     // fake contact #1
     CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
         andDisplayName:@"John Smith" andPhoneNumber:@"+18005551212"
-        andContactState:ConnectionStateOnline];
+        andContactState:ContactStateOnline];
     CKMessage *message1 = [[CKMessage alloc] initWithContact:contact timestamp:[NSDate date]
         messageText:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius"];
     [contact addMessage:message1];
@@ -375,7 +382,7 @@
     // fake contact #2
     CKContact *contact2 = [[CKContact alloc] initWithJabberIdentifier:@"a.vandelay@gmail.com"
         andDisplayName:@"Art Vandelay" andPhoneNumber:@"+18005551111"
-        andContactState:ConnectionStateOffline];
+        andContactState:ContactStateOffline];
     CKMessage *message2 = [[CKMessage alloc] initWithContact:me timestamp:[NSDate date]
         messageText:@"Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud"];
     [contact2 addMessage:message2];
@@ -384,7 +391,7 @@
     // fake contact #3
     CKContact *contact3 = [[CKContact alloc] initWithJabberIdentifier:@"bender@gmail.com"
         andDisplayName:@"Bender Rodriguez" andPhoneNumber:@"+18005552222"
-        andContactState:ConnectionStateIndeterminate];
+        andContactState:ContactStateIndeterminate];
     CKMessage *message3 = [[CKMessage alloc] initWithContact:me timestamp:[NSDate date]
         messageText:@"ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute iru"];
     [contact3 addMessage:message3];
