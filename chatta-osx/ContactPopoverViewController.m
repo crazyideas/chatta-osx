@@ -9,26 +9,24 @@
 
 @implementation ContactPopoverViewController
 
-@synthesize popoverType           = _popoverType;
-@synthesize contact               = _contact;
-@synthesize phoneNumberFormatter  = _phoneNumberFormatter;
-@synthesize emailAddressFormatter = _emailAddressFormatter;
-@synthesize delegate              = _delegate;
-@synthesize titleTextField        = _titleTextField;
-@synthesize leftButton            = _leftButton;
-@synthesize rightButton           = _rightButton;
-@synthesize nameTextField         = _nameTextField;
-@synthesize emailTextField        = _emailTextField;
-@synthesize phoneTextField        = _phoneTextField;
-@synthesize emailTokenField = _emailTokenField;
+- (NSString *)emailFromTokenField
+{
+    NSArray *tokens = self.emailTokenField.objectValue;
+    
+    if (tokens == nil || tokens.count < 1) {
+        return @"";
+    }
+    
+    return [self.emailTokenField.objectValue objectAtIndex:0];
+}
 
 #pragma mark - Properties
 
 - (void)setContact:(CKContact *)contact
 {
-    self.nameTextField.stringValue  = (contact.displayName)      ? contact.displayName      : @"";
-    self.emailTextField.stringValue = (contact.jabberIdentifier) ? contact.jabberIdentifier : @"";
-    self.phoneTextField.stringValue =
+    self.nameTextField.stringValue   = (contact.displayName)      ? contact.displayName      : @"";
+    self.emailTokenField.objectValue = (contact.jabberIdentifier) ? contact.jabberIdentifier : @"";
+    self.phoneTextField.stringValue  =
         [CKPhoneNumberFormatter phoneNumberInDisplayFormat:contact.phoneNumber];
     
     _contact = contact;
@@ -76,12 +74,16 @@
 
 - (void)awakeFromNib
 {
-    self.nameTextField.delegate  = self;
-    self.emailTextField.delegate = self;
-    self.phoneTextField.delegate = self;
+    self.nameTextField.delegate   = self;
+    //self.emailTextField.delegate  = self;
+    self.phoneTextField.delegate  = self;
+    self.emailTokenField.delegate = self;
+    
+    self.emailTokenField.tokenStyle = NSPlainTextTokenStyle;
     
     self.phoneTextField.formatter = self.phoneNumberFormatter;
-    self.emailTextField.formatter = self.emailAddressFormatter;
+    //self.emailTokenField.formatter = self.emailAddressFormatter;
+    //self.emailTextField.formatter = self.emailAddressFormatter;
     
     self.titleTextField.textColor = [NSColor grayColor];
 }
@@ -92,13 +94,14 @@
 {
     NSString *servicePhoneNumber =
         [CKPhoneNumberFormatter phoneNumberInServiceFormat:self.phoneTextField.stringValue];
-    
+    NSString *contactEmailAddress = [self emailFromTokenField];
+
     switch (self.popoverType) {
         case PopoverTypeAddContact:
         {
             if (self.delegate != nil) {
                 [self.delegate addContactWithName:self.nameTextField.stringValue 
-                                            email:self.emailTextField.stringValue 
+                                            email:contactEmailAddress 
                                             phone:servicePhoneNumber];
                 
                 [self.delegate closePopover];
@@ -110,7 +113,7 @@
             if (self.delegate != nil) {                
                 [self.delegate updateContact:self.contact 
                                     withName:self.nameTextField.stringValue 
-                                       email:self.emailTextField.stringValue 
+                                       email:contactEmailAddress 
                                        phone:servicePhoneNumber];
                 
                 [self.delegate closePopover];
@@ -135,12 +138,14 @@
 
 - (void)controlTextDidChange:(NSNotification *)object
 {
+    NSString *contactEmailAddress = [self emailFromTokenField];
+
     BOOL nameValid  = NO;
     BOOL emailValid = NO;
     BOOL phoneValid = NO;
     
     nameValid = (self.nameTextField.stringValue.length > 0) ? YES : NO;
-    emailValid = [CKEmailAddressFormatter isValidEmailAddress:self.emailTextField.stringValue];
+    emailValid = [CKEmailAddressFormatter isValidEmailAddress:contactEmailAddress];
     phoneValid = [CKPhoneNumberFormatter isValidPhoneNumber:self.phoneTextField.stringValue];
     
     if (nameValid && emailValid && phoneValid) {
@@ -150,16 +155,38 @@
     }
 }
 
+#pragma mark - NSTokenField Delegates
+
+- (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring
+           indexOfToken:(NSInteger)tokenIndex indexOfSelectedItem:(NSInteger *)selectedIndex
+{
+    CKRoster *xmppRoster = [self.chattaKit requestXmppRoster];
+    if (xmppRoster == nil) {
+        return nil;
+    }
+    
+    NSUInteger rosterSize = xmppRoster.roster.count;
+    NSMutableArray *rosterIdentifiers = [[NSMutableArray alloc] initWithCapacity:rosterSize];
+    for (CKRosterItem *rosterItem in xmppRoster.roster) {
+        [rosterIdentifiers addObject:rosterItem.bareJabberIdentifier];
+    }
+    
+    NSArray *matchingItems = [rosterIdentifiers filteredArrayUsingPredicate:
+        [NSPredicate predicateWithFormat:@"SELF beginswith[cd] %@", substring]];
+    
+    return matchingItems;
+}
+
 #pragma mark - NSPopover Delegates
 
 - (void)popoverWillShow:(NSNotification *)notification
-{    
+{
     switch (self.popoverType) {
         case PopoverTypeAddContact:
         {
-            self.nameTextField.stringValue  = @"";
-            self.phoneTextField.stringValue = @"";
-            self.emailTextField.stringValue = @"";
+            self.nameTextField.stringValue   = @"";
+            self.phoneTextField.stringValue  = @"";
+            self.emailTokenField.objectValue = @"";
             [self.rightButton setEnabled:NO];
             break;
         }
@@ -176,14 +203,17 @@
 
 - (void)popoverDidShow:(NSNotification *)notification
 {
+    return;
 }
 
 - (void)popoverWillClose:(NSNotification *)notification
 {
+    return;
 }
 
 - (void)popoverDidClose:(NSNotification *)notification
 {
+    return;
 }
 
 

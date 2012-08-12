@@ -80,6 +80,8 @@
     self.settingsPopoverViewController.delegate = self;
     self.contactPopoverViewController.delegate  = self;
     
+    self.contactPopoverViewController.chattaKit = self.chattaKit;
+    
     [CKContactList sharedInstance].delegate = self;
     
     [self.minusButton setEnabled:NO];

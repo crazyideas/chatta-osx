@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ChattaKit.h"
 #import "CKContact.h"
 #import "CKPhoneNumberFormatter.h"
 #import "CKEmailAddressFormatter.h"
@@ -27,6 +28,7 @@ typedef enum {
 } PopoverType;
 
 @property (nonatomic) PopoverType popoverType;
+@property (nonatomic, strong) ChattaKit *chattaKit;
 @property (nonatomic, strong) CKContact *contact;
 @property (nonatomic, strong) CKPhoneNumberFormatter *phoneNumberFormatter;
 @property (nonatomic, strong) CKEmailAddressFormatter *emailAddressFormatter;
@@ -37,7 +39,7 @@ typedef enum {
 @property (weak) IBOutlet NSButton *leftButton;
 
 @property (weak) IBOutlet NSTextField *nameTextField;
-@property (weak) IBOutlet NSTextField *emailTextField;
+//@property (weak) IBOutlet NSTextField *emailTextField;
 @property (weak) IBOutlet NSTextField *phoneTextField;
 @property (weak) IBOutlet NSTokenField *emailTokenField;
 

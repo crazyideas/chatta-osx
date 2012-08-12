@@ -85,9 +85,6 @@
 		27D74F3C15BE6AEF009F522A /* CKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKView.m; sourceTree = "<group>"; };
 		27D74F5F15BF9624009F522A /* CKProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKProgressIndicator.h; sourceTree = "<group>"; };
 		27D74F6015BF9624009F522A /* CKProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKProgressIndicator.m; sourceTree = "<group>"; };
-		27D74F7D15BFA0CC009F522A /* light_texture_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_texture_1.png; sourceTree = "<group>"; };
-		27D74F7E15BFA0CC009F522A /* light_texture_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_texture_2.png; sourceTree = "<group>"; };
-		27D74F7F15BFA0CC009F522A /* light_texture_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_texture_0.png; sourceTree = "<group>"; };
 		27DA222415ABCBBA00CEB105 /* chatta-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatta-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DA222815ABCBBA00CEB105 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		27DA222B15ABCBBA00CEB105 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -169,16 +166,6 @@
 			name = CustomViews;
 			sourceTree = "<group>";
 		};
-		27D74F7C15BFA0B6009F522A /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				27D74F7F15BFA0CC009F522A /* light_texture_0.png */,
-				27D74F7D15BFA0CC009F522A /* light_texture_1.png */,
-				27D74F7E15BFA0CC009F522A /* light_texture_2.png */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
 		27DA221915ABCBBA00CEB105 = {
 			isa = PBXGroup;
 			children = (
@@ -236,7 +223,6 @@
 		27DA222F15ABCBBA00CEB105 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				27D74F7C15BFA0B6009F522A /* Images */,
 				2792010415B9272D006CC188 /* Cookie-Regular.ttf */,
 				2712B39915B26C0C00D73FEA /* background.png */,
 				2739578C15D2344100936339 /* status.png */,
