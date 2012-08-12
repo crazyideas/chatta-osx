@@ -62,7 +62,7 @@
     self.chattaKit.delegate = self;
     
     [self showConfigureSheet:self.window];
-    
+        
     [CKPersistence loadContactsFromPersistentStorage];
     [self.masterViewController.contactListTableView reloadData];
 }
@@ -106,7 +106,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 - (void)configurationSheetDidComplete
 {
     [NSApp endSheet:self.configureSheet];
-    
+        
     // if the user has resized the window already, don't resize it again
     if (self.window.frame.size.width > 480 && self.window.frame.size.height > 270) {
         return;
@@ -117,8 +117,8 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
     [self.splitView adjustSubviews];
     
     // adjust window location
-    CGFloat sizeX = 850;
-    CGFloat sizeY = 650;
+    CGFloat sizeX = self.window.screen.frame.size.width  * 0.5; // ~850;
+    CGFloat sizeY = self.window.screen.frame.size.height * 0.6; // ~650;
     CGFloat originX = ((self.window.screen.frame.size.width)  / 2) - (sizeX / 2);
     CGFloat originY = ((self.window.screen.frame.size.height) / 2) - (sizeY / 2) + 55;
 
@@ -174,7 +174,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 
 - (void)makeTextFieldFirstResponder
 {
-    [[self window] makeFirstResponder:self.detailViewController.messagesInputTextField];
+    [self.window makeFirstResponder:self.detailViewController.messagesInputTextField];
 }
 
 #pragma mark - Sheet Methods
@@ -207,8 +207,12 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
 - (void)receivedWakeNotification:(NSNotification *)notification
 {
     [self loginToChatta];
-    self.configureViewController.usernameTextField.stringValue = self.username;
-    self.configureViewController.passwordTextField.stringValue = self.password;
+    
+    self.configureViewController.usernameTextField.stringValue =
+        (self.username) ? self.username : @"";
+    self.configureViewController.passwordTextField.stringValue =
+        (self.password) ? self.password : @"";
+    
     [self.configureViewController firstNextPushed:self];
 }
 

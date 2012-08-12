@@ -17,7 +17,7 @@
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact;
 @end
 
-@interface DetailViewController : NSViewController <NSTextViewDelegate>
+@interface DetailViewController : NSViewController <NSTextFieldDelegate>
 
 @property (unsafe_unretained) IBOutlet CKTextView *messagesTextView;
 @property (weak) IBOutlet NSTextField *messagesInputTextField;

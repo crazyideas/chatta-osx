@@ -53,7 +53,7 @@
 
 - (void)awakeFromNib
 {
-    self.messagesTextView.delegate = self;
+    self.messagesInputTextField.delegate = self;
     self.messagesTextView.textContainerInset = NSMakeSize(1.0, 3.0);
 }
 
@@ -115,17 +115,20 @@
     });
 }
 
-#pragma mark - NSTextView Delegate
+#pragma mark - NSTextField Delegates
 
-- (void)textView:(NSTextView *)textView clickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellFrame atIndex:(NSUInteger)charIndex
+- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
 {
-    CKDebug(@"clicked");
-
+    NSTextView *textView = (NSTextView *)fieldEditor;
+    [textView setContinuousSpellCheckingEnabled:YES];
+    return YES;
 }
 
-- (void)textView:(NSTextView *)textView clickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellFrame
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
-    CKDebug(@"clicked");
+    NSTextView *textView = (NSTextView *)fieldEditor;
+    [textView setContinuousSpellCheckingEnabled:NO];
+    return YES;
 }
 
 @end

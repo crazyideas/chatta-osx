@@ -76,6 +76,7 @@
     [self loginStopped];
     self.usernameTextField.stringValue = @"";
     self.passwordTextField.stringValue = @"";
+    [self.usernameTextField resignFirstResponder];
 }
 
 - (void)validateFieldsAndUpdateButtons

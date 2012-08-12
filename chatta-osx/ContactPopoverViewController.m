@@ -20,6 +20,7 @@
 @synthesize nameTextField         = _nameTextField;
 @synthesize emailTextField        = _emailTextField;
 @synthesize phoneTextField        = _phoneTextField;
+@synthesize emailTokenField = _emailTokenField;
 
 #pragma mark - Properties
 

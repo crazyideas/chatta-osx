@@ -114,6 +114,13 @@
     }
 }
 
+- (void)makeTextFieldFirstResponder
+{
+    if (self.delegate != nil) {
+        [self.delegate makeTextFieldFirstResponder];
+    }
+}
+
 #pragma mark - CKContactList Delegates
 
 - (void)addedContact:(CKContact *)contact

@@ -100,4 +100,45 @@
     }
 }
 
+
+- (void)drawSelectionInRect:(NSRect)dirtyRect
+{
+    CGFloat strokeOffset = 0.5;
+
+    // draw selection gradient
+    NSBezierPath *clipRect = [NSBezierPath bezierPathWithRect:self.bounds];
+    
+    NSColor *gradientStart = [NSColor colorWithCalibratedRed:44/255.0 green:113/255.0 blue:200/255.0 alpha:1.0];
+    NSColor *gradientEnd   = [NSColor colorWithCalibratedRed:88/255.0 green:159/255.0 blue:222/255.0 alpha:1.0];
+    
+    NSGradient *gradient   = [[NSGradient alloc] initWithStartingColor:gradientStart endingColor:gradientEnd];
+    
+    [gradient drawInBezierPath:clipRect angle:270.0];
+    
+    // draw selection etching
+    CGFloat primaryEtchingOffset   = self.bounds.size.height + 0;
+    CGFloat secondaryEtchingOffset = self.bounds.size.height - 1;
+
+    NSColor *primarySelectionEtchingColor =
+        [NSColor colorWithCalibratedRed:76/255.0 green:146/255.0 blue:215/255.0 alpha:1.0];
+    NSColor *secondarySelectionEtchingColor =
+        [NSColor colorWithCalibratedRed:96/255.0 green:169/255.0 blue:228/255.0 alpha:1.0];
+
+    // draw a primary selection etching
+    NSRect  drawRect  = [self separatorRectWithOffset:(-primaryEtchingOffset + strokeOffset)];
+    NSPoint lineStart = NSMakePoint(drawRect.origin.x, drawRect.origin.y);
+    NSPoint lineEnd   = NSMakePoint(drawRect.origin.x + drawRect.size.width, drawRect.origin.y);
+    [NSBezierPath setDefaultLineWidth:0.0];
+    [primarySelectionEtchingColor setStroke];
+    [NSBezierPath strokeLineFromPoint:lineStart toPoint:lineEnd];
+        
+    // draw a secondary selection etching
+    drawRect  = [self separatorRectWithOffset:(-secondaryEtchingOffset + strokeOffset)];
+    lineStart = NSMakePoint(drawRect.origin.x, drawRect.origin.y);
+    lineEnd   = NSMakePoint(drawRect.origin.x + drawRect.size.width, drawRect.origin.y);
+    [NSBezierPath setDefaultLineWidth:0.0];
+    [secondarySelectionEtchingColor setStroke];
+    [NSBezierPath strokeLineFromPoint:lineStart toPoint:lineEnd];
+}
+
 @end

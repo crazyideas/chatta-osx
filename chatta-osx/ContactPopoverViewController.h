@@ -18,7 +18,8 @@
 - (void)closePopover;
 @end
 
-@interface ContactPopoverViewController : NSViewController <NSPopoverDelegate, NSTextFieldDelegate>
+@interface ContactPopoverViewController : NSViewController <NSPopoverDelegate, NSTextFieldDelegate,
+                                                            NSTokenFieldDelegate>
 
 typedef enum {
     PopoverTypeAddContact,
@@ -38,6 +39,7 @@ typedef enum {
 @property (weak) IBOutlet NSTextField *nameTextField;
 @property (weak) IBOutlet NSTextField *emailTextField;
 @property (weak) IBOutlet NSTextField *phoneTextField;
+@property (weak) IBOutlet NSTokenField *emailTokenField;
 
 - (IBAction)rightButtonPushed:(id)sender;
 - (IBAction)leftButtonPushed:(id)sender;
