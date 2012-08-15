@@ -370,8 +370,8 @@
         tmp.unreadCount = arc4random_uniform(contactCount);
     }
     */
-    [self loadFakeData];
-    [self.contactListTableView reloadData];
+    //[self loadFakeData];
+    //[self.contactListTableView reloadData];
 }
 
 - (void)loadFakeData

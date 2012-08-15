@@ -75,15 +75,12 @@
 - (void)awakeFromNib
 {
     self.nameTextField.delegate   = self;
-    //self.emailTextField.delegate  = self;
     self.phoneTextField.delegate  = self;
     self.emailTokenField.delegate = self;
     
     self.emailTokenField.tokenStyle = NSPlainTextTokenStyle;
     
     self.phoneTextField.formatter = self.phoneNumberFormatter;
-    //self.emailTokenField.formatter = self.emailAddressFormatter;
-    //self.emailTextField.formatter = self.emailAddressFormatter;
     
     self.titleTextField.textColor = [NSColor grayColor];
 }
@@ -101,8 +98,7 @@
         {
             if (self.delegate != nil) {
                 [self.delegate addContactWithName:self.nameTextField.stringValue 
-                                            email:contactEmailAddress 
-                                            phone:servicePhoneNumber];
+                    email:contactEmailAddress phone:servicePhoneNumber];
                 
                 [self.delegate closePopover];
             }
@@ -111,10 +107,8 @@
         case PopoverTypeUpdateContact:
         {
             if (self.delegate != nil) {                
-                [self.delegate updateContact:self.contact 
-                                    withName:self.nameTextField.stringValue 
-                                       email:contactEmailAddress 
-                                       phone:servicePhoneNumber];
+                [self.delegate updateContact:self.contact withName:self.nameTextField.stringValue
+                    email:contactEmailAddress phone:servicePhoneNumber];
                 
                 [self.delegate closePopover];
             }

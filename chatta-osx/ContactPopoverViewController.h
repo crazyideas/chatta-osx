@@ -39,7 +39,6 @@ typedef enum {
 @property (weak) IBOutlet NSButton *leftButton;
 
 @property (weak) IBOutlet NSTextField *nameTextField;
-//@property (weak) IBOutlet NSTextField *emailTextField;
 @property (weak) IBOutlet NSTextField *phoneTextField;
 @property (weak) IBOutlet NSTokenField *emailTokenField;
 

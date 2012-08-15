@@ -21,6 +21,7 @@
 		2792010615B92734006CC188 /* Cookie-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
 		27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */; };
 		27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */; };
+		27A6484715DA28B800596713 /* libtidy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A6484615DA28B800596713 /* libtidy.dylib */; };
 		27BAF53A15C5D6DF009B12F3 /* CKTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BAF53915C5D6DF009B12F3 /* CKTableRowView.m */; };
 		27BAF56215C602EC009B12F3 /* CKTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BAF56115C602EC009B12F3 /* CKTableView.m */; };
 		27D74F3D15BE6AEF009F522A /* CKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D74F3C15BE6AEF009F522A /* CKView.m */; };
@@ -77,6 +78,7 @@
 		27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPopoverViewController.h; sourceTree = "<group>"; };
 		27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPopoverViewController.m; sourceTree = "<group>"; };
 		27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsPopoverViewController.xib; sourceTree = "<group>"; };
+		27A6484615DA28B800596713 /* libtidy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtidy.dylib; path = usr/lib/libtidy.dylib; sourceTree = SDKROOT; };
 		27BAF53815C5D6DF009B12F3 /* CKTableRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableRowView.h; sourceTree = "<group>"; };
 		27BAF53915C5D6DF009B12F3 /* CKTableRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTableRowView.m; sourceTree = "<group>"; };
 		27BAF56015C602EC009B12F3 /* CKTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableView.h; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27A6484715DA28B800596713 /* libtidy.dylib in Frameworks */,
 				274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */,
 				2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */,
 				27DA222915ABCBBA00CEB105 /* Cocoa.framework in Frameworks */,
@@ -169,6 +172,7 @@
 		27DA221915ABCBBA00CEB105 = {
 			isa = PBXGroup;
 			children = (
+				27A6484615DA28B800596713 /* libtidy.dylib */,
 				274D907A15BB2E2D002C168A /* libChattaKit.a */,
 				2712B37C15B263D000D73FEA /* QuartzCore.framework */,
 				27DA222E15ABCBBA00CEB105 /* chatta-osx */,
@@ -462,6 +466,7 @@
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
+					"-ltidy",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -484,6 +489,7 @@
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
+					"-ltidy",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
