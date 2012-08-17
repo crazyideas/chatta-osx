@@ -6,7 +6,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ChattaKit.h"
+
+@class ChattaKit;
 
 @protocol SettingsPopoverDelegate <NSObject>
 @optional

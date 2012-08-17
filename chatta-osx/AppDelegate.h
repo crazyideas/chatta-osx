@@ -12,5 +12,6 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (strong, nonatomic) RootWindowController *rootWindowController;
+- (IBAction)toggleDebugPanelPressed:(id)sender;
 
 @end

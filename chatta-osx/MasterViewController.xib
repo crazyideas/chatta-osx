@@ -123,7 +123,7 @@
 							<int key="NSCellFlags2">138413056</int>
 							<string key="NSContents"/>
 							<object class="NSFont" key="NSSupport">
-								<string key="NSName">Helvetica</string>
+								<string key="NSName">Helvetica-Bold</string>
 								<double key="NSSize">14</double>
 								<int key="NSfFlags">16</int>
 							</object>

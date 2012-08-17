@@ -14,6 +14,11 @@
 #import "CKTableView.h"
 #import "CKRoster.h"
 #import "CKRosterItem.h"
+#import "SettingsPopoverViewController.h"
+#import "DetailViewController.h"
+#import "ContactPopoverViewController.h"
+#import "ChattaKit.h"
+
 
 @implementation MasterViewController
 
@@ -89,7 +94,7 @@
     previouslySelectedRow = -1;
     
     // for debugging
-    [self.refreshButton setHidden:NO];
+    [self.refreshButton setHidden:YES];
 }
 
 - (void)updateUnreadCount
@@ -110,7 +115,7 @@
 
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact
 {
-    CKDebug(@"sendNewMessage: %@, to contact: %@", message, contact);
+    CKDebug(@"[+] sending message: %@, to contact: %@", message, contact);
     if (self.chattaKit != nil) {
         [self.chattaKit sendMessage:message toContact:contact];
     }
@@ -142,8 +147,8 @@
 - (void)newMessage:(CKMessage *)message forContact:(CKContact *)contact
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        __weak MasterViewController *weak_self = self;
-        NSInteger selectedRow = weak_self.contactListTableView.selectedRow;
+        __block MasterViewController *block_self = self;
+        NSInteger selectedRow = block_self.contactListTableView.selectedRow;
         CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
         
         // if new message is not for the selected contact, update unread count
@@ -152,7 +157,7 @@
         }
         
         // if window is not visible, update docktile
-        if (!weak_self.isVisible) {
+        if (!block_self.isVisible) {
             NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
             int dockValue = ([dockTile.badgeLabel isEqualToString:@""])
                 ? 0 : [dockTile.badgeLabel intValue];
@@ -161,11 +166,11 @@
         
         // if new message is for selected contact, update detailViewController
         if ([selectedContact isEqualToContact:contact]) {
-            [self.detailViewController updateTextViewWithNewMessage:message];
+            [block_self.detailViewController updateTextViewWithNewMessage:message];
         }
         
-        [weak_self updateUnreadCount];
-        [weak_self.contactListTableView reloadData];
+        [block_self updateUnreadCount];
+        [block_self.contactListTableView reloadData];
     });
 }
 

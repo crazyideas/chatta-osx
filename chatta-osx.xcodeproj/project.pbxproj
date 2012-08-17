@@ -10,6 +10,7 @@
 		2700383E15CA2A8E00F2320C /* CKPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 2700383D15CA2A8E00F2320C /* CKPersistence.m */; };
 		2712B39A15B26C0C00D73FEA /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B39915B26C0C00D73FEA /* background.png */; };
 		2739578D15D2344100936339 /* status.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739578C15D2344100936339 /* status.png */; };
+		273F01E715DB7FCE0028FBCB /* chatta_nobrand.icns in Resources */ = {isa = PBXBuildFile; fileRef = 273F01E615DB7FCE0028FBCB /* chatta_nobrand.icns */; };
 		2742591515C8D8ED00648E02 /* CKViewAnimationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742591415C8D8ED00648E02 /* CKViewAnimationUtility.m */; };
 		274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274D907A15BB2E2D002C168A /* libChattaKit.a */; };
 		2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2712B37C15B263D000D73FEA /* QuartzCore.framework */; };
@@ -19,6 +20,7 @@
 		279200C515B7D520006CC188 /* CKEmailAddressFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 279200C415B7D520006CC188 /* CKEmailAddressFormatter.m */; };
 		2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
 		2792010615B92734006CC188 /* Cookie-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
+		279D743215DE084E0073EB04 /* chatta_icon6.icns in Resources */ = {isa = PBXBuildFile; fileRef = 279D743115DE084E0073EB04 /* chatta_icon6.icns */; };
 		27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */; };
 		27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */; };
 		27A6484715DA28B800596713 /* libtidy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A6484615DA28B800596713 /* libtidy.dylib */; };
@@ -64,6 +66,7 @@
 		2712B37C15B263D000D73FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2712B39915B26C0C00D73FEA /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		2739578C15D2344100936339 /* status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status.png; sourceTree = "<group>"; };
+		273F01E615DB7FCE0028FBCB /* chatta_nobrand.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = chatta_nobrand.icns; sourceTree = "<group>"; };
 		2742591315C8D8ED00648E02 /* CKViewAnimationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKViewAnimationUtility.h; sourceTree = "<group>"; };
 		2742591415C8D8ED00648E02 /* CKViewAnimationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKViewAnimationUtility.m; sourceTree = "<group>"; };
 		274D907A15BB2E2D002C168A /* libChattaKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libChattaKit.a; path = "../../../Library/Developer/Xcode/DerivedData/chatta-fmqjzekevcvcawcwydtxhxcpyluh/Build/Products/Debug/libChattaKit.a"; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 		279200C315B7D520006CC188 /* CKEmailAddressFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKEmailAddressFormatter.h; sourceTree = "<group>"; };
 		279200C415B7D520006CC188 /* CKEmailAddressFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKEmailAddressFormatter.m; sourceTree = "<group>"; };
 		2792010415B9272D006CC188 /* Cookie-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cookie-Regular.ttf"; sourceTree = "<group>"; };
+		279D743115DE084E0073EB04 /* chatta_icon6.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = chatta_icon6.icns; sourceTree = "<group>"; };
 		27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPopoverViewController.h; sourceTree = "<group>"; };
 		27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPopoverViewController.m; sourceTree = "<group>"; };
 		27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsPopoverViewController.xib; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 		27DA221915ABCBBA00CEB105 = {
 			isa = PBXGroup;
 			children = (
+				279D743115DE084E0073EB04 /* chatta_icon6.icns */,
 				27A6484615DA28B800596713 /* libtidy.dylib */,
 				274D907A15BB2E2D002C168A /* libChattaKit.a */,
 				2712B37C15B263D000D73FEA /* QuartzCore.framework */,
@@ -230,6 +235,7 @@
 				2792010415B9272D006CC188 /* Cookie-Regular.ttf */,
 				2712B39915B26C0C00D73FEA /* background.png */,
 				2739578C15D2344100936339 /* status.png */,
+				273F01E615DB7FCE0028FBCB /* chatta_nobrand.icns */,
 				27DA223015ABCBBA00CEB105 /* chatta-osx-Info.plist */,
 				27DA223115ABCBBA00CEB105 /* InfoPlist.strings */,
 				27DA223415ABCBBA00CEB105 /* main.m */,
@@ -343,6 +349,8 @@
 				27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */,
 				2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */,
 				2739578D15D2344100936339 /* status.png in Resources */,
+				273F01E715DB7FCE0028FBCB /* chatta_nobrand.icns in Resources */,
+				279D743215DE084E0073EB04 /* chatta_icon6.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +436,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -448,7 +456,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -469,7 +477,7 @@
 					"-ltidy",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -492,7 +500,7 @@
 					"-ltidy",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				WRAPPER_EXTENSION = app;
 			};

@@ -5,9 +5,14 @@
 //  Copyright (c) 2012 CRAZY IDEAS. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "CKTableViewCellStyleDetailed.h"
 #import "CKViewAnimationUtility.h"
-#import <QuartzCore/QuartzCore.h>
+
+#import "CKContact.h"
+#import "CKMessage.h"
+
 
 @implementation CKTableViewCellStyleDetailed
 
@@ -35,11 +40,11 @@
     
     if (animated) {
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-            __weak CKTableViewCellStyleDetailed *weak_self = self;
+            __block CKTableViewCellStyleDetailed *block_self = self;
             context.duration = 0.22;
             NSPoint newPosition =
                 [[[self connectionStateLookup] objectForKey:stateNumber] pointValue];
-            [weak_self.connectionStateImageView.animator setFrameOrigin:newPosition];
+            [block_self.connectionStateImageView.animator setFrameOrigin:newPosition];
         } completionHandler:nil];
     }
     // not animated

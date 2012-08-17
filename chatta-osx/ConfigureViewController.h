@@ -6,8 +6,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "CKEmailAddressFormatter.h"
-#import "CKProgressIndicator.h"
+
+@class CKEmailAddressFormatter;
+@class CKProgressIndicator;
 
 @protocol ConfigureViewDelegate <NSObject>
 @optional
@@ -28,6 +29,7 @@
 @property (weak) IBOutlet NSButton *firstCancelButton;
 @property (weak) IBOutlet NSButton *firstPreviousButton;
 @property (weak) IBOutlet NSButton *firstNextButton;
+@property (weak) IBOutlet NSTextField *errorLabel;
 
 - (void)showLoginView;
 - (void)showContactImportView;
@@ -38,6 +40,7 @@
 - (void)configureSheetWillOpen;
 - (void)configureSheetWillClose;
 - (void)validateFieldsAndUpdateButtons;
+- (void)showErrorLabel:(BOOL)showErrorLabel;
 
 - (IBAction)firstNextPushed:(id)sender;
 - (IBAction)firstCancelPushed:(id)sender;

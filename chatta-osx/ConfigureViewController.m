@@ -6,6 +6,8 @@
 //
 
 #import "ConfigureViewController.h"
+#import "CKEmailAddressFormatter.h"
+#import "CKProgressIndicator.h"
 #import "CKView.h"
 
 @implementation ConfigureViewController
@@ -19,6 +21,7 @@
 @synthesize firstCancelButton      = _firstCancelButton;
 @synthesize firstPreviousButton    = _firstPreviousPressed;
 @synthesize firstNextButton        = _firstNextButton;
+@synthesize errorLabel = _errorLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +37,11 @@
 {    
     self.chattaTextField.font = [NSFont fontWithName:@"Cookie-Regular" size:60];
     self.chattaTextField.textColor = [NSColor colorWithCalibratedRed:90/255.0 green:67/255.0 blue:210/255.0 alpha:1.0];
+    
+    self.errorLabel.stringValue = @"Unable to login, try again?";
+    self.errorLabel.textColor = [NSColor redColor];
+    
+    [self showErrorLabel:NO];
     
     self.passwordTextField.delegate = self;
     self.usernameTextField.delegate = self;
@@ -52,6 +60,8 @@
     self.loginProgressIndicator.usesThreadedAnimation = YES;
     [self.loginProgressIndicator startAnimation:self];
     
+    [self showErrorLabel:NO];
+    
     [self.usernameTextField setEnabled:NO];
     [self.passwordTextField setEnabled:NO];
     [self.firstNextButton setEnabled:NO];
@@ -59,6 +69,7 @@
 
 - (void)loginStopped
 {
+    [self showErrorLabel:YES];
     [self.loginProgressIndicator stopAnimation:self];
     [self.usernameTextField setEnabled:YES];
     [self.passwordTextField setEnabled:YES];
@@ -67,6 +78,7 @@
 
 - (void)configureSheetWillOpen
 {
+    [self showErrorLabel:NO];
     [self validateFieldsAndUpdateButtons];
     [self.usernameTextField becomeFirstResponder];
 }
@@ -103,6 +115,13 @@
     [self.firstNextButton setEnabled:usernameValid && passwordValid];
     [self.firstPreviousButton setEnabled:NO];
 }
+
+- (void)showErrorLabel:(BOOL)showErrorLabel
+{
+    [self.loginProgressIndicator setHidden:showErrorLabel];
+    [self.errorLabel setHidden:!showErrorLabel];
+}
+
 
 #pragma mark - NSTextFieldDelegate
 

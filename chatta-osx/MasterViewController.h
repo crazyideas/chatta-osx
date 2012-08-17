@@ -6,12 +6,21 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "DetailViewController.h"
+
+#import "CKTableView.h"
 #import "ContactPopoverViewController.h"
 #import "SettingsPopoverViewController.h"
-#import "CKTableView.h"
 #import "CKContactList.h"
-#import "ChattaKit.h"
+#import "DetailViewController.h"
+
+@protocol ContactPopoverDelegate;
+@protocol SettingsPopoverDelegate;
+@protocol CKContactListDelegate;
+@protocol DetailViewDelegate;
+@protocol CKTableViewDelegate;
+
+@class DetailViewController;
+@class ChattaKit;
 
 
 @protocol MasterViewDelegate <NSObject>

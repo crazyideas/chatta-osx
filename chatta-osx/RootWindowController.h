@@ -6,11 +6,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "NSString+CKAdditions.h"
 #import "MasterViewController.h"
 #import "ConfigureViewController.h"
-#import "DetailViewController.h"
 #import "ChattaKit.h"
-#import "NSString+CKAdditions.h"
+
+@class DetailViewController;
 
 @interface RootWindowController : NSWindowController <NSSplitViewDelegate, NSWindowDelegate,
                                                       MasterViewDelegate, ConfigureViewDelegate,

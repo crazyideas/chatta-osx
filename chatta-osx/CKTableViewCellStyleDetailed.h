@@ -6,8 +6,9 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "CKContact.h"
-#import "CKMessage.h"
+
+@class CKContact;
+@class CKMessage;
 
 @interface CKTableViewCellStyleDetailed : NSTableCellView
 

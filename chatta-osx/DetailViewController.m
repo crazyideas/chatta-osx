@@ -6,6 +6,10 @@
 //
 
 #import "DetailViewController.h"
+#import "CKTextView.h"
+#import "CKScrollView.h"
+#import "CKContact.h"
+#import "CKMessage.h"
 
 @implementation DetailViewController
 
@@ -25,11 +29,13 @@
 - (void)setContact:(CKContact *)contact
 {
     if (contact == nil) {
+        self.messagesInputTextField.stringValue = @"";
         [self.messagesTextView.textStorage
             setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
     }
     else {
         // clear out textview
+        self.messagesInputTextField.stringValue = @"";
         [self.messagesTextView.textStorage
             setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
         // update textview

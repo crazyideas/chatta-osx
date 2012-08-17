@@ -6,10 +6,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ChattaKit.h"
-#import "CKContact.h"
-#import "CKPhoneNumberFormatter.h"
-#import "CKEmailAddressFormatter.h"
+
+@class ChattaKit;
+@class CKContact;
+@class CKPhoneNumberFormatter;
+@class CKEmailAddressFormatter;
+
 
 @protocol ContactPopoverDelegate <NSObject>
 @optional

@@ -9,6 +9,12 @@
 #import "CKPersistence.h"
 #import "CKContact.h"
 #import "CKMessage.h"
+#import "ChattaKit.h"
+#import "MasterViewController.h"
+#import "DetailViewController.h"
+#import "ConfigureViewController.h"
+#import "CKTableView.h"
+#import "CKContactList.h"
 
 @interface RootWindowController (PrivateMethods)
 - (void)showConfigureSheet:(NSWindow *)window;
@@ -45,7 +51,7 @@
 {    
     [super windowDidLoad];
     
-    self.debugPanel.isVisible = YES;
+    self.debugPanel.isVisible = NO;
         
     self.splitView.subviews = [NSArray arrayWithObjects:
         self.masterViewController.view, self.detailViewController.view, nil];

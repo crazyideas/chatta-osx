@@ -6,11 +6,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "CKTextView.h"
-#import "CKScrollView.h"
-#import "CKContactList.h"
-#import "CKContact.h"
-#import "CKMessage.h"
+
+@class CKTextView;
+@class CKScrollView;
+@class CKContactList;
+@class CKContact;
+@class CKMessage;
 
 @protocol DetailViewDelegate <NSObject>
 @optional

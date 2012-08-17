@@ -76,4 +76,10 @@
     [self.rootWindowController receivedWakeNotification:notification];
 }
 
+- (IBAction)toggleDebugPanelPressed:(id)sender
+{
+    self.rootWindowController.debugPanel.isVisible =
+        !self.rootWindowController.debugPanel.isVisible;
+}
+
 @end

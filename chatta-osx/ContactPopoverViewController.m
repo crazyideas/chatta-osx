@@ -6,6 +6,12 @@
 //
 
 #import "ContactPopoverViewController.h"
+#import "CKContact.h"
+#import "CKPhoneNumberFormatter.h"
+#import "CKEmailAddressFormatter.h"
+#import "CKRoster.h"
+#import "CKRosterItem.h"
+#import "ChattaKit.h"
 
 @implementation ContactPopoverViewController
 

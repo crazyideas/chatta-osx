@@ -11,8 +11,9 @@ Chatta is a hybrid OS X Text and Instant Messaging Application
 * Build Dependences
 
  * libxml2
+ * libtidy
 
-* Build Instructions 
+* Build Instructions
 
  1. Create new directory where you will be storing your build of `chatta-osx`. Open Terminal and type: `mkdir $HOME/projects/ck_project`
 
