@@ -58,6 +58,7 @@
 - (IBAction)settingsPushed:(id)sender;
 - (IBAction)removeContactPushed:(id)sender;
 
+- (void)clearLogsForSelectedContact;
 
 // tmp
 - (IBAction)reloadData:(id)sender;

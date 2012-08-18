@@ -111,6 +111,37 @@
     [NSString stringWithFormat:@"Unread (%li)", unreadMessages];
 }
 
+- (void)clearLogsForSelectedContact
+{
+    NSInteger selectedRow = self.contactListTableView.selectedRow;
+    if (selectedRow < 0) {
+        return;
+    }
+    
+    CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+    [selectedContact removeAllMessages];
+    
+    self.detailViewController.contact = selectedContact;
+    [self.contactListTableView reloadData];
+    
+    CKDebug(@"[+] cleared logs for contact: %@", selectedContact);
+}
+
+- (void)playNewMessageSound
+{
+    NSString *soundPath = @"/System/Library/Components/CoreAudio.component/Contents/"
+                           "SharedSupport/SystemSounds/system/burn complete.aif";
+    NSSound *sound = [[NSSound alloc] initWithContentsOfFile:soundPath byReference:YES];
+    if (sound == nil) {
+        soundPath = [[NSBundle mainBundle] pathForResource:@"chatta_new_message" ofType:@"wav"];
+        sound = [[NSSound alloc] initWithContentsOfFile:soundPath byReference:YES];
+    }
+    
+    if (sound != nil && sound.isPlaying == NO) {
+        [sound play];
+    }
+}
+
 #pragma mark - DetailViewController Delegate
 
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact
@@ -162,6 +193,8 @@
             int dockValue = ([dockTile.badgeLabel isEqualToString:@""])
                 ? 0 : [dockTile.badgeLabel intValue];
             dockTile.badgeLabel = [NSString stringWithFormat:@"%i", ++dockValue];
+            
+            [block_self playNewMessageSound];
         }
         
         // if new message is for selected contact, update detailViewController

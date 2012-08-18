@@ -6,6 +6,7 @@
 //
 
 #import "DetailViewController.h"
+#import "NSString+CKAdditions.h"
 #import "CKTextView.h"
 #import "CKScrollView.h"
 #import "CKContact.h"
@@ -43,7 +44,8 @@
             [self updateTextViewWithNewMessage:message];
         }
     }
-    
+
+    [self.messagesTextView setNeedsDisplay:YES];
     _contact = contact;
 }
 
@@ -72,7 +74,8 @@
     }
 
     if (self.delegate != nil) {
-        [self.delegate sendNewMessage:textField.stringValue toContact:self.contact];
+        NSString *trimmedString = [textField.stringValue stringByRemovingWhitespaceNewlineChars];
+        [self.delegate sendNewMessage:trimmedString toContact:self.contact];
     }
     
     textField.stringValue = @"";

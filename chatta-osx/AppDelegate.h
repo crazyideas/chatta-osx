@@ -10,8 +10,10 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
+//@property (assign) IBOutlet NSWindow *window;
 @property (strong, nonatomic) RootWindowController *rootWindowController;
-- (IBAction)toggleDebugPanelPressed:(id)sender;
+
+- (IBAction)toggleDebugPanelAction:(id)sender;
+- (IBAction)clearLogsAction:(id)sender;
 
 @end

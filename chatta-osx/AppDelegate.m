@@ -12,9 +12,6 @@
 
 @implementation AppDelegate
 
-@synthesize window               = _window;
-@synthesize rootWindowController = _rootWindowController;
-
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     CKDebug(@"[+] applicationDidFinishLaunching");
@@ -76,10 +73,15 @@
     [self.rootWindowController receivedWakeNotification:notification];
 }
 
-- (IBAction)toggleDebugPanelPressed:(id)sender
+- (IBAction)toggleDebugPanelAction:(id)sender
 {
     self.rootWindowController.debugPanel.isVisible =
         !self.rootWindowController.debugPanel.isVisible;
+}
+
+- (IBAction)clearLogsAction:(id)sender
+{
+    [self.rootWindowController.masterViewController clearLogsForSelectedContact];
 }
 
 @end
