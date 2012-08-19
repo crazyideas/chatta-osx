@@ -26,9 +26,10 @@
 
 @property (nonatomic) BOOL enabled;
 @property (nonatomic, strong) CKContact *contact;
+@property (nonatomic, strong) NSMutableDictionary *textStorageCache;
 @property (nonatomic, assign) id <DetailViewDelegate> delegate;
 
-- (void)updateTextViewWithNewMessage:(CKMessage *)message;
+- (void)appendNewMessage:(CKMessage *)message forContact:(CKContact *)contact;
 - (IBAction)newMessageEntered:(id)sender;
 
 @end

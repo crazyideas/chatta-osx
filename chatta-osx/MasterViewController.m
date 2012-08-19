@@ -16,25 +16,12 @@
 #import "CKRosterItem.h"
 #import "SettingsPopoverViewController.h"
 #import "DetailViewController.h"
+#import "DetailViewCacheItem.h"
 #import "ContactPopoverViewController.h"
 #import "ChattaKit.h"
 
 
 @implementation MasterViewController
-
-@synthesize delegate                      = _delegate;
-@synthesize refreshButton                 = _refreshButton;
-@synthesize contactListTableView          = _contactListTableView;
-@synthesize unreadTextField               = _unreadTextField;
-@synthesize detailViewController          = _detailViewController;
-@synthesize contactPopoverViewController  = _contactPopoverViewController;
-@synthesize settingsPopoverViewController = _settingsPopoverViewController;
-@synthesize settingsPopover               = _settingsPopover;
-@synthesize minusButton                   = _minusButton;
-@synthesize plusButton                    = _plusButton;
-@synthesize contactPopover                = _contactPopover;
-@synthesize connectionState               = _connectionState;
-@synthesize chattaKit                     = _chattaKit;
 
 - (void)setConnectionState:(ChattaState)connectionState
 {
@@ -121,13 +108,15 @@
     CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     [selectedContact removeAllMessages];
     
+    [self.detailViewController.textStorageCache removeObjectForKey:selectedContact.displayName];
+    
     self.detailViewController.contact = selectedContact;
     [self.contactListTableView reloadData];
     
     CKDebug(@"[+] cleared logs for contact: %@", selectedContact);
 }
 
-- (void)playNewMessageSound
+- (void)playNewMessageBackgroundSound
 {
     NSString *soundPath = @"/System/Library/Components/CoreAudio.component/Contents/"
                            "SharedSupport/SystemSounds/system/burn complete.aif";
@@ -137,6 +126,14 @@
         sound = [[NSSound alloc] initWithContentsOfFile:soundPath byReference:YES];
     }
     
+    if (sound != nil && sound.isPlaying == NO) {
+        [sound play];
+    }
+}
+
+- (void)playNewMessageForegroundSound
+{
+    NSSound *sound = [NSSound soundNamed:@"Tink"];
     if (sound != nil && sound.isPlaying == NO) {
         [sound play];
     }
@@ -194,12 +191,14 @@
                 ? 0 : [dockTile.badgeLabel intValue];
             dockTile.badgeLabel = [NSString stringWithFormat:@"%i", ++dockValue];
             
-            [block_self playNewMessageSound];
+            [block_self playNewMessageBackgroundSound];
+        } else {
+            [block_self playNewMessageForegroundSound];
         }
         
         // if new message is for selected contact, update detailViewController
         if ([selectedContact isEqualToContact:contact]) {
-            [block_self.detailViewController updateTextViewWithNewMessage:message];
+            [block_self.detailViewController appendNewMessage:message forContact:contact];
         }
         
         [block_self updateUnreadCount];

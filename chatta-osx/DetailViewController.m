@@ -6,6 +6,7 @@
 //
 
 #import "DetailViewController.h"
+#import "DetailViewCacheItem.h"
 #import "NSString+CKAdditions.h"
 #import "CKTextView.h"
 #import "CKScrollView.h"
@@ -29,23 +30,34 @@
 
 - (void)setContact:(CKContact *)contact
 {
+    [self clearDetailView];
+
     if (contact == nil) {
-        self.messagesInputTextField.stringValue = @"";
-        [self.messagesTextView.textStorage
-            setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
+        return;
+    }
+    
+    DetailViewCacheItem *cacheItem = [self.textStorageCache objectForKey:contact.displayName];
+    if (cacheItem == nil) {
+        cacheItem = [[DetailViewCacheItem alloc] init];
+        for (CKMessage *message in contact.messages) {
+            [cacheItem.textStorage appendAttributedString:[self attributedStringForMessage:message]];
+            cacheItem.itemCount++;
+        }
+        [self.textStorageCache setObject:cacheItem forKey:contact.displayName];
     }
     else {
-        // clear out textview
-        self.messagesInputTextField.stringValue = @"";
-        [self.messagesTextView.textStorage
-            setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
-        // update textview
-        for (CKMessage *message in contact.messages) {
-            [self updateTextViewWithNewMessage:message];
+        if (cacheItem.itemCount != contact.messages.count) {
+            for (NSUInteger i = cacheItem.itemCount; i < contact.messages.count; i++) {
+                CKMessage *tmsg = [contact.messages objectAtIndex:i];
+                [cacheItem.textStorage appendAttributedString:[self attributedStringForMessage:tmsg]];
+                cacheItem.itemCount++;
+            }
+            [self.textStorageCache setObject:cacheItem forKey:contact.displayName];
         }
     }
+    
+    [self appendAttributedStringToDetailView:cacheItem.textStorage];
 
-    [self.messagesTextView setNeedsDisplay:YES];
     _contact = contact;
 }
 
@@ -53,7 +65,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code here.
+        self.textStorageCache = [[NSMutableDictionary alloc] init];
     }
     
     return self;
@@ -62,7 +74,7 @@
 - (void)awakeFromNib
 {
     self.messagesInputTextField.delegate = self;
-    self.messagesTextView.textContainerInset = NSMakeSize(1.0, 3.0);
+    self.messagesTextView.textContainerInset = NSMakeSize(1.0, 1.0);
 }
 
 - (IBAction)newMessageEntered:(id)sender 
@@ -81,47 +93,71 @@
     textField.stringValue = @"";
 }
 
+- (NSAttributedString *)attributedStringForMessage:(CKMessage *)message
+{
+    NSMutableAttributedString *attrString =
+        [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:
+        @"[%@] %@: %@\n", message.timestampString, message.contact.displayName, message.text]];
 
-- (void)updateTextViewWithNewMessage:(CKMessage *)message
+    NSRange boldRange = [attrString.string rangeOfString:message.contact.displayName];
+    NSRange greyRange = [attrString.string rangeOfString:
+                         [NSString stringWithFormat:@"[%@]", message.timestampString]];
+    
+    [attrString beginEditing];
+    [attrString addAttribute:NSFontAttributeName
+                       value:[NSFont fontWithName:@"Helvetica" size:14]
+                       range:NSMakeRange(0, [attrString length])];
+    [attrString addAttribute:NSFontAttributeName
+                       value:[NSFont fontWithName:@"Helvetica-Bold" size:14]
+                       range:boldRange];
+    [attrString addAttribute:NSForegroundColorAttributeName
+                       value:[NSColor disabledControlTextColor]
+                       range:greyRange];
+    [attrString endEditing];
+    
+    return attrString;
+}
+
+- (void)clearDetailView
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        NSMutableAttributedString *attrString;
-        if ([self.messagesTextView.textStorage.string isEqualToString:@""]) {
-            attrString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:
-            @"[%@] %@: %@", message.timestampString, message.contact.displayName, message.text]];
-        }
-        else {
-            attrString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:
-            @"\n[%@] %@: %@", message.timestampString, message.contact.displayName, message.text]];
-        }
-         
-        NSRange boldRange = [attrString.string rangeOfString:message.contact.displayName];
-        NSRange greyRange = [attrString.string rangeOfString:
-            [NSString stringWithFormat:@"[%@]", message.timestampString]];
-
-        [attrString beginEditing];
-
-        [attrString addAttribute:NSFontAttributeName
-                           value:[NSFont fontWithName:@"Helvetica" size:14]
-                           range:NSMakeRange(0, [attrString length])];
-        
-        [attrString addAttribute:NSFontAttributeName
-                           value:[NSFont fontWithName:@"Helvetica-Bold" size:14]
-                           range:boldRange];
-        
-        [attrString addAttribute:NSForegroundColorAttributeName
-                           value:[NSColor disabledControlTextColor]
-                           range:greyRange];
-        
-        [attrString endEditing];
-        
-        [self.messagesTextView.textStorage appendAttributedString:attrString];
-        
+        NSAttributedString *blankAttributedString = [[NSAttributedString alloc] initWithString:@""];
+        self.messagesInputTextField.stringValue = @"";
+        [self.messagesTextView.textStorage setAttributedString:blankAttributedString];
         [self.messagesTextView setNeedsDisplay:YES];
-        
-        // scroll the bottom of screen
         [self.scrollView scrollToBottom];
     });
+}
+
+- (void)appendAttributedStringToDetailView:(NSAttributedString *)attributedString
+{
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.messagesTextView.textStorage appendAttributedString:attributedString];
+
+        // scroll to bottom, for some reason [self.scrollView scrollToBottom] doesn't like
+        // huge lines, so for those cases use, [self.messagesTextView scrollRangeToVisible:range]
+        if (attributedString.length > 200) {
+            NSRange range = NSMakeRange(self.messagesTextView.attributedString.length, 0);
+            [self.messagesTextView scrollRangeToVisible:range];
+        } else {
+            [self.scrollView scrollToBottom];
+        }
+        [self.messagesTextView setNeedsDisplay:YES];
+    });
+}
+
+- (void)appendNewMessage:(CKMessage *)message forContact:(CKContact *)contact
+{
+    NSAttributedString *newMessageAttrString = [self attributedStringForMessage:message];
+    
+    // update cache
+    DetailViewCacheItem *cacheItem = [self.textStorageCache objectForKey:contact.displayName];
+    [cacheItem.textStorage appendAttributedString:newMessageAttrString];
+    cacheItem.itemCount++;
+    [self.textStorageCache setObject:cacheItem forKey:contact.displayName];
+    
+    // update interface
+    [self appendAttributedStringToDetailView:newMessageAttrString];
 }
 
 #pragma mark - NSTextField Delegates
