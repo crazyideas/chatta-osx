@@ -42,6 +42,7 @@
 		27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA224E15ABCCE200CEB105 /* MasterViewController.xib */; };
 		27DA225715ABCD3E00CEB105 /* RootWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA225615ABCD3E00CEB105 /* RootWindowController.m */; };
 		27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA226415ABD34000CEB105 /* RootWindow.xib */; };
+		27E3F51215F0030E0060881A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E3F51115F0030E0060881A /* AddressBook.framework */; };
 		27E95B9315D0BC34008C7D68 /* CKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E95B9215D0BC34008C7D68 /* CKTextView.m */; };
 		27E95B9715D0C2D5008C7D68 /* CKScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E95B9615D0C2D5008C7D68 /* CKScrollView.m */; };
 		27FAA82615AE7C8300C1C75E /* ConfigureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */; };
@@ -120,6 +121,7 @@
 		27DA225515ABCD3E00CEB105 /* RootWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootWindowController.h; sourceTree = "<group>"; };
 		27DA225615ABCD3E00CEB105 /* RootWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootWindowController.m; sourceTree = "<group>"; };
 		27DA226415ABD34000CEB105 /* RootWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootWindow.xib; sourceTree = "<group>"; };
+		27E3F51115F0030E0060881A /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		27E95B9115D0BC34008C7D68 /* CKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTextView.h; sourceTree = "<group>"; };
 		27E95B9215D0BC34008C7D68 /* CKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTextView.m; sourceTree = "<group>"; };
 		27E95B9515D0C2D5008C7D68 /* CKScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKScrollView.h; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */,
 				2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */,
 				27DA222915ABCBBA00CEB105 /* Cocoa.framework in Frameworks */,
+				27E3F51215F0030E0060881A /* AddressBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +188,7 @@
 		27DA221915ABCBBA00CEB105 = {
 			isa = PBXGroup;
 			children = (
+				27E3F51115F0030E0060881A /* AddressBook.framework */,
 				27623A1915E0AA8A0020789D /* chatta_base.icns */,
 				27A6484615DA28B800596713 /* libtidy.dylib */,
 				274D907A15BB2E2D002C168A /* libChattaKit.a */,

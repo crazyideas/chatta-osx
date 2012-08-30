@@ -146,7 +146,14 @@
     
     nameValid = (self.nameTextField.stringValue.length > 0) ? YES : NO;
     emailValid = [CKEmailAddressFormatter isValidEmailAddress:contactEmailAddress];
+    if ([contactEmailAddress isEqualToString:@""]) {
+        emailValid = YES;
+    }
+    
     phoneValid = [CKPhoneNumberFormatter isValidPhoneNumber:self.phoneTextField.stringValue];
+    if ([self.phoneTextField.stringValue isEqualToString:@""]) {
+        phoneValid = YES;
+    }
     
     if (nameValid && emailValid && phoneValid) {
         [self.rightButton setEnabled:YES];

@@ -7,6 +7,7 @@
 
 #import "RootWindowController.h"
 #import "CKPersistence.h"
+#import "CKPhoneNumberFormatter.h"
 #import "CKContact.h"
 #import "CKMessage.h"
 #import "ChattaKit.h"
@@ -141,8 +142,13 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
         {
             CKDebug(@"[+] received ChattaStateConnected notification");
             self.masterViewController.connectionState = state;
-            dispatch_async(dispatch_get_main_queue(), ^(void){ 
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
                 [self configurationSheetDidComplete];
+                
+                if ([CKPersistence firstRunOfChatta] == YES) {
+                    CKDebug(@"[+] first run of chatta, importing contacts");
+                    [self deleteAndReimportContacts:self];
+                }
             });
             break;
         }
@@ -158,6 +164,36 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
             CKDebug(@"connectionStateNotification: invalid state");
             break;
         }
+    }
+}
+
+- (void)deleteAndReimportContacts:(id)sender
+{
+    [[CKContactList sharedInstance] removeAllContacts];
+    [self.masterViewController.contactListTableView reloadData];
+    [self.chattaKit requestMostContacted];
+}
+
+- (void)mostContacted:(NSArray *)contacts
+{
+    if (contacts == nil || contacts.count <= 0) {
+        return;
+    }
+    
+    for (CKContact *contact in contacts) {
+        // cleanup phone number
+        if (contact.phoneNumber != nil) {
+            contact.phoneNumber = [CKPhoneNumberFormatter phoneNumberInServiceFormat:contact.phoneNumber];
+        }
+        
+        // set display name incase we don't have one
+        if (contact.displayName == nil) {
+            contact.displayName =
+                (contact.phoneNumber == nil) ? contact.jabberIdentifier : contact.phoneNumber;
+        }
+    
+        [self.masterViewController addContactWithName:contact.displayName
+            email:contact.jabberIdentifier phone:contact.phoneNumber];
     }
 }
 
@@ -266,5 +302,10 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
     CKMessage *dbg_msg = [[CKMessage alloc] initWithContact:contactList.me
         timestamp:[NSDate date] messageText:randomMessage];
     [contactList newMessage:dbg_msg forContact:dbg_cnt];
+}
+
+- (IBAction)debugSendExtendedAttributesRequest:(id)sender
+{
+    [self.chattaKit requestMostContacted];
 }
 @end

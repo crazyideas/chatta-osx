@@ -11,5 +11,6 @@
 
 + (void)saveContactsToPersistentStorage;
 + (void)loadContactsFromPersistentStorage;
++ (BOOL)firstRunOfChatta;
 
 @end

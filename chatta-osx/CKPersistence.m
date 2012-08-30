@@ -27,7 +27,7 @@
         return nil;
     }
     
-    NSString *fileName = @"chatta-osx.database";
+    NSString *fileName = @"chatta-osx-0.2.database";
     return [folder stringByAppendingPathComponent:fileName];
 }
 
@@ -69,6 +69,22 @@
         replaceAllContacts:[rootObject valueForKey:@"CKContactList-ContactList"]];
     
     CKDebug(@"[+] loaded contacts from persistent storage");
+}
+
++ (BOOL)firstRunOfChatta
+{
+    NSString *path = [CKPersistence pathForContactsFile];
+    if (path == nil) {
+        CKDebug(@"[-] path to persistent storage is nil");
+        return YES;
+    }
+    
+    NSDictionary *rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    if (rootObject == nil) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

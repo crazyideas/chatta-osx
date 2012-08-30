@@ -275,7 +275,9 @@
         [self.chattaKit requestContactStatus:contact];
     }
     
-    [self.contactListTableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.contactListTableView reloadData];
+    });
 }
 
 - (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address

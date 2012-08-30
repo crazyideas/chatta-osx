@@ -82,8 +82,23 @@
 
 + (NSString *)phoneNumberInServiceFormat:(NSString *)number
 {
-    NSString *strippedString = [number stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    return [NSString stringWithFormat:@"+%@", strippedString];
+    if (number == nil || [number isEqualToString:@""]) {
+        return nil;
+    }
+    
+    NSCharacterSet *numCharSet = [NSCharacterSet decimalDigitCharacterSet];
+    
+    NSString *strippedString =
+    [[number componentsSeparatedByCharactersInSet:numCharSet.invertedSet] componentsJoinedByString:@""];
+    
+    if (strippedString.length < 11) {
+        strippedString = [NSString stringWithFormat:@"+1%@", strippedString];
+    }
+    else { //if (strippedString.length >= 11) {
+        strippedString = [NSString stringWithFormat:@"+%@", strippedString];
+    }
+    
+    return strippedString;
 }
 
 + (NSString *)phoneNumberInDisplayFormat:(NSString *)number

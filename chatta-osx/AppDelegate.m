@@ -84,4 +84,10 @@
     [self.rootWindowController.masterViewController clearLogsForSelectedContact];
 }
 
+- (IBAction)reimportContactsAction:(id)sender
+{
+    CKDebug(@"[+] deleting and re-importing all contacts");
+    [self.rootWindowController deleteAndReimportContacts:self];
+}
+
 @end

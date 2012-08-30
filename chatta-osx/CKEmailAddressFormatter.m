@@ -54,7 +54,7 @@
 
 + (BOOL)isValidEmailAddress:(NSString *)emailAddress
 {
-    NSString *regexPattern = @"[A-Za-z0-9._%+-]+@gmail.com";
+    NSString *regexPattern = @"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexPattern];
     if ([predicate evaluateWithObject:emailAddress] == YES) {

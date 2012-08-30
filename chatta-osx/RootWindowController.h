@@ -32,6 +32,8 @@
 - (void)receivedSleepNotification:(NSNotification *)notification;
 - (void)receivedWakeNotification:(NSNotification *)notification;
 
+- (void)deleteAndReimportContacts:(id)sender;
+
 // debug panel support
 @property (strong) IBOutlet NSPanel *debugPanel;
 @property (weak) IBOutlet NSTextField *debugContactNameTextField;
@@ -43,5 +45,6 @@
 - (IBAction)debugconnectionInProgress:(id)sender;
 - (IBAction)debugUpdateConnectionState:(id)sender;
 - (IBAction)debugNewMessageForContact:(id)sender;
+- (IBAction)debugSendExtendedAttributesRequest:(id)sender;
 
 @end

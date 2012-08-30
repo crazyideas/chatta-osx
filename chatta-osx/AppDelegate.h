@@ -15,5 +15,6 @@
 
 - (IBAction)toggleDebugPanelAction:(id)sender;
 - (IBAction)clearLogsAction:(id)sender;
+- (IBAction)reimportContactsAction:(id)sender;
 
 @end
