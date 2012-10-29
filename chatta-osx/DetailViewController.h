@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "DetailView.h"
 
 @class CKTextView;
 @class CKScrollView;
@@ -13,23 +14,22 @@
 @class CKContact;
 @class CKMessage;
 
-@protocol DetailViewDelegate <NSObject>
+@protocol DetailViewControllerDelegate <NSObject>
 @optional
+- (void)makeDetailViewFirstResponder;
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact;
 @end
 
-@interface DetailViewController : NSViewController <NSTextFieldDelegate>
+@interface DetailViewController : NSViewController <DetailViewDelegate, NSTextViewDelegate>
 
-@property (unsafe_unretained) IBOutlet CKTextView *messagesTextView;
-@property (weak) IBOutlet NSTextField *messagesInputTextField;
-@property (weak) IBOutlet CKScrollView *scrollView;
+@property (nonatomic, strong) DetailView *detailView;
 
-@property (nonatomic) BOOL enabled;
 @property (nonatomic, strong) CKContact *contact;
 @property (nonatomic, strong) NSMutableDictionary *textStorageCache;
-@property (nonatomic, assign) id <DetailViewDelegate> delegate;
+@property (nonatomic) BOOL enabled;
+
+@property (nonatomic, assign) id <DetailViewControllerDelegate> delegate;
 
 - (void)appendNewMessage:(CKMessage *)message forContact:(CKContact *)contact;
-- (IBAction)newMessageEntered:(id)sender;
 
 @end

@@ -15,21 +15,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     CKDebug(@"[+] applicationDidFinishLaunching");
-
-    // alloc/init master and detail view controllers
-    if (self.rootWindowController == nil) {
-        self.rootWindowController = 
-            [[RootWindowController alloc] initWithWindowNibName:@"RootWindow"];
-        
-        self.rootWindowController.masterViewController = 
-            [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
-        self.rootWindowController.detailViewController =
-            [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    }
-    
-    // don't persist window location
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ApplePersistenceIgnoreState"];
-    [self.rootWindowController.window center];
     
     // register for sleep/wake notifications
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self 
@@ -37,8 +22,29 @@
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self 
         selector:@selector(receivedWakeNotification:) name:NSWorkspaceDidWakeNotification object:nil];
     
-    // show root window
-    [self.rootWindowController showWindow:self];
+    // create window mask
+    NSUInteger windowStyleMask = NSClosableWindowMask | NSMiniaturizableWindowMask |
+    NSTitledWindowMask | NSResizableWindowMask | NSTitledWindowMask;
+    
+    // adjust window location
+    NSScreen *mainScreen = [NSScreen mainScreen];
+    CGFloat sizeX = mainScreen.frame.size.width  * 0.5; // ~850;
+    CGFloat sizeY = mainScreen.frame.size.height * 0.6; // ~650;
+    CGFloat originX = ((mainScreen.frame.size.width)  / 2) - (sizeX / 2);
+    CGFloat originY = ((mainScreen.frame.size.height) / 2) - (sizeY / 2) + 25;
+    
+    // create window
+    NSRect windowFrame = NSMakeRect(originX, originY, sizeX, sizeY);
+    self.window = [[NSWindow alloc] initWithContentRect:windowFrame
+        styleMask:windowStyleMask backing:NSBackingStoreBuffered defer:NO];
+    self.window.title = @"chatta";
+    
+    // create and set window controller
+    self.rootWindowController = [[RootWindowController alloc] initWithWindow:self.window];
+    self.window.windowController = self.rootWindowController;
+    
+    // order front
+    [self.window makeKeyAndOrderFront:self];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
@@ -52,6 +58,8 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
+    CKDebug(@"[+] applicationWillTerminate: %@", notification);
+
     [CKPersistence saveContactsToPersistentStorage];
 }
 
@@ -73,21 +81,11 @@
     [self.rootWindowController receivedWakeNotification:notification];
 }
 
-- (IBAction)toggleDebugPanelAction:(id)sender
-{
-    self.rootWindowController.debugPanel.isVisible =
-        !self.rootWindowController.debugPanel.isVisible;
-}
+#pragma mark - Actions
 
-- (IBAction)clearLogsAction:(id)sender
+- (IBAction)accountPressedAction:(id)sender
 {
-    [self.rootWindowController.masterViewController clearLogsForSelectedContact];
-}
-
-- (IBAction)reimportContactsAction:(id)sender
-{
-    CKDebug(@"[+] deleting and re-importing all contacts");
-    [self.rootWindowController deleteAndReimportContacts:self];
+    [self.rootWindowController receivedAccountPressedNotification:sender];
 }
 
 @end

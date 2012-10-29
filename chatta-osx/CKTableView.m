@@ -9,18 +9,9 @@
 
 @implementation CKTableView
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (void)viewWillDraw
 {
-    self = [super initWithCoder:decoder];
-    if (self) {
-        // Initialization code here.        
-    }
-    return self;
-}
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
+    [super viewWillDraw];
     
     self.target = self;
     self.action = @selector(ckTableViewSingleClick:);

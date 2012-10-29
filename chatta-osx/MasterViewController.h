@@ -6,62 +6,47 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-#import "CKTableView.h"
-#import "ContactPopoverViewController.h"
-#import "SettingsPopoverViewController.h"
 #import "CKContactList.h"
+#import "CKTableView.h"
 #import "DetailViewController.h"
 
 @protocol ContactPopoverDelegate;
 @protocol SettingsPopoverDelegate;
 @protocol CKContactListDelegate;
-@protocol DetailViewDelegate;
+@protocol DetailViewControllerDelegate;
 @protocol CKTableViewDelegate;
 
-@class DetailViewController;
 @class ChattaKit;
-
+@class DetailViewController;
+@class PopoverViewController;
+@class CKTableView;
+@class CKScrollView;
 
 @protocol MasterViewDelegate <NSObject>
 @optional
 - (void)logoutOfChatta;
 - (void)loginToChatta;
-- (void)makeTextFieldFirstResponder;
 @end
 
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
-                                                    ContactPopoverDelegate, SettingsPopoverDelegate,
-                                                    CKContactListDelegate, DetailViewDelegate>
-{
-    NSInteger previouslySelectedRow;
-}
+                                                    NSPopoverDelegate, CKContactListDelegate,
+                                                    DetailViewControllerDelegate>
+
+@property (nonatomic, strong) CKScrollView *scrollView;
+@property (nonatomic, strong) CKTableView *tableView;
+@property (nonatomic, strong) NSTableColumn *tableColumn;
+@property (nonatomic, strong) NSBox *lineSeparator;
+@property (nonatomic, strong) NSButton *addContactButton;
 
 @property (nonatomic, strong) DetailViewController *detailViewController;
-@property (nonatomic, strong) ContactPopoverViewController *contactPopoverViewController;
-@property (nonatomic, strong) SettingsPopoverViewController *settingsPopoverViewController;
-@property (nonatomic, strong) NSPopover *contactPopover;
-@property (nonatomic, strong) NSPopover *settingsPopover;
-@property (weak) IBOutlet NSButton *minusButton;
-@property (weak) IBOutlet NSButton *plusButton;
-@property (weak) IBOutlet NSButton *refreshButton;
-@property (nonatomic) BOOL isVisible;
-
-@property (weak) IBOutlet CKTableView *contactListTableView;
-@property (weak) IBOutlet NSTextField *unreadTextField;
+@property (nonatomic, strong) PopoverViewController *popoverViewController;
+@property (nonatomic, strong) NSPopover *popover;
 
 @property (nonatomic, assign) id <MasterViewDelegate> delegate;
 @property (nonatomic, strong) ChattaKit *chattaKit;
 @property (nonatomic) ChattaState connectionState;
+@property (nonatomic) NSInteger previouslySelectedRow;
+@property (nonatomic) BOOL isVisible;
 
-- (IBAction)addContactPushed:(id)sender;
-- (IBAction)settingsPushed:(id)sender;
-- (IBAction)removeContactPushed:(id)sender;
-
-- (void)clearLogsForSelectedContact;
-
-// tmp
-- (IBAction)reloadData:(id)sender;
-- (void)loadFakeData;
 
 @end

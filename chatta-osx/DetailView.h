@@ -1,0 +1,35 @@
+//
+//  DetailView.h
+//  chatta-osx
+//
+//  Copyright (c) 2012 CRAZY IDEAS. All rights reserved.
+//
+
+#import <Cocoa/Cocoa.h>
+#import "CKTextView.h"
+#import "CKInputSeparator.h"
+
+@class CKScrollView;
+@class CKMessage;
+@class CKContact;
+
+@protocol DetailViewDelegate <NSObject>
+@optional
+- (void)newMessageActionKeyUp:(id)sender message:(NSString *)message;
+@end
+
+@interface DetailView : NSView <NSTextFieldDelegate>
+
+@property (nonatomic, strong) CKScrollView *scrollView;
+@property (nonatomic, strong) CKTextView *textView;
+@property (nonatomic, strong) NSTextField *textField;
+@property (nonatomic, strong) CKInputSeparator *inputSeparator;
+
+@property (nonatomic, assign) id <DetailViewDelegate> delegate;
+
+- (NSAttributedString *)attributedStringForMessage:(CKMessage *)message;
+- (void)appendMessageView:(NSAttributedString *)attributedString;
+- (void)replaceMessageView:(NSAttributedString *)attributedString;
+- (void)clearMessageView;
+
+@end

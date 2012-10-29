@@ -10,11 +10,9 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-//@property (assign) IBOutlet NSWindow *window;
-@property (strong, nonatomic) RootWindowController *rootWindowController;
+@property (nonatomic, strong) NSWindow *window;
+@property (nonatomic, strong) RootWindowController *rootWindowController;
 
-- (IBAction)toggleDebugPanelAction:(id)sender;
-- (IBAction)clearLogsAction:(id)sender;
-- (IBAction)reimportContactsAction:(id)sender;
+- (IBAction)accountPressedAction:(id)sender;
 
 @end

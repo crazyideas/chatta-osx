@@ -6,138 +6,118 @@
 //
 
 #import "MasterViewController.h"
-#import "CKTableViewCellStyleDetailed.h"
-#import "CKTableRowView.h"
-#import "CKContactList.h"
+
+#import "ChattaKit.h"
 #import "CKContact.h"
 #import "CKMessage.h"
-#import "CKTableView.h"
-#import "CKRoster.h"
-#import "CKRosterItem.h"
-#import "SettingsPopoverViewController.h"
-#import "DetailViewController.h"
-#import "DetailViewCacheItem.h"
-#import "ContactPopoverViewController.h"
-#import "ChattaKit.h"
+#import "CKContactList.h"
 
+#import "NSFont+CKAdditions.h"
+#import "NSColor+CKAdditions.h"
+#import "NSSound+CKAdditions.h"
+
+#import "CKTableView.h"
+#import "CKScrollView.h"
+#import "CKTableRowView.h"
+#import "CKTableHeaderCell.h"
+#import "CKTableCellView.h"
+
+#import "PopoverView.h"
+#import "PopoverViewController.h"
+#import "DetailViewController.h"
 
 @implementation MasterViewController
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.view = [[NSView alloc] initWithFrame:NSZeroRect];
+        [self.view setAutoresizesSubviews:YES];
+        [self.view setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin |
+            NSViewMinYMargin | NSViewMaxYMargin];
+        
+        self.scrollView       = [[CKScrollView alloc] initWithFrame:NSZeroRect];
+        self.tableView        = [[CKTableView alloc] initWithFrame:NSZeroRect];
+        self.tableColumn      = [[NSTableColumn alloc] initWithIdentifier:@"contactColumn"];
+        self.lineSeparator    = [[NSBox alloc] initWithFrame:NSZeroRect];
+        self.addContactButton = [[NSButton alloc] initWithFrame:NSZeroRect];
+        self.popover          = [[NSPopover alloc] init];
+        
+        NSTableHeaderView *tableHeaderView =
+        [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 0, 26)];
+        
+        self.popoverViewController = [[PopoverViewController alloc] init];
+        
+        [self.tableView addTableColumn:self.tableColumn];
+        [self.tableView setDelegate:self];
+        [self.tableView setDataSource:self];        
+        [self.tableView setBackgroundColor:[NSColor lightBackgroundNoiseColor]];
+        [self.tableView setBackgroundColor:[NSColor clearColor]];
+        [self.tableView setHeaderView:tableHeaderView];
+        [self.tableView setAllowsEmptySelection:YES];
+        [self.tableView setGridStyleMask:NSTableViewSolidHorizontalGridLineMask];
+        
+        
+        // replace column header
+        for (NSTableColumn *column in self.tableView.tableColumns) {
+            [column setHeaderCell:[[CKTableHeaderCell alloc] init]];
+            [column.headerCell setStringValue:@"Contacts"];
+        }
+        
+        
+        [self.scrollView setDocumentView:self.tableView];
+        [self.scrollView setHasVerticalScroller:YES];
+        [self.scrollView setAutohidesScrollers:NO];
+        [self.scrollView setAutoresizesSubviews:YES];
+        [self.scrollView setDrawsBackground:NO];
+        [self.scrollView setBackgroundColor:[NSColor clearColor]];
+        
+        [self.scrollView setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable |
+         NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin ];
+        
+        [self.lineSeparator setBorderColor:[NSColor purpleColor]];
+        [self.lineSeparator setFrame:NSMakeRect(0, 50, 400, 1.5)];
+        [self.lineSeparator setAutoresizesSubviews:NSViewWidthSizable];
+        
+        [self.addContactButton setTitle:@"+ Add Contact"];
+        [self.addContactButton setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
+        [self.addContactButton setTarget:self];
+        [self.addContactButton setAction:@selector(showPopoverAction:)];
+        [self.addContactButton setFont:[NSFont applicationLightLarge]];
+        [self.addContactButton setBordered:NO];
+        
+        [self.popover setContentViewController:self.popoverViewController];
+        [self.popover setAnimates:YES];
+        [self.popover setBehavior:NSPopoverBehaviorTransient];
+        [self.popover setDelegate:self];
+        
+        [self.view addSubview:self.scrollView];
+        [self.view addSubview:self.lineSeparator];
+        [self.view addSubview:self.addContactButton];
+        
+        self.detailViewController.contact = nil;
+        self.detailViewController.enabled =
+            (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
+        self.detailViewController.delegate = self;
+        
+        [CKContactList sharedInstance].delegate = self;
+        self.connectionState = ChattaStateDisconnected;
+        self.previouslySelectedRow = -1;
+    }
+    return self;
+}
+
+
+#pragma mark - Properties
+
 - (void)setConnectionState:(ChattaState)connectionState
 {
-    self.settingsPopoverViewController.connectionState = connectionState;
     self.detailViewController.enabled = (connectionState == ChattaStateConnected) ? YES : NO;
     
     _connectionState = connectionState;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.contactPopoverViewController = [[ContactPopoverViewController alloc] 
-            initWithNibName:@"ContactPopoverViewController" bundle:nil];
-        
-        self.settingsPopoverViewController = [[SettingsPopoverViewController alloc]
-            initWithNibName:@"SettingsPopoverViewController" bundle:nil];
-        
-        self.contactPopover  = [[NSPopover alloc] init];
-        self.settingsPopover = [[NSPopover alloc] init];
-    }
-    
-    return self;
-}
-
-- (void) awakeFromNib
-{
-    self.detailViewController.contact = nil;
-    self.detailViewController.enabled =
-        (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
-    self.detailViewController.delegate = self;
-
-    self.contactListTableView.delegate     = self;
-    self.contactListTableView.dataSource   = self;
-    self.contactListTableView.allowsEmptySelection    = YES;
-    self.contactListTableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
-    self.contactListTableView.gridStyleMask           = NSTableViewSolidHorizontalGridLineMask;
-    
-    self.contactPopover.contentViewController = self.contactPopoverViewController;
-    self.contactPopover.behavior = NSPopoverBehaviorTransient;
-    self.contactPopover.delegate = self.contactPopoverViewController;
-    
-    self.settingsPopover.contentViewController = self.settingsPopoverViewController;
-    self.settingsPopover.behavior = NSPopoverBehaviorTransient;
-    self.settingsPopover.delegate = self.settingsPopoverViewController;
-    
-    self.settingsPopoverViewController.delegate = self;
-    self.contactPopoverViewController.delegate  = self;
-    
-    self.contactPopoverViewController.chattaKit = self.chattaKit;
-    
-    [CKContactList sharedInstance].delegate = self;
-    
-    [self.minusButton setEnabled:NO];
-    self.connectionState = ChattaStateDisconnected;
-    previouslySelectedRow = -1;
-    
-    // for debugging
-    [self.refreshButton setHidden:YES];
-}
-
-- (void)updateUnreadCount
-{
-    // sum up unread messages
-    NSUInteger unreadMessages = 0;
-    NSArray *allContacts = [CKContactList sharedInstance].allContacts;
-    for (CKContact *contact in allContacts) {
-        unreadMessages += contact.unreadCount;
-    }
-    
-    // update unreadTextField
-    self.unreadTextField.stringValue = (unreadMessages == 0) ? @"" :
-    [NSString stringWithFormat:@"Unread (%li)", unreadMessages];
-}
-
-- (void)clearLogsForSelectedContact
-{
-    NSInteger selectedRow = self.contactListTableView.selectedRow;
-    if (selectedRow < 0) {
-        return;
-    }
-    
-    CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
-    [selectedContact removeAllMessages];
-    
-    [self.detailViewController.textStorageCache removeObjectForKey:selectedContact.displayName];
-    
-    self.detailViewController.contact = selectedContact;
-    [self.contactListTableView reloadData];
-    
-    CKDebug(@"[+] cleared logs for contact: %@", selectedContact);
-}
-
-- (void)playNewMessageBackgroundSound
-{
-    NSString *soundPath = @"/System/Library/Components/CoreAudio.component/Contents/"
-                           "SharedSupport/SystemSounds/system/burn complete.aif";
-    NSSound *sound = [[NSSound alloc] initWithContentsOfFile:soundPath byReference:YES];
-    if (sound == nil) {
-        soundPath = [[NSBundle mainBundle] pathForResource:@"chatta_new_message" ofType:@"wav"];
-        sound = [[NSSound alloc] initWithContentsOfFile:soundPath byReference:YES];
-    }
-    
-    if (sound != nil && sound.isPlaying == NO) {
-        [sound play];
-    }
-}
-
-- (void)playNewMessageForegroundSound
-{
-    NSSound *sound = [NSSound soundNamed:@"Tink"];
-    if (sound != nil && sound.isPlaying == NO) {
-        [sound play];
-    }
-}
 
 #pragma mark - DetailViewController Delegate
 
@@ -149,26 +129,20 @@
     }
 }
 
-- (void)makeTextFieldFirstResponder
-{
-    if (self.delegate != nil) {
-        [self.delegate makeTextFieldFirstResponder];
-    }
-}
 
 #pragma mark - CKContactList Delegates
 
 - (void)addedContact:(CKContact *)contact
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.contactListTableView reloadData];
+        [self.tableView reloadData];
     });
 }
 
 - (void)removedContact:(CKContact *)contact
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.contactListTableView reloadData];
+        [self.tableView reloadData];
     });
 }
 
@@ -176,7 +150,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         __block MasterViewController *block_self = self;
-        NSInteger selectedRow = block_self.contactListTableView.selectedRow;
+        NSInteger selectedRow = block_self.tableView.selectedRow;
         CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
         
         // if new message is not for the selected contact, update unread count
@@ -188,12 +162,12 @@
         if (!block_self.isVisible) {
             NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
             int dockValue = ([dockTile.badgeLabel isEqualToString:@""])
-                ? 0 : [dockTile.badgeLabel intValue];
+            ? 0 : [dockTile.badgeLabel intValue];
             dockTile.badgeLabel = [NSString stringWithFormat:@"%i", ++dockValue];
             
-            [block_self playNewMessageBackgroundSound];
+            [NSSound playNewMessageBackgroundSound];
         } else {
-            [block_self playNewMessageForegroundSound];
+            [NSSound playNewMessageForegroundSound];
         }
         
         // if new message is for selected contact, update detailViewController
@@ -201,114 +175,70 @@
             [block_self.detailViewController appendNewMessage:message forContact:contact];
         }
         
-        [block_self updateUnreadCount];
-        [block_self.contactListTableView reloadData];
+        //[block_self updateUnreadCount];
+        [block_self.tableView reloadData];
     });
 }
 
 - (void)contactConnectionStateUpdated:(ContactState)state forContact:(CKContact *)contact
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.contactListTableView reloadData];
+        [self.tableView reloadData];
     });
 }
 
-#pragma mark - Add, Remove, Update Contact Actions
+#pragma mark - NSTableView delegates
 
-- (IBAction)addContactPushed:(id)sender
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
 {
-    self.contactPopoverViewController.popoverType = PopoverTypeAddContact;
-
-    [self.contactPopover showRelativeToRect:[sender bounds] 
-                                     ofView:sender 
-                              preferredEdge:NSMaxXEdge];
-    
-    self.contactPopoverViewController.popoverType = PopoverTypeAddContact;
+    return 82.0;
 }
 
-- (IBAction)removeContactPushed:(id)sender
-{
-    NSInteger selectedRow = self.contactListTableView.selectedRow;
-    if (selectedRow < 0) {
-        return;
-    }
-
-    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
-    [[CKContactList sharedInstance] removeContact:rmContact];
-
-    [self.contactListTableView deselectAll:self];
-    [self.contactListTableView reloadData];
-}
-
-#pragma mark - Settings Actions and Delegates
-
-- (IBAction)settingsPushed:(id)sender
-{
-    [self.settingsPopover showRelativeToRect:[sender bounds] 
-                                      ofView:sender 
-                               preferredEdge:NSMinYEdge];
-}
-
-- (void)loginToChatta
-{
-    if (self.delegate != nil) {
-        [self.delegate loginToChatta];
-    }
-}
-
-- (void)logoutOfChatta
-{
-    if (self.delegate != nil) {
-        [self.delegate logoutOfChatta];
-    }
-}
-
-#pragma mark - ContactPopoverDelegate
-
-- (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
-{
-    CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:address
-        andDisplayName:name andPhoneNumber:number andContactState:ContactStateIndeterminate];
-    [[CKContactList sharedInstance] addContact:contact];
-    
-    if (self.chattaKit.chattaState == ChattaStateConnected) {
-        [self.chattaKit requestContactStatus:contact];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.contactListTableView reloadData];
-    });
-}
-
-- (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address
-                phone:(NSString *)number
-{
-    contact.displayName      = name;
-    contact.jabberIdentifier = address;
-    contact.phoneNumber      = number;
-    
-    [self.chattaKit requestContactStatus:contact];
-    
-    [self.contactListTableView reloadData];
-}
-
-- (void)closePopover
-{
-    [self.contactPopover close];
-    [self.settingsPopover close];
-}
-
-#pragma mark - CKTableView Delegate and NSTableView DataSource
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView
 {
     return [[CKContactList sharedInstance] count];
 }
 
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn
+                  row:(NSInteger)row
 {
-    return 58.0;
+    CKTableCellView *cellView = [tableView makeViewWithIdentifier:@"cellView" owner:self];
+    if (cellView == nil) {
+        cellView = [[CKTableCellView alloc] initWithFrame:NSMakeRect(0, 0, 250, 82)];
+        cellView.identifier = @"cellView";
+    }
+    
+    CKContact *contact = [[CKContactList sharedInstance] contactWithIndex:row];
+    if (contact == nil) {
+        return nil;
+    }
+    
+    // update contact for cell
+    CKMessage *lastMessage = contact.messages.lastObject;
+
+    cellView.nameLabel.stringValue = contact.displayName;
+    cellView.messageLabel.stringValue = (lastMessage == nil) ? @"" : lastMessage.text;
+    cellView.timestampLabel.stringValue = (lastMessage == nil) ? @"" : lastMessage.timestampString;
+    cellView.contactState = contact.connectionState;
+   
+    return cellView;
+    
+    /*
+     NSTextField *result = [tableView makeViewWithIdentifier:@"contactView" owner:self];
+     if (result == nil) {
+     result = [[NSTextField alloc] init];
+     [result setBezeled:NO];
+     [result setDrawsBackground:NO];
+     [result setEditable:NO];
+     [result setSelectable:NO];
+     result.identifier = @"contactView";
+     }
+     
+     result.stringValue = [NSString stringWithFormat:@"Row: %ld", row];
+     return result;
+     */
 }
+
 
 - (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row
 {
@@ -317,50 +247,16 @@
         NSRect rowFrame = [tableView frameOfCellAtColumn:0 row:row];
         tableRowView = [[CKTableRowView alloc] initWithFrame:rowFrame];
         tableRowView.identifier = @"ckRow";
-        tableRowView.separatorStyle = CKTableRowSeparatorStyleSingleLineEtched;
+        
+        //tableRowView.separatorStyle = CKTableRowSeparatorStyleSingleLine;
     }
     return tableRowView;
 }
 
-- (NSView *)tableView:(NSTableView *)tableView 
-   viewForTableColumn:(NSTableColumn *)tableColumn 
-                  row:(NSInteger)row
-{
-    CKTableViewCellStyleDetailed *contactCell = [tableView makeViewWithIdentifier:@"contactCell" owner:self];
-    if (contactCell == nil) {
-        NSRect cellFrame = [tableView frameOfCellAtColumn:0 row:row];
-        contactCell = [[CKTableViewCellStyleDetailed alloc] initWithFrame:cellFrame];
-        contactCell.identifier = @"contactCell";
-    }
-    
-    CKContact *contact = [[CKContactList sharedInstance] contactWithIndex:row];
-    if (contact == nil) {        
-        return nil;
-    }
-    
-    // update contact for cell
-    contactCell.contact = contact;
-
-    return contactCell;
-}
-
-- (void)tableView:(CKTableView *)tableView didSingleClickRow:(NSInteger)row
-{
-    CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:row];
-    
-    // update unread count
-    selectedContact.unreadCount = 0;
-    [self updateUnreadCount];
-    [self.contactListTableView reloadData];
-    
-    // make textfield first responder
-    if (self.delegate != nil) {
-        [self.delegate makeTextFieldFirstResponder];
-    }
-}
 
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
 {
+    /*
     NSInteger selectedRow = self.contactListTableView.selectedRow;
     id sender = [tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
     
@@ -372,80 +268,69 @@
     
     self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
     self.contactPopoverViewController.contact =
-        [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+    [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+     */
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
-    NSInteger selectedRow = self.contactListTableView.selectedRow;
-    
-    if (selectedRow < 0) {
-        [self.minusButton setEnabled:NO];
-    } else {
-        [self.minusButton setEnabled:YES];
-    }
-    
-    if (selectedRow == previouslySelectedRow) {
+    NSInteger selectedRow = self.tableView.selectedRow;
+        
+    if (selectedRow == self.previouslySelectedRow) {
         return;
     }
-
+    
     // update selected contact
     CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
     self.detailViewController.enabled =
-        (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
-    CKDebug(@"[+] tableViewSelectionDidChange: %li", self.contactListTableView.selectedRow);
+    (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
+    CKDebug(@"[+] tableViewSelectionDidChange: %li", self.tableView.selectedRow);
     
-    previouslySelectedRow = selectedRow;
+    self.previouslySelectedRow = selectedRow;
 }
 
-- (IBAction)reloadData:(id)sender
+#pragma mark - NSPopover delegates
+
+- (void)popoverWillShow:(NSNotification *)notification
 {
-    /*
-    CKContactList *contactList = [CKContactList sharedInstance];
-    NSUInteger contactCount = contactList.count;
-    if (contactCount > 0) {
-        CKContact *tmp = [contactList contactWithIndex:arc4random_uniform((unsigned int)contactCount)];
-        tmp.unreadCount = arc4random_uniform(contactCount);
+    NSLog(@"popoverWillShow");
+}
+
+- (void)popoverDidShow:(NSNotification *)notification
+{
+    NSLog(@"popoverDidShow");
+}
+
+- (void)popoverWillClose:(NSNotification *)notification
+{
+    NSLog(@"popoverWillClose");
+}
+
+- (void)popoverDidClose:(NSNotification *)notification
+{
+    NSLog(@"popoverDidClose");
+}
+
+#pragma mark - Actions
+
+- (void)showPopoverAction:(id)sender
+{
+    [self.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+}
+
+- (IBAction)removeContactAction:(id)sender
+{
+    NSInteger selectedRow = self.tableView.selectedRow;
+    if (selectedRow < 0) {
+        return;
     }
-    */
-    //[self loadFakeData];
-    //[self.contactListTableView reloadData];
-}
-
-- (void)loadFakeData
-{
-    CKContact *me = [CKContactList sharedInstance].me;
-    me.displayName = @"Me";
     
-    // fake contact #1
-    CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:@"jsmith@gmail.com"
-        andDisplayName:@"John Smith" andPhoneNumber:@"+18005551212"
-        andContactState:ContactStateOnline];
-    CKMessage *message1 = [[CKMessage alloc] initWithContact:contact timestamp:[NSDate date]
-        messageText:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius"];
-    [contact addMessage:message1];
-    [[CKContactList sharedInstance] addContact:contact];
+    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+    [[CKContactList sharedInstance] removeContact:rmContact];
     
-    // fake contact #2
-    CKContact *contact2 = [[CKContact alloc] initWithJabberIdentifier:@"a.vandelay@gmail.com"
-        andDisplayName:@"Art Vandelay" andPhoneNumber:@"+18005551111"
-        andContactState:ContactStateOffline];
-    CKMessage *message2 = [[CKMessage alloc] initWithContact:me timestamp:[NSDate date]
-        messageText:@"Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud"];
-    [contact2 addMessage:message2];
-    [[CKContactList sharedInstance] addContact:contact2];
-    
-    // fake contact #3
-    CKContact *contact3 = [[CKContact alloc] initWithJabberIdentifier:@"bender@gmail.com"
-        andDisplayName:@"Bender Rodriguez" andPhoneNumber:@"+18005552222"
-        andContactState:ContactStateIndeterminate];
-    CKMessage *message3 = [[CKMessage alloc] initWithContact:me timestamp:[NSDate date]
-        messageText:@"ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute iru"];
-    [contact3 addMessage:message3];
-    [[CKContactList sharedInstance] addContact:contact3];
-    
-    [self.contactListTableView reloadData];
+    [self.tableView deselectAll:self];
+    [self.tableView reloadData];
 }
 
 

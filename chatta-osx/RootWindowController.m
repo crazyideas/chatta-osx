@@ -6,145 +6,153 @@
 //
 
 #import "RootWindowController.h"
-#import "CKPersistence.h"
+#import "NSColor+CKAdditions.h"
+
 #import "CKPhoneNumberFormatter.h"
+#import "CKPersistence.h"
+#import "CKContactList.h"
 #import "CKContact.h"
 #import "CKMessage.h"
-#import "ChattaKit.h"
-#import "MasterViewController.h"
-#import "DetailViewController.h"
-#import "ConfigureViewController.h"
 #import "CKTableView.h"
-#import "CKContactList.h"
+#import "CKScrollView.h"
 
-@interface RootWindowController (PrivateMethods)
-- (void)showConfigureSheet:(NSWindow *)window;
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)ctxInfo;
-@end
+#import "ConfigureView.h"
 
 @implementation RootWindowController
-
-@synthesize debugPanel              = _debugPanel;
-@synthesize splitView               = _splitView;
-@synthesize configureSheet          = _configureSheet;
-@synthesize configureSheetView      = _configureSheetView;
-@synthesize masterViewController    = _masterViewController;
-@synthesize detailViewController    = _detailViewController;
-@synthesize configureViewController = _configureViewController;
-@synthesize chattaKit               = _chattaKit;
-@synthesize username                = _username;
-@synthesize password                = _password;
-
 
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
-    if (self) {
-        CKContact *me
-            = [[CKContact alloc] initWithJabberIdentifier:nil andDisplayName:@"Me" andPhoneNumber:nil];
+    if (self) {        
+        NSView *windowContentView = self.window.contentView;
+        
+        // set window delegate
+        self.window.delegate = self;
+        
+        // create master and detail view controllers
+        self.masterViewController      = [[MasterViewController alloc] init];
+        self.detailViewController      = [[DetailViewController alloc] init];
+        self.configureWindowController = [[ConfigureWindowController alloc] init];
+        
+        self.detailViewController.delegate = self;
+        self.configureWindowController.delegate = self;
+        
+        // create and init splitview
+        self.splitView = [[NSSplitView alloc] initWithFrame:windowContentView.bounds];
+        [self.splitView addSubview:self.masterViewController.view];
+        [self.splitView addSubview:self.detailViewController.view];
+        [self.splitView setDividerStyle:NSSplitViewDividerStyleThin];
+        [self.splitView setVertical:YES];
+        [self.splitView setDelegate:self];
+        [self.splitView adjustSubviews];
+        
+        // adjust the size of the contacts view to be 30% of the window
+        CGFloat masterViewWidth = self.splitView.frame.size.width * 0.3;
+        CGFloat detailViewWidth = self.splitView.frame.size.width * 0.7;
+        [self.splitView setPosition:masterViewWidth ofDividerAtIndex:0];
+        
+        
+        // adjust master views
+        CGFloat masterButtonW = detailViewWidth;
+        CGFloat masterButtonH = 50;
+        CGFloat masterButtonX = (masterViewWidth - masterButtonW) / 2;
+        CGFloat masterButtonY = 0;
+        self.masterViewController.addContactButton.frame =
+            NSMakeRect(masterButtonX, masterButtonY, masterButtonW, masterButtonH);
+        
+        CGFloat masterScrollW = masterViewWidth;
+        CGFloat masterScrollH = self.splitView.frame.size.height - masterButtonH;
+        CGFloat masterScrollX = 0;
+        CGFloat masterScrollY = 50;
+        self.masterViewController.scrollView.frame =
+            NSMakeRect(masterScrollX, masterScrollY, masterScrollW, masterScrollH);
+        
+        // adjust detail views
+        CGFloat detailTextFieldW = detailViewWidth - 20;
+        CGFloat detailTextFieldH = 30;
+        CGFloat detailTextFieldX = (detailViewWidth - detailTextFieldW) / 2;
+        CGFloat detailTextFieldY = 9.0 - 3;
+        self.detailViewController.detailView.textField.frame =
+            NSMakeRect(detailTextFieldX, detailTextFieldY, detailTextFieldW, detailTextFieldH);
+        
+        CGFloat detailScrollW = detailViewWidth;
+        CGFloat detailScrollH = self.splitView.frame.size.height - masterButtonH - 1;
+        CGFloat detailScrollX = 0;
+        CGFloat detailScrollY = 50 + 1;
+        self.detailViewController.detailView.scrollView.frame =
+            NSMakeRect(detailScrollX, detailScrollY, detailScrollW, detailScrollH);
+        self.detailViewController.detailView.textView.frame =
+            NSMakeRect(detailScrollX, detailScrollY, detailScrollW, detailScrollH);
+        self.detailViewController.detailView.inputSeparator.frame =
+            NSMakeRect(0, 35 + 1, detailScrollW, 15);
+        
+        //[self.window makeFirstResponder:self.detailViewController.detailView];
+        [self.window setBackgroundColor:[NSColor mediumBackgroundNoiseColor]];
+        
+        // set split view as window content view
+        self.window.contentView = self.splitView;
+        
+        
+        CKContact *me = [[CKContact alloc] initWithJabberIdentifier:nil andDisplayName:@"Me" andPhoneNumber:nil];
         self.chattaKit = [[ChattaKit alloc] initWithMe:me];
+        self.chattaKit.delegate = self;
+        
+        //[self showConfigureSheet:self.window];
+        [CKPersistence loadContactsFromPersistentStorage];
+        [self.masterViewController.tableView reloadData];
+        
+        self.masterViewController.chattaKit = self.chattaKit;
+        self.masterViewController.detailViewController = self.detailViewController;
+        self.masterViewController.delegate = self;
+        
+        self.configureWindowController.chattaState = ChattaStateDisconnected;
     }
     
     return self;
 }
 
-- (void)windowDidLoad
-{    
-    [super windowDidLoad];
-    
-    self.debugPanel.isVisible = NO;
-        
-    self.splitView.subviews = [NSArray arrayWithObjects:
-        self.masterViewController.view, self.detailViewController.view, nil];
-        
-    self.configureViewController = [[ConfigureViewController alloc] 
-        initWithNibName:@"ConfigureViewController" bundle:nil];
-    self.configureViewController.delegate = self;
-    
-    self.masterViewController.chattaKit = self.chattaKit;
-    self.masterViewController.connectionState = ChattaStateDisconnected;
-    self.masterViewController.detailViewController = self.detailViewController;
-    self.masterViewController.delegate = self;
-            
-    self.chattaKit.delegate = self;
-    
-    [self showConfigureSheet:self.window];
-        
-    [CKPersistence loadContactsFromPersistentStorage];
-    [self.masterViewController.contactListTableView reloadData];
-}
-
-- (void)windowDidBecomeMain:(NSNotification *)notification
+- (void)updateFirstResponder:(NSString *)characters
 {
-    if (self.masterViewController != nil) {
-        self.masterViewController.isVisible = YES;
-    }
-    NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
-    dockTile.badgeLabel = @"";
-}
-
-- (void)windowDidResignMain:(NSNotification *)notification
-{
-    if (self.masterViewController != nil) {
-        self.masterViewController.isVisible = NO;
-    }
-}
-
--   (CGFloat)splitView:(NSSplitView *)splitView 
-constrainMinCoordinate:(CGFloat)proposedMinimumPosition 
-           ofSubviewAt:(NSInteger)dividerIndex
-{
-    if (dividerIndex == 0) {
-        return 140.0;
-    }
-    return proposedMinimumPosition;
-}
-
-#pragma mark - ConfigureViewController Delegates
-
-- (void)loginPushedUsername:(NSString *)username password:(NSString *)password
-{
-    self.username = username;
-    self.password = password;
+/*
+    NSTextField *textField = self.detailViewController.detailView.textField;
+    NSText *fieldEditor = [self.window fieldEditor:YES forObject:textField];
     
-    [self.chattaKit loginToServiceWith:self.username andPassword:self.password];
+    [self.window makeFirstResponder:textField];
+    
+    NSString *newFieldString = (characters) ?
+    [NSString stringWithFormat:@"%@%@", fieldEditor.string, characters] : fieldEditor.string;
+    [fieldEditor setSelectedRange:NSMakeRange(fieldEditor.string.length, 0)];
+    [fieldEditor setString:newFieldString];
+    [fieldEditor setNeedsDisplay:YES];
+*/
 }
 
-- (void)configurationSheetDidComplete
+- (void)receivedSleepNotification:(NSNotification *)notification
 {
-    [NSApp endSheet:self.configureSheet];
-        
-    // if the user has resized the window already, don't resize it again
-    if (self.window.frame.size.width > 480 && self.window.frame.size.height > 270) {
-        return;
-    }
     
-    // adjust split view
-    [self.splitView setPosition:140.0 ofDividerAtIndex:0];
-    [self.splitView adjustSubviews];
-    
-    // adjust window location
-    CGFloat sizeX = self.window.screen.frame.size.width  * 0.5; // ~850;
-    CGFloat sizeY = self.window.screen.frame.size.height * 0.6; // ~650;
-    CGFloat originX = ((self.window.screen.frame.size.width)  / 2) - (sizeX / 2);
-    CGFloat originY = ((self.window.screen.frame.size.height) / 2) - (sizeY / 2) + 55;
-
-    NSRect windowFrame = NSMakeRect(originX, originY, sizeX, sizeY);
-    [self.window setFrame:windowFrame display:YES animate:YES];
 }
+
+- (void)receivedWakeNotification:(NSNotification *)notification
+{
+    
+}
+
+- (void)receivedAccountPressedNotification:(id)sender
+{
+    [self showConfigureWindow];
+}
+
 
 #pragma mark - ChattaKit Delegates
 
 - (void)connectionStateNotification:(ChattaState)state
-{
+{    
     switch (state) {
         case ChattaStateConnected:
         {
             CKDebug(@"[+] received ChattaStateConnected notification");
-            self.masterViewController.connectionState = state;
             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [self configurationSheetDidComplete];
-                
+                [self removeConfigureWindow];
                 if ([CKPersistence firstRunOfChatta] == YES) {
                     CKDebug(@"[+] first run of chatta, importing contacts");
                     [self deleteAndReimportContacts:self];
@@ -155,8 +163,7 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
         case ChattaStateDisconnected:
         {
             CKDebug(@"[+] received ChattaStateDisconnected notification");
-            self.masterViewController.connectionState = state;
-            [self.configureViewController loginStopped];
+            [self showConfigureWindow];
             break;
         }
         default:
@@ -165,12 +172,14 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
             break;
         }
     }
+    
+    self.configureWindowController.chattaState = state;
 }
 
 - (void)deleteAndReimportContacts:(id)sender
 {
     [[CKContactList sharedInstance] removeAllContacts];
-    [self.masterViewController.contactListTableView reloadData];
+    //[self.masterViewController.contactListTableView reloadData];
     [self.chattaKit requestMostContacted];
 }
 
@@ -189,123 +198,113 @@ constrainMinCoordinate:(CGFloat)proposedMinimumPosition
         // set display name incase we don't have one
         if (contact.displayName == nil) {
             contact.displayName =
-                (contact.phoneNumber == nil) ? contact.jabberIdentifier : contact.phoneNumber;
+            (contact.phoneNumber == nil) ? contact.jabberIdentifier : contact.phoneNumber;
         }
-    
-        [self.masterViewController addContactWithName:contact.displayName
-            email:contact.jabberIdentifier phone:contact.phoneNumber];
+        
+        //[self.masterViewController addContactWithName:contact.displayName
+         ///                                       email:contact.jabberIdentifier phone:contact.phoneNumber];
     }
 }
 
-#pragma mark - MasterViewController and ConfigureViewController Delegates
-
-- (void)loginToChatta
-{
-    [self showConfigureSheet:self.window];
-}
-
-- (void)logoutOfChatta
-{
-    [self.chattaKit logoutOfService];
-}
-
-- (void)cancelChattaLogin
-{
-    [self logoutOfChatta];
-}
-
-- (void)makeTextFieldFirstResponder
-{
-    [self.window makeFirstResponder:self.detailViewController.messagesInputTextField];
-}
 
 #pragma mark - Sheet Methods
 
-- (void)showConfigureSheet:(NSWindow *)window
+- (void)showConfigureWindow
 {
-    [self.configureViewController configureSheetWillOpen];
-    [self.configureSheetView addSubview:self.configureViewController.view];
-    
-    [NSApp beginSheet:self.configureSheet 
-       modalForWindow:self.window 
-        modalDelegate:self 
-       didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) 
+    [NSApp beginSheet:self.configureWindowController.window
+       modalForWindow:self.window
+        modalDelegate:self
+       didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
           contextInfo:nil];
 }
 
+- (void)removeConfigureWindow
+{
+    [NSApp endSheet:self.configureWindowController.window];
+}
+
+#pragma mark - Event Handling
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+    [self updateFirstResponder:theEvent.characters];
+}
+
+#pragma mark - DetailViewController Delegate
+
+- (void)makeDetailViewFirstResponder
+{
+    [self updateFirstResponder:nil];
+}
+
+#pragma mark - NSSplitView Delegate
+
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinPosition
+         ofSubviewAt:(NSInteger)dividerIndex
+{
+    return 200;
+}
+
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition
+         ofSubviewAt:(NSInteger)dividerIndex
+{
+    return 375;
+}
+
+#pragma mark - NSWindow Delegate
+
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
+{
+    // minimum frame size 600 x 400 (width x height)
+    
+    if (frameSize.width < 600.0 && frameSize.height < 400.0) {
+        return NSMakeSize(600.0, 400.0);
+    }
+    
+    if (frameSize.width < 600.0) {
+        return NSMakeSize(600.0, frameSize.height);
+    }
+    
+    if (frameSize.height < 400.0) {
+        return NSMakeSize(frameSize.width, 400.0);
+    }
+    
+    return frameSize;
+}
+
+- (void)windowDidBecomeMain:(NSNotification *)notification
+{
+    if (self.masterViewController != nil) {
+        self.masterViewController.isVisible = YES;
+    }
+    NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
+    dockTile.badgeLabel = @"";
+}
+
+- (void)windowDidResignMain:(NSNotification *)notification
+{
+    if (self.masterViewController != nil) {
+        self.masterViewController.isVisible = NO;
+    }
+}
+
+#pragma mark - ConfigureWindow Delegates
+
+- (void)cancelRequested:(id)sender
+{
+    NSLog(@"[+] RootWindowController: cancelRequested");
+    [self removeConfigureWindow];
+}
+
+- (void)loginRequested:(id)sender withUsername:(NSString *)username password:(NSString *)password
+{
+    NSLog(@"[+] RootWindowController: loginRequested");
+    [self.chattaKit loginToServiceWith:username andPassword:password];
+}
+
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)ctxInfo
-{    
-    [self.configureViewController configureSheetWillClose];
-    [self.configureSheet orderOut:self];
-}
-
-#pragma mark - Sleep/Wake Notifications
-
-- (void)receivedSleepNotification:(NSNotification *)notification
 {
-    [self logoutOfChatta];
+    [self.configureWindowController.window orderOut:self];
 }
 
-- (void)receivedWakeNotification:(NSNotification *)notification
-{
-    [self loginToChatta];
-    
-    self.configureViewController.usernameTextField.stringValue =
-        (self.username) ? self.username : @"";
-    self.configureViewController.passwordTextField.stringValue =
-        (self.password) ? self.password : @"";
-    
-    [self.configureViewController firstNextPushed:self];
-}
-
-
-// debugging methods
-- (IBAction)debugSleepNotification:(id)sender
-{
-    [self receivedSleepNotification:nil];
-}
-
-- (IBAction)debugWakeNotification:(id)sender
-{
-    [self receivedWakeNotification:nil];
-}
-
-- (IBAction)debugConnectedNotification:(id)sender
-{
-    self.chattaKit.chattaState = ChattaStateConnected;
-    [self connectionStateNotification:ChattaStateConnected];
-}
-
-- (IBAction)debugconnectionInProgress:(id)sender
-{
-    [self.configureViewController loginInProgress];
-}
-
-- (IBAction)debugDisconnectedNotification:(id)sender
-{
-    self.chattaKit.chattaState = ChattaStateDisconnected;
-    [self connectionStateNotification:ChattaStateDisconnected];
-}
-
-- (IBAction)debugUpdateConnectionState:(id)sender
-{
-    CKContactList *contactList = [CKContactList sharedInstance];
-    CKContact *dbg_cnt = [contactList contactWithName:self.debugContactNameTextField.stringValue];
-    dbg_cnt.connectionState = self.debugContactStateTextField.intValue;
-}
-
-- (IBAction)debugNewMessageForContact:(id)sender
-{
-    CKContactList *contactList = [CKContactList sharedInstance];
-    CKContact *dbg_cnt = [contactList contactWithName:self.debugContactNameTextField.stringValue];
-    NSString *randomMessage = [NSString randomStringWithLength:8];
-    CKMessage *dbg_msg = [[CKMessage alloc] initWithContact:contactList.me
-        timestamp:[NSDate date] messageText:randomMessage];
-    [contactList newMessage:dbg_msg forContact:dbg_cnt];
-}
-
-- (IBAction)debugSendExtendedAttributesRequest:(id)sender
-{
-    [self.chattaKit requestMostContacted];
-}
 @end
