@@ -6,7 +6,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "CKProgressIndicator.h"
 #import "CKLabel.h"
 
 @protocol ConfigureViewDelegate <NSObject>
@@ -17,17 +16,25 @@
 
 @interface ConfigureView : NSView
 
+typedef enum {
+    ConfigureViewStateNormal,
+    ConfigureViewStateProgress,
+    ConfigureViewStateError
+} ConfigureViewState;
+
 @property (nonatomic, strong) CKLabel *titleLabel;
 @property (nonatomic, strong) CKLabel *usernameLabel;
 @property (nonatomic, strong) CKLabel *passwordLabel;
 
 @property (nonatomic, strong) NSTextField *usernameTextField;
 @property (nonatomic, strong) NSSecureTextField *passwordTextField;
-@property (nonatomic, strong) CKProgressIndicator *progressIndicator;
+@property (nonatomic, strong) NSView *progressOrErrorView;
 
 @property (nonatomic, strong) NSButton *leftButton;
 @property (nonatomic, strong) NSButton *rightButton;
 
 @property (nonatomic, assign) id <ConfigureViewDelegate> delegate;
+
+- (void)changeViewState:(ConfigureViewState)newConfigureState;
 
 @end

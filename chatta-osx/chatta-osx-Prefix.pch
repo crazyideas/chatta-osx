@@ -12,3 +12,9 @@
 #else
 #define CKDebug(...)
 #endif
+
+#define CKCopyRect(r) NSMakeRect(r.origin.x, r.origin.y, r.size.width, r.size.height)
+
+#define normalRectFrame   NSMakeRect(0, 0, 450, 225)
+#define progressRectFrame NSMakeRect(0, 0, 450, 255)
+#define errorRectFrame    NSMakeRect(0, 0, 450, 325)

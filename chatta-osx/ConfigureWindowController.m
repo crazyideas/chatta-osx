@@ -15,7 +15,7 @@
     if (self) {
         NSUInteger configureWindowStyleMask = NSClosableWindowMask |
             NSMiniaturizableWindowMask | NSTitledWindowMask | NSTitledWindowMask;
-        NSRect configureWindowFrame = NSMakeRect(0, 0, 480, 270);
+        NSRect configureWindowFrame = normalRectFrame;
         
         self.window = [[NSWindow alloc] initWithContentRect:configureWindowFrame
             styleMask:configureWindowStyleMask backing:NSBackingStoreBuffered defer:NO];
