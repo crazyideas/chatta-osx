@@ -257,7 +257,21 @@
     self.popoverViewController.contact     = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
 
     [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
+}
+
+- (void)tableView:(CKTableView *)tableView didRequestDeleteRow:(NSInteger)row
+{
+    CKDebug(@"[+] MasterViewController: tableView:didRequestDeleteRow: %li", row);
+
+    if (row < 0) {
+        return;
+    }
     
+    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:row];
+    [[CKContactList sharedInstance] removeContact:rmContact];
+    
+    [self.tableView deselectAll:self];
+    [self.tableView reloadData];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
@@ -316,20 +330,5 @@
         ([sender isKindOfClass:[NSButton class]]) ? PopoverTypeAddContact : PopoverTypeUpdateContact;
     [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
 }
-
-- (IBAction)removeContactAction:(id)sender
-{
-    NSInteger selectedRow = self.tableView.selectedRow;
-    if (selectedRow < 0) {
-        return;
-    }
-    
-    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
-    [[CKContactList sharedInstance] removeContact:rmContact];
-    
-    [self.tableView deselectAll:self];
-    [self.tableView reloadData];
-}
-
 
 @end

@@ -69,4 +69,19 @@
     [super drawGridInClipRect:clipRectInter];
 }
 
+- (void)keyUp:(NSEvent *)event
+{
+    unichar key = [[event charactersIgnoringModifiers] characterAtIndex:0];
+    if (key == NSDeleteFunctionKey) {
+        CKDebug(@"[+] CKTableView: keyUp, didRequestDeleteRow");
+        if (self.delegate != nil) {
+            if ([self.delegate respondsToSelector:@selector(tableView:didRequestDeleteRow:)]) {
+                [(id)self.delegate tableView:self didRequestDeleteRow:self.selectedRow];
+            }
+        }
+    }
+    
+    [super keyUp:event];
+}
+
 @end
