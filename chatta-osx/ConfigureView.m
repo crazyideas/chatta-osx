@@ -61,8 +61,10 @@
         [self.usernameTextField setAutoresizingMask:NSViewMinYMargin];
 
         [self.passwordTextField.cell setPlaceholderString:@"supersecretpassword"];
+        [self.passwordTextField setTarget:self];
+        [self.passwordTextField setAction:@selector(rightButtonPressed:)];
         [self.passwordTextField setAutoresizingMask:NSViewMinYMargin];
-        
+
         [self changeViewState:ConfigureViewStateNormalDisconnected];
         
         [self addSubview:self.titleLabel];

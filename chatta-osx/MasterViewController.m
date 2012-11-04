@@ -177,7 +177,8 @@
 - (void)contactConnectionStateUpdated:(ContactState)state forContact:(CKContact *)contact
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
+        __block MasterViewController *block_self = self;
+        [block_self.tableView reloadData];
     });
 }
 
@@ -318,7 +319,6 @@
     contact.phoneNumber      = number;
     
     [self.chattaKit requestContactStatus:contact];
-    
     [self.tableView reloadData];
 }
 

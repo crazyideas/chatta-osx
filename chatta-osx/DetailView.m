@@ -46,7 +46,7 @@
         [self.textField setAction:@selector(newMessageAction:)];
         [self.textField setDelegate:self];
         
-        [self.textField.cell setPlaceholderString:@"Google Voice..."];
+        [self.textField.cell setPlaceholderString:@"Sign in to chat..."];
         [self.textField.cell setFocusRingType:NSFocusRingTypeNone];
         [self.textField.cell setFont:[NSFont applicationLightLarge]];
         [self.textField.cell setLineBreakMode:NSLineBreakByTruncatingTail];

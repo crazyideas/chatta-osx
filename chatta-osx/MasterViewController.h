@@ -9,6 +9,7 @@
 #import "CKContactList.h"
 #import "CKTableView.h"
 #import "DetailViewController.h"
+#import "PopoverViewController.h"
 
 @protocol PopoverDelegate;
 @protocol ContactPopoverDelegate;

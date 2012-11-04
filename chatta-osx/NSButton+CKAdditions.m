@@ -9,4 +9,14 @@
 
 @implementation NSButton (CKAdditions)
 
+- (NSColor *)textColor
+{
+    return nil;
+}
+
+- (void)setTextColor:(NSColor *)textColor
+{
+    return;
+}
+
 @end

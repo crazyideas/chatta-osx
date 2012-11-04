@@ -36,9 +36,15 @@
         [self.popoverView.leftButton setAction:@selector(leftButtonAction:)];
 
         [self.popoverView.nameTextField  setDelegate:self];
+        
         [self.popoverView.phoneTextField setDelegate:self];
+        [self.popoverView.phoneTextField setTarget:self];
+        [self.popoverView.phoneTextField setAction:@selector(rightButtonAction:)];
         [self.popoverView.phoneTextField setFormatter:self.phoneNumberFormatter];
+        
         [self.popoverView.emailTextField setDelegate:self];
+        [self.popoverView.emailTextField setTarget:self];
+        [self.popoverView.emailTextField setAction:@selector(rightButtonAction:)];
         
         [self.popoverView setAutoresizesSubviews:YES];
         [self.popoverView setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin |

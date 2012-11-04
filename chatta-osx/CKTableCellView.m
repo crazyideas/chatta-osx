@@ -8,8 +8,6 @@
 #import "CKTableCellView.h"
 #import "NSColor+CKAdditions.h"
 
-#define CKCopyRect(r) NSMakeRect(r.origin.x, r.origin.y, r.size.width, r.size.height)
-
 @implementation CKTableCellView
 
 - (id)initWithFrame:(NSRect)frame

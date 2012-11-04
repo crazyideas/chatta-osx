@@ -52,9 +52,32 @@
     [self.detailView clearMessageView];
     
     if (contact == nil) {
+        [self.detailView.textField.cell setPlaceholderString:@"Select a contact to chat..."];
         return;
     }
     
+    // update text input placeholder string
+    switch (contact.connectionState) {
+        case ContactStateOnline:
+        {
+            [self.detailView.textField.cell setPlaceholderString:@"Google Talk..."];
+            break;
+        }
+        case ContactStateOffline:
+        {
+            [self.detailView.textField.cell setPlaceholderString:@"Google Voice..."];
+            break;
+        }
+        case ContactStateIndeterminate:
+        {
+            [self.detailView.textField.cell setPlaceholderString:@"Sign in to chat..."];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    // update text view with actual conversation
     DetailViewCacheItem *cacheItem = [self.textStorageCache objectForKey:contact.displayName];
     if (cacheItem == nil) {
         cacheItem = [[DetailViewCacheItem alloc] init];

@@ -10,8 +10,6 @@
 #import "NSColor+CKAdditions.h"
 #import "NSFont+CKAdditions.h"
 
-#define CKCopyRect(r) NSMakeRect(r.origin.x, r.origin.y, r.size.width, r.size.height)
-
 @implementation CKTableRowView
 
 - (NSAttributedString *)etchedStringWithFont:(NSFont *)font andString:(NSString *)string
