@@ -15,8 +15,6 @@
 		2742073016437A9300A77F92 /* NSButton+CKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742072F16437A9300A77F92 /* NSButton+CKAdditions.m */; };
 		274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274D907A15BB2E2D002C168A /* libChattaKit.a */; };
 		2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2712B37C15B263D000D73FEA /* QuartzCore.framework */; };
-		2774A49115B5139C00D45B47 /* ContactPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */; };
-		2774A49215B5139C00D45B47 /* ContactPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */; };
 		279021F71636283E00A64F24 /* NSColor+CKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 279021F61636283E00A64F24 /* NSColor+CKAdditions.m */; };
 		279021FC1636297D00A64F24 /* ConfigureWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279021F91636297D00A64F24 /* ConfigureWindowController.m */; };
 		279021FD1636297D00A64F24 /* ConfigureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 279021FB1636297D00A64F24 /* ConfigureView.m */; };
@@ -31,15 +29,12 @@
 		2792010615B92734006CC188 /* Cookie-Regular.ttf in Copy Files */ = {isa = PBXBuildFile; fileRef = 2792010415B9272D006CC188 /* Cookie-Regular.ttf */; };
 		27942F5615DF65DD00C88A30 /* chatta_new_message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 27942F5515DF65DD00C88A30 /* chatta_new_message.wav */; };
 		279F50891638D65B00F5DC25 /* NSFont+CKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 279F50881638D65B00F5DC25 /* NSFont+CKAdditions.m */; };
-		27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */; };
-		27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */; };
 		27A6484715DA28B800596713 /* libtidy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A6484615DA28B800596713 /* libtidy.dylib */; };
 		27AB3390163DBBEF002556DD /* NSSound+CKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AB338F163DBBEF002556DD /* NSSound+CKAdditions.m */; };
 		27AB33BB163EFBA9002556DD /* dark_noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 27AB33BA163EFBA9002556DD /* dark_noise.png */; };
 		27AB33C3163EFDB2002556DD /* medium_noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 27AB33C2163EFDB2002556DD /* medium_noise.png */; };
 		27B5282415E0A01200A6EA17 /* DetailViewCacheItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B5282315E0A01200A6EA17 /* DetailViewCacheItem.m */; };
 		27BAF56215C602EC009B12F3 /* CKTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BAF56115C602EC009B12F3 /* CKTableView.m */; };
-		27D74F3D15BE6AEF009F522A /* CKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D74F3C15BE6AEF009F522A /* CKView.m */; };
 		27D74F6115BF9624009F522A /* CKProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D74F6015BF9624009F522A /* CKProgressIndicator.m */; };
 		27DA222915ABCBBA00CEB105 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DA222815ABCBBA00CEB105 /* Cocoa.framework */; };
 		27DA223315ABCBBA00CEB105 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27DA223115ABCBBA00CEB105 /* InfoPlist.strings */; };
@@ -48,17 +43,12 @@
 		27DA223C15ABCBBA00CEB105 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA223B15ABCBBA00CEB105 /* AppDelegate.m */; };
 		27DA223F15ABCBBA00CEB105 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA223D15ABCBBA00CEB105 /* MainMenu.xib */; };
 		27DA224A15ABCCB700CEB105 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA224815ABCCB700CEB105 /* DetailViewController.m */; };
-		27DA224B15ABCCB700CEB105 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA224915ABCCB700CEB105 /* DetailViewController.xib */; };
 		27DA224F15ABCCE200CEB105 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA224D15ABCCE200CEB105 /* MasterViewController.m */; };
-		27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA224E15ABCCE200CEB105 /* MasterViewController.xib */; };
 		27DA225715ABCD3E00CEB105 /* RootWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA225615ABCD3E00CEB105 /* RootWindowController.m */; };
-		27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA226415ABD34000CEB105 /* RootWindow.xib */; };
 		27DD61911646043D0035B09B /* chatta-icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27DD61901646043D0035B09B /* chatta-icon.icns */; };
 		27E3F51215F0030E0060881A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E3F51115F0030E0060881A /* AddressBook.framework */; };
 		27E95B9315D0BC34008C7D68 /* CKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E95B9215D0BC34008C7D68 /* CKTextView.m */; };
 		27E95B9715D0C2D5008C7D68 /* CKScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E95B9615D0C2D5008C7D68 /* CKScrollView.m */; };
-		27FAA82615AE7C8300C1C75E /* ConfigureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */; };
-		27FAA82715AE7C8300C1C75E /* ConfigureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -90,9 +80,6 @@
 		2742072E16437A9300A77F92 /* NSButton+CKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+CKAdditions.h"; sourceTree = "<group>"; };
 		2742072F16437A9300A77F92 /* NSButton+CKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+CKAdditions.m"; sourceTree = "<group>"; };
 		274D907A15BB2E2D002C168A /* libChattaKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libChattaKit.a; path = "../../../Library/Developer/Xcode/DerivedData/chatta-fmqjzekevcvcawcwydtxhxcpyluh/Build/Products/Debug/libChattaKit.a"; sourceTree = "<group>"; };
-		2774A48E15B5139B00D45B47 /* ContactPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactPopoverViewController.h; sourceTree = "<group>"; };
-		2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactPopoverViewController.m; sourceTree = "<group>"; };
-		2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactPopoverViewController.xib; sourceTree = "<group>"; };
 		279021F51636283E00A64F24 /* NSColor+CKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+CKAdditions.h"; sourceTree = "<group>"; };
 		279021F61636283E00A64F24 /* NSColor+CKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+CKAdditions.m"; sourceTree = "<group>"; };
 		279021F81636297C00A64F24 /* ConfigureWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigureWindowController.h; sourceTree = "<group>"; };
@@ -116,9 +103,6 @@
 		27942F5515DF65DD00C88A30 /* chatta_new_message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = chatta_new_message.wav; sourceTree = "<group>"; };
 		279F50871638D65B00F5DC25 /* NSFont+CKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFont+CKAdditions.h"; sourceTree = "<group>"; };
 		279F50881638D65B00F5DC25 /* NSFont+CKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFont+CKAdditions.m"; sourceTree = "<group>"; };
-		27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPopoverViewController.h; sourceTree = "<group>"; };
-		27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPopoverViewController.m; sourceTree = "<group>"; };
-		27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsPopoverViewController.xib; sourceTree = "<group>"; };
 		27A6484615DA28B800596713 /* libtidy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtidy.dylib; path = usr/lib/libtidy.dylib; sourceTree = SDKROOT; };
 		27AB338E163DBBEF002556DD /* NSSound+CKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSound+CKAdditions.h"; sourceTree = "<group>"; };
 		27AB338F163DBBEF002556DD /* NSSound+CKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSound+CKAdditions.m"; sourceTree = "<group>"; };
@@ -128,8 +112,6 @@
 		27B5282315E0A01200A6EA17 /* DetailViewCacheItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewCacheItem.m; sourceTree = "<group>"; };
 		27BAF56015C602EC009B12F3 /* CKTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableView.h; sourceTree = "<group>"; };
 		27BAF56115C602EC009B12F3 /* CKTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTableView.m; sourceTree = "<group>"; };
-		27D74F3B15BE6AEF009F522A /* CKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKView.h; sourceTree = "<group>"; };
-		27D74F3C15BE6AEF009F522A /* CKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKView.m; sourceTree = "<group>"; };
 		27D74F5F15BF9624009F522A /* CKProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKProgressIndicator.h; sourceTree = "<group>"; };
 		27D74F6015BF9624009F522A /* CKProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKProgressIndicator.m; sourceTree = "<group>"; };
 		27DA222415ABCBBA00CEB105 /* chatta-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatta-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,22 +129,16 @@
 		27DA223E15ABCBBA00CEB105 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		27DA224715ABCCB700CEB105 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		27DA224815ABCCB700CEB105 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		27DA224915ABCCB700CEB105 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		27DA224C15ABCCE200CEB105 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		27DA224D15ABCCE200CEB105 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		27DA224E15ABCCE200CEB105 /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		27DA225515ABCD3E00CEB105 /* RootWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootWindowController.h; sourceTree = "<group>"; };
 		27DA225615ABCD3E00CEB105 /* RootWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootWindowController.m; sourceTree = "<group>"; };
-		27DA226415ABD34000CEB105 /* RootWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootWindow.xib; sourceTree = "<group>"; };
 		27DD61901646043D0035B09B /* chatta-icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "chatta-icon.icns"; sourceTree = "<group>"; };
 		27E3F51115F0030E0060881A /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		27E95B9115D0BC34008C7D68 /* CKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTextView.h; sourceTree = "<group>"; };
 		27E95B9215D0BC34008C7D68 /* CKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTextView.m; sourceTree = "<group>"; };
 		27E95B9515D0C2D5008C7D68 /* CKScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKScrollView.h; sourceTree = "<group>"; };
 		27E95B9615D0C2D5008C7D68 /* CKScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKScrollView.m; sourceTree = "<group>"; };
-		27FAA82315AE7C8300C1C75E /* ConfigureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigureViewController.h; sourceTree = "<group>"; };
-		27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigureViewController.m; sourceTree = "<group>"; };
-		27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigureViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,8 +234,6 @@
 			isa = PBXGroup;
 			children = (
 				2790221E16378D1E00A64F24 /* Table Views */,
-				27D74F3B15BE6AEF009F522A /* CKView.h */,
-				27D74F3C15BE6AEF009F522A /* CKView.m */,
 				279021FF16362A1E00A64F24 /* CKLabel.h */,
 				2790220016362A1E00A64F24 /* CKLabel.m */,
 				27E95B9115D0BC34008C7D68 /* CKTextView.h */,
@@ -325,9 +299,9 @@
 				27D74F6315BF9634009F522A /* CustomViews */,
 				27FAA84A15AFCE4000C1C75E /* RootViewControllers */,
 				27FAA84815AFCDFA00C1C75E /* MasterViewControllers */,
-				27FAA84915AFCE2900C1C75E /* DetailViewControllers */,
 				279021FE1636299300A64F24 /* ConfigureWindowController */,
 				27138EDB16378F2B00694D4F /* PopoverViewControllers */,
+				27FAA84915AFCE2900C1C75E /* DetailViewControllers */,
 				279200C615B7D525006CC188 /* Formatters */,
 				27DA222F15ABCBBA00CEB105 /* Supporting Files */,
 			);
@@ -354,13 +328,6 @@
 			children = (
 				27DA224C15ABCCE200CEB105 /* MasterViewController.h */,
 				27DA224D15ABCCE200CEB105 /* MasterViewController.m */,
-				2774A48E15B5139B00D45B47 /* ContactPopoverViewController.h */,
-				2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */,
-				27A2F3D915B66C08000843FB /* SettingsPopoverViewController.h */,
-				27A2F3DA15B66C08000843FB /* SettingsPopoverViewController.m */,
-				27DA224E15ABCCE200CEB105 /* MasterViewController.xib */,
-				2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */,
-				27A2F3DB15B66C08000843FB /* SettingsPopoverViewController.xib */,
 			);
 			name = MasterViewControllers;
 			sourceTree = "<group>";
@@ -374,7 +341,6 @@
 				27138EE81638CDB300694D4F /* DetailView.m */,
 				27B5282215E0A01200A6EA17 /* DetailViewCacheItem.h */,
 				27B5282315E0A01200A6EA17 /* DetailViewCacheItem.m */,
-				27DA224915ABCCB700CEB105 /* DetailViewController.xib */,
 			);
 			name = DetailViewControllers;
 			sourceTree = "<group>";
@@ -384,12 +350,8 @@
 			children = (
 				27DA225515ABCD3E00CEB105 /* RootWindowController.h */,
 				27DA225615ABCD3E00CEB105 /* RootWindowController.m */,
-				27FAA82315AE7C8300C1C75E /* ConfigureViewController.h */,
-				27FAA82415AE7C8300C1C75E /* ConfigureViewController.m */,
 				2700383C15CA2A8E00F2320C /* CKPersistence.h */,
 				2700383D15CA2A8E00F2320C /* CKPersistence.m */,
-				27DA226415ABD34000CEB105 /* RootWindow.xib */,
-				27FAA82515AE7C8300C1C75E /* ConfigureViewController.xib */,
 			);
 			name = RootViewControllers;
 			sourceTree = "<group>";
@@ -448,12 +410,6 @@
 				27DA223315ABCBBA00CEB105 /* InfoPlist.strings in Resources */,
 				27DA223915ABCBBA00CEB105 /* Credits.rtf in Resources */,
 				27DA223F15ABCBBA00CEB105 /* MainMenu.xib in Resources */,
-				27DA224B15ABCCB700CEB105 /* DetailViewController.xib in Resources */,
-				27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */,
-				27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */,
-				27FAA82715AE7C8300C1C75E /* ConfigureViewController.xib in Resources */,
-				2774A49215B5139C00D45B47 /* ContactPopoverViewController.xib in Resources */,
-				27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */,
 				2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */,
 				27942F5615DF65DD00C88A30 /* chatta_new_message.wav in Resources */,
 				2790221016378A0900A64F24 /* light_noise.png in Resources */,
@@ -475,12 +431,8 @@
 				27DA224A15ABCCB700CEB105 /* DetailViewController.m in Sources */,
 				27DA224F15ABCCE200CEB105 /* MasterViewController.m in Sources */,
 				27DA225715ABCD3E00CEB105 /* RootWindowController.m in Sources */,
-				27FAA82615AE7C8300C1C75E /* ConfigureViewController.m in Sources */,
-				2774A49115B5139C00D45B47 /* ContactPopoverViewController.m in Sources */,
-				27A2F3DC15B66C08000843FB /* SettingsPopoverViewController.m in Sources */,
 				279200C115B7D50C006CC188 /* CKPhoneNumberFormatter.m in Sources */,
 				279200C515B7D520006CC188 /* CKEmailAddressFormatter.m in Sources */,
-				27D74F3D15BE6AEF009F522A /* CKView.m in Sources */,
 				27D74F6115BF9624009F522A /* CKProgressIndicator.m in Sources */,
 				27BAF56215C602EC009B12F3 /* CKTableView.m in Sources */,
 				2700383E15CA2A8E00F2320C /* CKPersistence.m in Sources */,

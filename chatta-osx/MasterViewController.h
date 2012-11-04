@@ -10,6 +10,7 @@
 #import "CKTableView.h"
 #import "DetailViewController.h"
 
+@protocol PopoverDelegate;
 @protocol ContactPopoverDelegate;
 @protocol SettingsPopoverDelegate;
 @protocol CKContactListDelegate;
@@ -29,8 +30,8 @@
 @end
 
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
-                                                    NSPopoverDelegate, CKContactListDelegate,
-                                                    DetailViewControllerDelegate>
+                                                    CKContactListDelegate, DetailViewControllerDelegate,
+                                                    PopoverDelegate>
 
 @property (nonatomic, strong) CKScrollView *scrollView;
 @property (nonatomic, strong) CKTableView *tableView;

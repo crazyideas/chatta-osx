@@ -38,17 +38,15 @@
         [self.view setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin |
             NSViewMinYMargin | NSViewMaxYMargin];
         
-        self.scrollView       = [[CKScrollView alloc] initWithFrame:NSZeroRect];
-        self.tableView        = [[CKTableView alloc] initWithFrame:NSZeroRect];
-        self.tableColumn      = [[NSTableColumn alloc] initWithIdentifier:@"contactColumn"];
-        self.lineSeparator    = [[NSBox alloc] initWithFrame:NSZeroRect];
-        self.addContactButton = [[NSButton alloc] initWithFrame:NSZeroRect];
-        self.popover          = [[NSPopover alloc] init];
-        
+        self.scrollView            = [[CKScrollView alloc] initWithFrame:NSZeroRect];
+        self.tableView             = [[CKTableView alloc] initWithFrame:NSZeroRect];
+        self.tableColumn           = [[NSTableColumn alloc] initWithIdentifier:@"contactColumn"];
+        self.lineSeparator         = [[NSBox alloc] initWithFrame:NSZeroRect];
+        self.addContactButton      = [[NSButton alloc] initWithFrame:NSZeroRect];
+        self.popoverViewController = [[PopoverViewController alloc] init];
+
         NSTableHeaderView *tableHeaderView =
         [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 0, 26)];
-        
-        self.popoverViewController = [[PopoverViewController alloc] init];
         
         [self.tableView addTableColumn:self.tableColumn];
         [self.tableView setDelegate:self];
@@ -59,13 +57,11 @@
         [self.tableView setAllowsEmptySelection:YES];
         [self.tableView setGridStyleMask:NSTableViewSolidHorizontalGridLineMask];
         
-        
         // replace column header
         for (NSTableColumn *column in self.tableView.tableColumns) {
             [column setHeaderCell:[[CKTableHeaderCell alloc] init]];
             [column.headerCell setStringValue:@"Contacts"];
         }
-        
         
         [self.scrollView setDocumentView:self.tableView];
         [self.scrollView setHasVerticalScroller:YES];
@@ -88,10 +84,7 @@
         [self.addContactButton setFont:[NSFont applicationLightLarge]];
         [self.addContactButton setBordered:NO];
         
-        [self.popover setContentViewController:self.popoverViewController];
-        [self.popover setAnimates:YES];
-        [self.popover setBehavior:NSPopoverBehaviorTransient];
-        [self.popover setDelegate:self];
+        [self.popoverViewController setDelegate:self];
         
         [self.view addSubview:self.scrollView];
         [self.view addSubview:self.lineSeparator];
@@ -263,7 +256,7 @@
     self.popoverViewController.popoverType = PopoverTypeUpdateContact;
     self.popoverViewController.contact     = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
 
-    [self.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
+    [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
     
 }
 
@@ -285,26 +278,34 @@
     self.previouslySelectedRow = selectedRow;
 }
 
-#pragma mark - NSPopover delegates
+#pragma mark - Popover delegates
 
-- (void)popoverWillShow:(NSNotification *)notification
+- (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
-    NSLog(@"popoverWillShow");
+    CKDebug(@"[+] MasterViewController: addContactWithName");
+    CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:address
+        andDisplayName:name andPhoneNumber:number andContactState:ContactStateIndeterminate];
+    [[CKContactList sharedInstance] addContact:contact];
+    
+    if (self.chattaKit.chattaState == ChattaStateConnected) {
+        [self.chattaKit requestContactStatus:contact];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.tableView reloadData];
+    });
 }
 
-- (void)popoverDidShow:(NSNotification *)notification
+- (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
-    NSLog(@"popoverDidShow");
-}
-
-- (void)popoverWillClose:(NSNotification *)notification
-{
-    NSLog(@"popoverWillClose");
-}
-
-- (void)popoverDidClose:(NSNotification *)notification
-{
-    NSLog(@"popoverDidClose");
+    CKDebug(@"[+] MasterViewController: updateContact");
+    contact.displayName      = name;
+    contact.jabberIdentifier = address;
+    contact.phoneNumber      = number;
+    
+    [self.chattaKit requestContactStatus:contact];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Actions
@@ -313,7 +314,7 @@
 {
     self.popoverViewController.popoverType =
         ([sender isKindOfClass:[NSButton class]]) ? PopoverTypeAddContact : PopoverTypeUpdateContact;
-    [self.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+    [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
 }
 
 - (IBAction)removeContactAction:(id)sender

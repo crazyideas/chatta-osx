@@ -168,8 +168,8 @@
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 [block_self.configureWindowController.configureView
                     changeViewState:ConfigureViewStateNormalConnected];
-
-                //[block_self removeConfigureWindow];
+                [block_self removeConfigureWindow];
+                
                 if ([CKPersistence firstRunOfChatta] == YES) {
                     CKDebug(@"[+] first run of chatta, importing contacts");
                     [block_self deleteAndReimportContacts:self];
