@@ -23,4 +23,6 @@
 
 + (NSFont *)applicationLogo;
 
++ (NSAttributedString *)etchedString:(NSString *)string withFont:(NSFont *)font;
+
 @end

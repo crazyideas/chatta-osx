@@ -17,7 +17,8 @@
 @interface ConfigureView : NSView
 
 typedef enum {
-    ConfigureViewStateNormal,
+    ConfigureViewStateNormalConnected,
+    ConfigureViewStateNormalDisconnected,
     ConfigureViewStateProgress,
     ConfigureViewStateError
 } ConfigureViewState;
@@ -34,6 +35,7 @@ typedef enum {
 @property (nonatomic, strong) NSButton *rightButton;
 
 @property (nonatomic, assign) id <ConfigureViewDelegate> delegate;
+@property (nonatomic) ConfigureViewState configureViewState;
 
 - (void)changeViewState:(ConfigureViewState)newConfigureState;
 

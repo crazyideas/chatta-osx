@@ -10,6 +10,11 @@
 
 @interface PopoverView : NSView
 
+typedef enum {
+    PopoverTypeAddContact,
+    PopoverTypeUpdateContact
+} PopoverType;
+
 @property (nonatomic, strong) CKLabel *titleLabel;
 @property (nonatomic, strong) CKLabel *nameLabel;
 @property (nonatomic, strong) CKLabel *emailLabel;
@@ -21,5 +26,7 @@
 
 @property (nonatomic, strong) NSButton *leftButton;
 @property (nonatomic, strong) NSButton *rightButton;
+
+@property (nonatomic) PopoverType popoverType;
 
 @end

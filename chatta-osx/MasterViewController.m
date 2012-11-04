@@ -10,6 +10,7 @@
 #import "ChattaKit.h"
 #import "CKContact.h"
 #import "CKMessage.h"
+#import "CKConstants.h"
 #import "CKContactList.h"
 
 #import "NSFont+CKAdditions.h"
@@ -256,20 +257,14 @@
 
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
 {
-    /*
-    NSInteger selectedRow = self.contactListTableView.selectedRow;
+    NSInteger selectedRow = self.tableView.selectedRow;
     id sender = [tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
     
-    self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
+    self.popoverViewController.popoverType = PopoverTypeUpdateContact;
+    self.popoverViewController.contact     = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+
+    [self.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
     
-    [self.contactPopover showRelativeToRect:[sender bounds]
-                                     ofView:sender
-                              preferredEdge:NSMaxXEdge];
-    
-    self.contactPopoverViewController.popoverType = PopoverTypeUpdateContact;
-    self.contactPopoverViewController.contact =
-    [[CKContactList sharedInstance] contactWithIndex:selectedRow];
-     */
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
@@ -316,6 +311,8 @@
 
 - (void)showPopoverAction:(id)sender
 {
+    self.popoverViewController.popoverType =
+        ([sender isKindOfClass:[NSButton class]]) ? PopoverTypeAddContact : PopoverTypeUpdateContact;
     [self.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
 }
 

@@ -106,6 +106,7 @@
         self.masterViewController.delegate = self;
         
         self.configureWindowController.chattaState = ChattaStateDisconnected;
+        [self showConfigureWindow];
     }
     
     return self;
@@ -146,24 +147,55 @@
 #pragma mark - ChattaKit Delegates
 
 - (void)connectionStateNotification:(ChattaState)state
-{    
+{
+    __block RootWindowController *block_self = self;
+
     switch (state) {
+        case ChattaStateConnecting:
+        {
+            CKDebug(@"[+] received ChattaStateConnecting notification");
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [block_self.configureWindowController.configureView
+                    changeViewState:ConfigureViewStateProgress];
+            });
+            break;
+        }
         case ChattaStateConnected:
         {
             CKDebug(@"[+] received ChattaStateConnected notification");
+            
             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [self removeConfigureWindow];
+                [block_self.configureWindowController.configureView
+                    changeViewState:ConfigureViewStateNormalConnected];
+
+                //[block_self removeConfigureWindow];
                 if ([CKPersistence firstRunOfChatta] == YES) {
                     CKDebug(@"[+] first run of chatta, importing contacts");
-                    [self deleteAndReimportContacts:self];
+                    [block_self deleteAndReimportContacts:self];
                 }
+            });
+            break;
+        }
+        case ChattaStateErrorDisconnected:
+        {
+            CKDebug(@"[+] received ChattaStateErrorDisconnected notification");
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [block_self.configureWindowController.configureView
+                    changeViewState:ConfigureViewStateError];
             });
             break;
         }
         case ChattaStateDisconnected:
         {
             CKDebug(@"[+] received ChattaStateDisconnected notification");
-            [self showConfigureWindow];
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [block_self.configureWindowController.configureView
+                    changeViewState:ConfigureViewStateNormalDisconnected];
+                [block_self showConfigureWindow];
+            });
+            
             break;
         }
         default:
@@ -290,16 +322,23 @@
 
 #pragma mark - ConfigureWindow Delegates
 
-- (void)cancelRequested:(id)sender
-{
-    NSLog(@"[+] RootWindowController: cancelRequested");
-    [self removeConfigureWindow];
-}
-
 - (void)loginRequested:(id)sender withUsername:(NSString *)username password:(NSString *)password
 {
     NSLog(@"[+] RootWindowController: loginRequested");
     [self.chattaKit loginToServiceWith:username andPassword:password];
+}
+
+- (void)logoutRequested:(id)sender
+{
+    NSLog(@"[+] RootWindowController: logoutRequested");
+    [self.chattaKit logoutOfService];
+    [self removeConfigureWindow];
+}
+
+- (void)removeWindowRequested:(id)sender
+{
+    NSLog(@"[+] RootWindowController: removeWindowRequested");
+    [self removeConfigureWindow];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)ctxInfo

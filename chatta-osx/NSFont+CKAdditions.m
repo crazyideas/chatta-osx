@@ -123,4 +123,21 @@
     return font;
 }
 
+
+
++ (NSAttributedString *)etchedString:(NSString *)string withFont:(NSFont *)font
+{
+    // attributed string with white etched shadow
+    NSShadow *shadow = [[NSShadow alloc] init];
+    [shadow setShadowColor:[NSColor whiteColor]];
+    [shadow setShadowOffset:NSMakeSize(-0.0, -2.0)];
+
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                       font,   NSFontAttributeName,
+                                       shadow, NSShadowAttributeName,
+                                       nil];
+    
+    return [[NSAttributedString alloc] initWithString:string attributes:attributes];
+}
+
 @end

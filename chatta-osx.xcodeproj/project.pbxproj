@@ -8,14 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2700383E15CA2A8E00F2320C /* CKPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 2700383D15CA2A8E00F2320C /* CKPersistence.m */; };
-		2712B39A15B26C0C00D73FEA /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712B39915B26C0C00D73FEA /* background.png */; };
 		27138ED916378F2700694D4F /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED616378F2700694D4F /* PopoverViewController.m */; };
 		27138EDA16378F2700694D4F /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED816378F2700694D4F /* PopoverView.m */; };
 		27138EE91638CDB300694D4F /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138EE81638CDB300694D4F /* DetailView.m */; };
 		27138EEE1638CDC600694D4F /* CKInputSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138EED1638CDC600694D4F /* CKInputSeparator.m */; };
-		2739578D15D2344100936339 /* status.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739578C15D2344100936339 /* status.png */; };
+		2742073016437A9300A77F92 /* NSButton+CKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742072F16437A9300A77F92 /* NSButton+CKAdditions.m */; };
 		274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274D907A15BB2E2D002C168A /* libChattaKit.a */; };
-		27623A1A15E0AA8B0020789D /* chatta_base.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27623A1915E0AA8A0020789D /* chatta_base.icns */; };
 		2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2712B37C15B263D000D73FEA /* QuartzCore.framework */; };
 		2774A49115B5139C00D45B47 /* ContactPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */; };
 		2774A49215B5139C00D45B47 /* ContactPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */; };
@@ -55,6 +53,7 @@
 		27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA224E15ABCCE200CEB105 /* MasterViewController.xib */; };
 		27DA225715ABCD3E00CEB105 /* RootWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA225615ABCD3E00CEB105 /* RootWindowController.m */; };
 		27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DA226415ABD34000CEB105 /* RootWindow.xib */; };
+		27DD61911646043D0035B09B /* chatta-icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27DD61901646043D0035B09B /* chatta-icon.icns */; };
 		27E3F51215F0030E0060881A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E3F51115F0030E0060881A /* AddressBook.framework */; };
 		27E95B9315D0BC34008C7D68 /* CKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E95B9215D0BC34008C7D68 /* CKTextView.m */; };
 		27E95B9715D0C2D5008C7D68 /* CKScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E95B9615D0C2D5008C7D68 /* CKScrollView.m */; };
@@ -80,7 +79,6 @@
 		2700383C15CA2A8E00F2320C /* CKPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPersistence.h; sourceTree = "<group>"; };
 		2700383D15CA2A8E00F2320C /* CKPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPersistence.m; sourceTree = "<group>"; };
 		2712B37C15B263D000D73FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		2712B39915B26C0C00D73FEA /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		27138ED516378F2700694D4F /* PopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverViewController.h; sourceTree = "<group>"; };
 		27138ED616378F2700694D4F /* PopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverViewController.m; sourceTree = "<group>"; };
 		27138ED716378F2700694D4F /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
@@ -89,9 +87,9 @@
 		27138EE81638CDB300694D4F /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
 		27138EEC1638CDC600694D4F /* CKInputSeparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKInputSeparator.h; sourceTree = "<group>"; };
 		27138EED1638CDC600694D4F /* CKInputSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKInputSeparator.m; sourceTree = "<group>"; };
-		2739578C15D2344100936339 /* status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status.png; sourceTree = "<group>"; };
+		2742072E16437A9300A77F92 /* NSButton+CKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+CKAdditions.h"; sourceTree = "<group>"; };
+		2742072F16437A9300A77F92 /* NSButton+CKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+CKAdditions.m"; sourceTree = "<group>"; };
 		274D907A15BB2E2D002C168A /* libChattaKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libChattaKit.a; path = "../../../Library/Developer/Xcode/DerivedData/chatta-fmqjzekevcvcawcwydtxhxcpyluh/Build/Products/Debug/libChattaKit.a"; sourceTree = "<group>"; };
-		27623A1915E0AA8A0020789D /* chatta_base.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = chatta_base.icns; sourceTree = "<group>"; };
 		2774A48E15B5139B00D45B47 /* ContactPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactPopoverViewController.h; sourceTree = "<group>"; };
 		2774A48F15B5139B00D45B47 /* ContactPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactPopoverViewController.m; sourceTree = "<group>"; };
 		2774A49015B5139B00D45B47 /* ContactPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactPopoverViewController.xib; sourceTree = "<group>"; };
@@ -156,6 +154,7 @@
 		27DA225515ABCD3E00CEB105 /* RootWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootWindowController.h; sourceTree = "<group>"; };
 		27DA225615ABCD3E00CEB105 /* RootWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootWindowController.m; sourceTree = "<group>"; };
 		27DA226415ABD34000CEB105 /* RootWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootWindow.xib; sourceTree = "<group>"; };
+		27DD61901646043D0035B09B /* chatta-icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "chatta-icon.icns"; sourceTree = "<group>"; };
 		27E3F51115F0030E0060881A /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		27E95B9115D0BC34008C7D68 /* CKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTextView.h; sourceTree = "<group>"; };
 		27E95B9215D0BC34008C7D68 /* CKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTextView.m; sourceTree = "<group>"; };
@@ -202,6 +201,8 @@
 				279021F61636283E00A64F24 /* NSColor+CKAdditions.m */,
 				27AB338E163DBBEF002556DD /* NSSound+CKAdditions.h */,
 				27AB338F163DBBEF002556DD /* NSSound+CKAdditions.m */,
+				2742072E16437A9300A77F92 /* NSButton+CKAdditions.h */,
+				2742072F16437A9300A77F92 /* NSButton+CKAdditions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -276,8 +277,8 @@
 		27DA221915ABCBBA00CEB105 = {
 			isa = PBXGroup;
 			children = (
+				27DD61901646043D0035B09B /* chatta-icon.icns */,
 				27E3F51115F0030E0060881A /* AddressBook.framework */,
-				27623A1915E0AA8A0020789D /* chatta_base.icns */,
 				27A6484615DA28B800596713 /* libtidy.dylib */,
 				274D907A15BB2E2D002C168A /* libChattaKit.a */,
 				2712B37C15B263D000D73FEA /* QuartzCore.framework */,
@@ -339,8 +340,6 @@
 				2790221416378A0D00A64F24 /* Images */,
 				2792010415B9272D006CC188 /* Cookie-Regular.ttf */,
 				27942F5515DF65DD00C88A30 /* chatta_new_message.wav */,
-				2712B39915B26C0C00D73FEA /* background.png */,
-				2739578C15D2344100936339 /* status.png */,
 				27DA223015ABCBBA00CEB105 /* chatta-osx-Info.plist */,
 				27DA223115ABCBBA00CEB105 /* InfoPlist.strings */,
 				27DA223415ABCBBA00CEB105 /* main.m */,
@@ -453,16 +452,14 @@
 				27DA225015ABCCE200CEB105 /* MasterViewController.xib in Resources */,
 				27DA226515ABD34000CEB105 /* RootWindow.xib in Resources */,
 				27FAA82715AE7C8300C1C75E /* ConfigureViewController.xib in Resources */,
-				2712B39A15B26C0C00D73FEA /* background.png in Resources */,
 				2774A49215B5139C00D45B47 /* ContactPopoverViewController.xib in Resources */,
 				27A2F3DD15B66C08000843FB /* SettingsPopoverViewController.xib in Resources */,
 				2792010515B9272D006CC188 /* Cookie-Regular.ttf in Resources */,
-				2739578D15D2344100936339 /* status.png in Resources */,
 				27942F5615DF65DD00C88A30 /* chatta_new_message.wav in Resources */,
-				27623A1A15E0AA8B0020789D /* chatta_base.icns in Resources */,
 				2790221016378A0900A64F24 /* light_noise.png in Resources */,
 				27AB33BB163EFBA9002556DD /* dark_noise.png in Resources */,
 				27AB33C3163EFDB2002556DD /* medium_noise.png in Resources */,
+				27DD61911646043D0035B09B /* chatta-icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +500,7 @@
 				27138EEE1638CDC600694D4F /* CKInputSeparator.m in Sources */,
 				279F50891638D65B00F5DC25 /* NSFont+CKAdditions.m in Sources */,
 				27AB3390163DBBEF002556DD /* NSSound+CKAdditions.m in Sources */,
+				2742073016437A9300A77F92 /* NSButton+CKAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,22 +7,22 @@
 
 #import "ConfigureView.h"
 
-#import "NSColor+CKAdditions.h"
 #import "NSFont+CKAdditions.h"
+#import "NSColor+CKAdditions.h"
 #import "CKProgressIndicator.h"
 
 @implementation ConfigureView
 
 #define errorText @"Unable to log in, probably due to one of the below reasons:\n\n" \
-                   "\t\u2022 Invalid username/password combination\n"                  \
-                   "\t\u2022 No Google Voice or Google Talk account\n"                 \
+                   "\t\u2022 Invalid username/password combination\n"                \
+                   "\t\u2022 No Google Voice or Google Talk account\n"               \
                    "\t\u2022 Tried the wrong password too many times"
 
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.titleLabel        = [[CKLabel alloc] initWithFrame:NSMakeRect(           162, 145, 120, 80)];
+        self.titleLabel        = [[CKLabel alloc] initWithFrame:NSMakeRect(           162, 140, 120, 80)];
         self.usernameLabel     = [[CKLabel alloc] initWithFrame:NSMakeRect(            46, 108,  96, 17)];
         self.passwordLabel     = [[CKLabel alloc] initWithFrame:NSMakeRect(            78,  76,  64, 17)];
         self.usernameTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(       147, 105, 255, 22)];
@@ -36,10 +36,12 @@
 
         [self.usernameLabel setAttributedStringValue:[self etchedString:@"Gmail Address"
             withFont:[NSFont systemFontOfSize:0]]];
+        [self.usernameLabel setTextColor:[NSColor darkGrayColor]];
         [self.usernameLabel setAutoresizingMask:NSViewMinYMargin];
 
         [self.passwordLabel setAttributedStringValue:[self etchedString:@"Password"
             withFont:[NSFont systemFontOfSize:0]]];
+        [self.passwordLabel setTextColor:[NSColor darkGrayColor]];
         [self.passwordLabel setAutoresizingMask:NSViewMinYMargin];
 
         [self.leftButton setTitle:@"Cancel"];
@@ -53,12 +55,15 @@
         [self.rightButton setAutoresizingMask:NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
         [self.rightButton setTarget:self];
         [self.rightButton setAction:@selector(rightButtonPressed:)];
-        
+        [self.rightButton setEnabled:NO];
+
         [self.usernameTextField.cell setPlaceholderString:@"username@gmail.com"];
         [self.usernameTextField setAutoresizingMask:NSViewMinYMargin];
 
         [self.passwordTextField.cell setPlaceholderString:@"supersecretpassword"];
         [self.passwordTextField setAutoresizingMask:NSViewMinYMargin];
+        
+        [self changeViewState:ConfigureViewStateNormalDisconnected];
         
         [self addSubview:self.titleLabel];
         [self addSubview:self.usernameLabel];
@@ -87,8 +92,19 @@
     }
     
     switch (newConfigureState) {
-        case ConfigureViewStateNormal:
+        case ConfigureViewStateNormalConnected:
         {
+            [self.rightButton setTitle:@"Logout"];
+            [self.rightButton setEnabled:YES];
+
+            newWindowFrame = CKCopyRect(normalFrame);
+            break;
+        }
+        case ConfigureViewStateNormalDisconnected:
+        {
+            [self.rightButton setTitle:@"Login"];
+            [self.rightButton setEnabled:YES];
+
             newWindowFrame = CKCopyRect(normalFrame);
             break;
         }
@@ -98,6 +114,7 @@
             [(CKProgressIndicator *)self.progressOrErrorView setUsesThreadedAnimation:YES];
             [(CKProgressIndicator *)self.progressOrErrorView startAnimation:self];
             [self addSubview:self.progressOrErrorView];
+            [self.rightButton setEnabled:NO];
             
             newWindowFrame = CKCopyRect(progressFrame);
             break;
@@ -105,9 +122,12 @@
         case ConfigureViewStateError:
         {
             self.progressOrErrorView = [[CKLabel alloc] initWithFrame:NSMakeRect(38, 52, 400, 100)];
-            [(CKLabel *)self.progressOrErrorView setAttributedStringValue:[self etchedString:errorText withFont:[NSFont systemFontOfSize:0]]];
+            [(CKLabel *)self.progressOrErrorView setAttributedStringValue:
+                [self etchedString:errorText withFont:[NSFont systemFontOfSize:0]]];
             [(CKLabel *)self.progressOrErrorView setTextColor:[NSColor redColor]];
             [self addSubview:self.progressOrErrorView];
+            [self.rightButton setEnabled:YES];
+
             
             newWindowFrame = CKCopyRect(errorFrame);
             break;
@@ -118,6 +138,7 @@
         }
     }
     
+    self.configureViewState = newConfigureState;
     [self.window setFrame:newWindowFrame display:YES animate:YES];
 }
 
