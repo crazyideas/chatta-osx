@@ -11,14 +11,7 @@
 
 + (void)playNewMessageBackgroundSound
 {
-    NSString *soundPath = @"/System/Library/Components/CoreAudio.component/Contents/"
-    "SharedSupport/SystemSounds/system/burn complete.aif";
-    NSSound *sound = [[NSSound alloc] initWithContentsOfFile:soundPath byReference:YES];
-    if (sound == nil) {
-        soundPath = [[NSBundle mainBundle] pathForResource:@"chatta_new_message" ofType:@"wav"];
-        sound = [[NSSound alloc] initWithContentsOfFile:soundPath byReference:YES];
-    }
-    
+    NSSound *sound = [NSSound soundNamed:@"Tink"];
     if (sound != nil && sound.isPlaying == NO) {
         [sound play];
     }

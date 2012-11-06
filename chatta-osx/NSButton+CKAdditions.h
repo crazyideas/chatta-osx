@@ -9,7 +9,7 @@
 
 @interface NSButton (CKAdditions)
 
-- (NSColor *)textColor;
-- (void)setTextColor:(NSColor *)textColor;
+- (NSColor *)titleColor;
+- (void)setTitleColor:(NSColor *)titleColor;
 
 @end

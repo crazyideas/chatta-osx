@@ -16,6 +16,7 @@
 #import "NSFont+CKAdditions.h"
 #import "NSColor+CKAdditions.h"
 #import "NSSound+CKAdditions.h"
+#import "NSButton+CKAdditions.h"
 
 #import "CKTableView.h"
 #import "CKScrollView.h"
@@ -78,10 +79,11 @@
         [self.lineSeparator setAutoresizesSubviews:NSViewWidthSizable];
         
         [self.addContactButton setTitle:@"+ Add Contact"];
+        [self.addContactButton setFont:[NSFont applicationLightLarge]];
+        [self.addContactButton setTitleColor:[NSColor darkGrayColor]];
         [self.addContactButton setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
         [self.addContactButton setTarget:self];
         [self.addContactButton setAction:@selector(showPopoverAction:)];
-        [self.addContactButton setFont:[NSFont applicationLightLarge]];
         [self.addContactButton setBordered:NO];
         
         [self.popoverViewController setDelegate:self];
@@ -100,7 +102,6 @@
     }
     return self;
 }
-
 
 #pragma mark - Properties
 
@@ -143,7 +144,7 @@
         if (!block_self.isVisible) {
             NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
             int dockValue = ([dockTile.badgeLabel isEqualToString:@""])
-            ? 0 : [dockTile.badgeLabel intValue];
+                ? 0 : [dockTile.badgeLabel intValue];
             dockTile.badgeLabel = [NSString stringWithFormat:@"%i", ++dockValue];
             
             [NSSound playNewMessageBackgroundSound];
@@ -202,7 +203,15 @@
     cellView.messageLabel.stringValue = (lastMessage == nil) ? @"" : lastMessage.text;
     cellView.timestampLabel.stringValue = (lastMessage == nil) ? @"" : lastMessage.timestampString;
     cellView.contactState = contact.connectionState;
-   
+    
+    // set bold if unread messages
+    if (contact.unreadCount > 0) {
+        cellView.messageLabel.font   = [NSFont fontWithName:@"HelveticaNeue-Bold" size:12];
+        cellView.timestampLabel.font = [NSFont fontWithName:@"HelveticaNeue-Bold" size:12];
+    } else {
+        cellView.messageLabel.font   = [NSFont fontWithName:@"HelveticaNeue-Light" size:12];
+        cellView.timestampLabel.font = [NSFont fontWithName:@"HelveticaNeue-Light" size:12];
+    }
     return cellView;
     
     /*
