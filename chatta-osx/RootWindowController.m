@@ -269,6 +269,14 @@
     [self updateFirstResponder:nil];
 }
 
+- (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact
+{
+    CKDebug(@"[+] sending message: %@, to contact: %@", message, contact);
+    if (self.chattaKit != nil) {
+        [self.chattaKit sendMessage:message toContact:contact];
+    }
+}
+
 #pragma mark - NSSplitView Delegate
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinPosition

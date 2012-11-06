@@ -6,8 +6,12 @@
 //
 
 #import "DetailViewController.h"
-#import "DetailViewCacheItem.h"
+
 #import "CKContact.h"
+#import "DetailViewCacheItem.h"
+
+#import "NSString+CKAdditions.h"
+
 
 @implementation DetailViewController
 
@@ -15,17 +19,22 @@
 {
     self = [super init];
     if (self) {
-        self.detailView = [[DetailView alloc] initWithFrame:NSZeroRect];
+        self.detailView       = [[DetailView alloc] initWithFrame:NSZeroRect];
+        self.textStorageCache = [[NSMutableDictionary alloc] init];
+        
+        [self setEnabled:NO];
+
         [self.detailView setAutoresizesSubviews:YES];
         [self.detailView setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin |
             NSViewMinYMargin | NSViewMaxYMargin];
-        self.detailView.delegate = self;
 
-        self.textStorageCache = [[NSMutableDictionary alloc] init];
-
+        [self.detailView.textField setTarget:self];
+        [self.detailView.textField setAction:@selector(newMessageAction:)];
+        [self.detailView.textField setDelegate:self];
+        
         // needed to propogate first responder information up
-        self.detailView.textView.delegate = self;
-
+        [self.detailView.textView setDelegate:self];
+                
         self.view = self.detailView;
     }
     return self;
@@ -45,36 +54,73 @@
     [self.detailView appendMessageView:newMessageAttrString];
 }
 
-#pragma mark - Properties
-
-- (void)setContact:(CKContact *)contact
+- (void)updateTextFieldPlaceholderText:(CKContact *)contact
 {
-    [self.detailView clearMessageView];
+    // not connected
+    if (self.enabled == NO) {
+        [self.detailView.textField setEnabled:NO];
+        [self.detailView.textField.cell setPlaceholderString:@"Sign in to chat..."];
+        return;
+    }
     
+    // no contact selected
     if (contact == nil) {
+        [self.detailView.textField setEnabled:NO];
         [self.detailView.textField.cell setPlaceholderString:@"Select a contact to chat..."];
         return;
     }
     
-    // update text input placeholder string
+    // contact selected
     switch (contact.connectionState) {
         case ContactStateOnline:
         {
+            if (contact.jabberIdentifier == nil) {
+                [self.detailView.textField setEnabled:NO];
+                [self.detailView.textField.cell setPlaceholderString:@"Update contact email address to chat..."];
+                break;
+            }
+            [self.detailView.textField setEnabled:YES];
             [self.detailView.textField.cell setPlaceholderString:@"Google Talk..."];
             break;
         }
         case ContactStateOffline:
         {
+            if (contact.phoneNumber == nil) {
+                [self.detailView.textField setEnabled:NO];
+                [self.detailView.textField.cell setPlaceholderString:@"Update contact phone number to chat..."];
+                break;
+            }
+            [self.detailView.textField setEnabled:YES];
             [self.detailView.textField.cell setPlaceholderString:@"Google Voice..."];
             break;
         }
         case ContactStateIndeterminate:
         {
+            [self.detailView.textField setEnabled:NO];
             [self.detailView.textField.cell setPlaceholderString:@"Sign in to chat..."];
             break;
         }
         default:
             break;
+    }
+}
+
+#pragma mark - Properties
+
+- (void)setEnabled:(BOOL)enabled
+{
+    [self.detailView.textField setEnabled:self.detailView.textField.isEnabled & enabled];
+    
+    _enabled = enabled;
+}
+
+- (void)setContact:(CKContact *)contact
+{
+    [self.detailView clearMessageView];
+    [self updateTextFieldPlaceholderText:contact];
+    
+    if (contact == nil) {
+        return;
     }
     
     // update text view with actual conversation
@@ -103,13 +149,38 @@
     _contact = contact;
 }
 
-#pragma mark - DetailView Delegates
+#pragma mark - Actions
 
-- (void)newMessageActionKeyUp:(id)sender message:(NSString *)message
+- (void)newMessageAction:(id)sender
 {
-    if (self.delegate != nil) {
-        [self.delegate sendNewMessage:message toContact:self.contact];
+    NSTextField *textField = sender;
+    
+    if ([textField.stringValue isEqualToString:@""]) {
+        return;
     }
+    
+    if (self.delegate != nil) {
+        NSString *trimmedString = [textField.stringValue stringByRemovingWhitespaceNewlineChars];
+        [self.delegate sendNewMessage:trimmedString toContact:self.contact];
+    }
+    
+    textField.stringValue = @"";
+}
+
+#pragma mark - NSTextField Delegates
+
+- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
+{
+    NSTextView *textView = (NSTextView *)fieldEditor;
+    [textView setContinuousSpellCheckingEnabled:YES];
+    return YES;
+}
+
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
+{
+    NSTextView *textView = (NSTextView *)fieldEditor;
+    [textView setContinuousSpellCheckingEnabled:NO];
+    return YES;
 }
 
 #pragma mark - NSTextView Delegates

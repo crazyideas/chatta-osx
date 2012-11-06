@@ -93,7 +93,6 @@
         self.detailViewController.contact = nil;
         self.detailViewController.enabled =
             (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
-        self.detailViewController.delegate = self;
         
         [CKContactList sharedInstance].delegate = self;
         self.connectionState = ChattaStateDisconnected;
@@ -111,18 +110,6 @@
     
     _connectionState = connectionState;
 }
-
-
-#pragma mark - DetailViewController Delegate
-
-- (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact
-{
-    CKDebug(@"[+] sending message: %@, to contact: %@", message, contact);
-    if (self.chattaKit != nil) {
-        [self.chattaKit sendMessage:message toContact:contact];
-    }
-}
-
 
 #pragma mark - CKContactList Delegates
 
@@ -248,6 +235,11 @@
     return tableRowView;
 }
 
+- (void)tableView:(CKTableView *)tableView didSingleClickRow:(NSInteger)row
+{
+    
+}
+
 
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
 {
@@ -286,8 +278,7 @@
     // update selected contact
     CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
-    self.detailViewController.enabled =
-    (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
+    self.detailViewController.enabled = (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
     CKDebug(@"[+] tableViewSelectionDidChange: %li", self.tableView.selectedRow);
     
     self.previouslySelectedRow = selectedRow;
@@ -317,6 +308,12 @@
     contact.displayName      = name;
     contact.jabberIdentifier = address;
     contact.phoneNumber      = number;
+    
+    // force a update of the detail view controller
+    NSInteger selectedRow = self.tableView.selectedRow;
+    CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+    self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
+    self.detailViewController.enabled = (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
     
     [self.chattaKit requestContactStatus:contact];
     [self.tableView reloadData];

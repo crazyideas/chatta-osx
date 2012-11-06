@@ -9,7 +9,6 @@
 
 #import "NSFont+CKAdditions.h"
 #import "NSColor+CKAdditions.h"
-#import "NSString+CKAdditions.h"
 
 #import "CKMessage.h"
 #import "CKContact.h"
@@ -42,9 +41,6 @@
         [self.textField setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
         [self.textField setBezeled:NO];
         [self.textField setDrawsBackground:NO];
-        [self.textField setTarget:self];
-        [self.textField setAction:@selector(newMessageAction:)];
-        [self.textField setDelegate:self];
         
         [self.textField.cell setPlaceholderString:@"Sign in to chat..."];
         [self.textField.cell setFocusRingType:NSFocusRingTypeNone];
@@ -145,24 +141,6 @@
     });
 }
 
-#pragma mark - Actions
-
-- (void)newMessageAction:(id)sender
-{
-    NSTextField *textField = sender;
-    
-    if ([textField.stringValue isEqualToString:@""]) {
-        return;
-    }
-    
-    if (self.delegate != nil) {
-        NSString *trimmedString = [textField.stringValue stringByRemovingWhitespaceNewlineChars];
-        [self.delegate newMessageActionKeyUp:sender message:trimmedString];
-    }
-    
-    textField.stringValue = @"";
-}
-
 #pragma mark - Overridden Methods
 
 - (BOOL)acceptsFirstResponder
@@ -176,22 +154,6 @@
     
     [[NSColor lightBackgroundNoiseColor] setFill];
     NSRectFill(dirtyRect);
-}
-
-#pragma mark - NSTextField Delegates
-
-- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
-{
-    NSTextView *textView = (NSTextView *)fieldEditor;
-    [textView setContinuousSpellCheckingEnabled:YES];
-    return YES;
-}
-
-- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
-{
-    NSTextView *textView = (NSTextView *)fieldEditor;
-    [textView setContinuousSpellCheckingEnabled:NO];
-    return YES;
 }
 
 @end

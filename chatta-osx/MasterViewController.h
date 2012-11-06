@@ -15,7 +15,6 @@
 @protocol ContactPopoverDelegate;
 @protocol SettingsPopoverDelegate;
 @protocol CKContactListDelegate;
-@protocol DetailViewControllerDelegate;
 @protocol CKTableViewDelegate;
 
 @class ChattaKit;
@@ -31,8 +30,7 @@
 @end
 
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
-                                                    CKContactListDelegate, DetailViewControllerDelegate,
-                                                    PopoverDelegate>
+                                                    CKContactListDelegate, PopoverDelegate>
 
 @property (nonatomic, strong) CKScrollView *scrollView;
 @property (nonatomic, strong) CKTableView *tableView;

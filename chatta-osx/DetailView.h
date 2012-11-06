@@ -13,19 +13,12 @@
 @class CKMessage;
 @class CKContact;
 
-@protocol DetailViewDelegate <NSObject>
-@optional
-- (void)newMessageActionKeyUp:(id)sender message:(NSString *)message;
-@end
-
-@interface DetailView : NSView <NSTextFieldDelegate>
+@interface DetailView : NSView
 
 @property (nonatomic, strong) CKScrollView *scrollView;
 @property (nonatomic, strong) CKTextView *textView;
 @property (nonatomic, strong) NSTextField *textField;
 @property (nonatomic, strong) CKInputSeparator *inputSeparator;
-
-@property (nonatomic, assign) id <DetailViewDelegate> delegate;
 
 - (NSAttributedString *)attributedStringForMessage:(CKMessage *)message;
 - (void)appendMessageView:(NSAttributedString *)attributedString;

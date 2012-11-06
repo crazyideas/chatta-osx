@@ -20,7 +20,7 @@
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact;
 @end
 
-@interface DetailViewController : NSViewController <DetailViewDelegate, NSTextViewDelegate>
+@interface DetailViewController : NSViewController <NSTextViewDelegate, NSTextFieldDelegate>
 
 @property (nonatomic, strong) DetailView *detailView;
 
