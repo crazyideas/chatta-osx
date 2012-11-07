@@ -24,7 +24,7 @@
     
     // create window mask
     NSUInteger windowStyleMask = NSClosableWindowMask | NSMiniaturizableWindowMask |
-    NSTitledWindowMask | NSResizableWindowMask | NSTitledWindowMask;
+        NSTitledWindowMask | NSResizableWindowMask | NSTitledWindowMask;
     
     // adjust window location
     NSScreen *mainScreen = [NSScreen mainScreen];

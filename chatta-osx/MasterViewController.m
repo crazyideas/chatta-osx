@@ -47,7 +47,7 @@
         self.popoverViewController = [[PopoverViewController alloc] init];
 
         NSTableHeaderView *tableHeaderView =
-        [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 0, 26)];
+            [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 0, 26)];
         
         [self.tableView addTableColumn:self.tableColumn];
         [self.tableView setDelegate:self];
@@ -72,7 +72,7 @@
         [self.scrollView setBackgroundColor:[NSColor clearColor]];
         
         [self.scrollView setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable |
-         NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin ];
+            NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin ];
         
         [self.lineSeparator setBorderColor:[NSColor purpleColor]];
         [self.lineSeparator setFrame:NSMakeRect(0, 50, 400, 1.5)];

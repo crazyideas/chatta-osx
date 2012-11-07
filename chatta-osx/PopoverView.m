@@ -55,14 +55,10 @@
         [self.leftButton setTitle:@"Left Button"];
         [self.leftButton setBezelStyle:NSRoundedBezelStyle];
         [self.leftButton setAutoresizingMask:NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
-        [self.leftButton setTarget:self];
-        [self.leftButton setAction:@selector(leftButtonPressed:)];
         
         [self.rightButton setTitle:@"Right Button"];
         [self.rightButton setBezelStyle:NSRoundedBezelStyle];
         [self.rightButton setAutoresizingMask:NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
-        [self.rightButton setTarget:self];
-        [self.rightButton setAction:@selector(rightButtonPressed:)];
         
         [self addSubview:self.titleLabel];
         [self addSubview:self.nameLabel];
@@ -95,18 +91,6 @@
 {
     [[NSColor mediumBackgroundNoiseColor] setFill];
     NSRectFill(dirtyRect);
-}
-
-#pragma mark - NSButton Delegates
-
-- (void)leftButtonPressed:(id)sender
-{
-    NSLog(@"leftButtonPressed");
-}
-
-- (void)rightButtonPressed:(id)sender
-{
-    NSLog(@"rightButtonPressed");
 }
 
 @end

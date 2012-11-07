@@ -9,8 +9,6 @@
 
 @implementation CKProgressIndicator
 
-@synthesize inProgress = _inProgress;
-
 - (void)startAnimation:(id)sender
 {
     _inProgress = YES;

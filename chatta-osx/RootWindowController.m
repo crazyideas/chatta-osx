@@ -114,35 +114,32 @@
 
 - (void)updateFirstResponder:(NSString *)characters
 {
-/*
     NSTextField *textField = self.detailViewController.detailView.textField;
     NSText *fieldEditor = [self.window fieldEditor:YES forObject:textField];
     
     [self.window makeFirstResponder:textField];
     
     NSString *newFieldString = (characters) ?
-    [NSString stringWithFormat:@"%@%@", fieldEditor.string, characters] : fieldEditor.string;
+        [NSString stringWithFormat:@"%@%@", fieldEditor.string, characters] : fieldEditor.string;
     [fieldEditor setSelectedRange:NSMakeRange(fieldEditor.string.length, 0)];
     [fieldEditor setString:newFieldString];
     [fieldEditor setNeedsDisplay:YES];
-*/
 }
 
 - (void)receivedSleepNotification:(NSNotification *)notification
 {
-    
+    CKDebug(@"[+] RootWindowController: receivedSleepNotification");
 }
 
 - (void)receivedWakeNotification:(NSNotification *)notification
 {
-    
+    CKDebug(@"[+] RootWindowController: receivedWakeNotification");
 }
 
 - (void)receivedAccountPressedNotification:(id)sender
 {
     [self showConfigureWindow];
 }
-
 
 #pragma mark - ChattaKit Delegates
 
@@ -332,20 +329,20 @@
 
 - (void)loginRequested:(id)sender withUsername:(NSString *)username password:(NSString *)password
 {
-    NSLog(@"[+] RootWindowController: loginRequested");
+    CKDebug(@"[+] RootWindowController: loginRequested");
     [self.chattaKit loginToServiceWith:username andPassword:password];
 }
 
 - (void)logoutRequested:(id)sender
 {
-    NSLog(@"[+] RootWindowController: logoutRequested");
+    CKDebug(@"[+] RootWindowController: logoutRequested");
     [self.chattaKit logoutOfService];
     [self removeConfigureWindow];
 }
 
 - (void)removeWindowRequested:(id)sender
 {
-    NSLog(@"[+] RootWindowController: removeWindowRequested");
+    CKDebug(@"[+] RootWindowController: removeWindowRequested");
     [self removeConfigureWindow];
 }
 

@@ -9,6 +9,8 @@
 
 #import "NSFont+CKAdditions.h"
 #import "NSColor+CKAdditions.h"
+#import "NSButton+CKAdditions.h"
+
 #import "CKProgressIndicator.h"
 
 @implementation ConfigureView

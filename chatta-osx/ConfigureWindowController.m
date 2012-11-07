@@ -74,7 +74,7 @@
 
 - (void)leftButtonAction:(id)sender
 {
-    NSLog(@"[+] ConfigureWindowController: leftButtonAction");
+    CKDebug(@"[+] ConfigureWindowController: leftButtonAction");
     if (self.delegate != nil) {
         if (self.configureView.configureViewState == ConfigureViewStateProgress) {
             [self.delegate logoutRequested:sender];
@@ -85,7 +85,7 @@
 
 - (void)rightButtonAction:(id)sender
 {
-    NSLog(@"[+] ConfigureWindowController: rightButtonAction");
+    CKDebug(@"[+] ConfigureWindowController: rightButtonAction");
     if (self.delegate != nil) {
         if (self.chattaState == ChattaStateDisconnected || self.chattaState == ChattaStateErrorDisconnected) {
             [self.delegate loginRequested:sender

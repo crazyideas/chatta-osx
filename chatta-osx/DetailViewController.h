@@ -14,7 +14,7 @@
 @class CKContact;
 @class CKMessage;
 
-@protocol DetailViewControllerDelegate <NSObject>
+@protocol DetailViewDelegate <NSObject>
 @optional
 - (void)makeDetailViewFirstResponder;
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact;
@@ -28,7 +28,7 @@
 @property (nonatomic, strong) NSMutableDictionary *textStorageCache;
 @property (nonatomic) BOOL enabled;
 
-@property (nonatomic, assign) id <DetailViewControllerDelegate> delegate;
+@property (nonatomic, assign) id <DetailViewDelegate> delegate;
 
 - (void)appendNewMessage:(CKMessage *)message forContact:(CKContact *)contact;
 

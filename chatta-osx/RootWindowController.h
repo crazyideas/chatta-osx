@@ -14,7 +14,7 @@
 #import "ChattaKit.h"
 
 @interface RootWindowController : NSWindowController <NSSplitViewDelegate, NSWindowDelegate,
-                                                      MasterViewDelegate, DetailViewControllerDelegate,
+                                                      MasterViewDelegate, DetailViewDelegate,
                                                       ConfigureWindowDelegate, ChattaKitDelegate>
 
 @property (nonatomic, strong) NSSplitView *splitView;
