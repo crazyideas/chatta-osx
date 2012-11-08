@@ -71,6 +71,7 @@
 
 - (void)keyUp:(NSEvent *)event
 {
+    CKDebug(@"[+] CKTableView: keyUp");
     unichar key = [[event charactersIgnoringModifiers] characterAtIndex:0];
     if (key == NSDeleteFunctionKey) {
         CKDebug(@"[+] CKTableView: keyUp, didRequestDeleteRow");

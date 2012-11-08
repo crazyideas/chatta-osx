@@ -231,7 +231,7 @@
         }
         
         //[self.masterViewController addContactWithName:contact.displayName
-         ///                                       email:contact.jabberIdentifier phone:contact.phoneNumber];
+        //  email:contact.jabberIdentifier phone:contact.phoneNumber];
     }
 }
 
@@ -254,16 +254,14 @@
 
 #pragma mark - Event Handling
 
-- (void)keyDown:(NSEvent *)theEvent
+- (void)keyDown:(NSEvent *)event
 {
-    [self updateFirstResponder:theEvent.characters];
-}
-
-#pragma mark - DetailViewController Delegate
-
-- (void)makeDetailViewFirstResponder
-{
-    [self updateFirstResponder:nil];
+    CKDebug(@"[+] RootWindowController, keyDown, %@", event.characters);
+    if ([event.characters characterAtIndex:0] != NSDeleteFunctionKey) {
+        [self updateFirstResponder:event.characters];        
+    }
+    
+    [super keyUp:event];
 }
 
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact

@@ -16,7 +16,6 @@
 
 @protocol DetailViewDelegate <NSObject>
 @optional
-- (void)makeDetailViewFirstResponder;
 - (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact;
 @end
 
@@ -31,5 +30,6 @@
 @property (nonatomic, assign) id <DetailViewDelegate> delegate;
 
 - (void)appendNewMessage:(CKMessage *)message forContact:(CKContact *)contact;
+- (void)updateTextFieldPlaceholderText:(CKContact *)contact;
 
 @end

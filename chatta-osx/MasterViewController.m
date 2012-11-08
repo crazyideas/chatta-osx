@@ -212,6 +212,12 @@
         cellView.messageLabel.font   = [NSFont fontWithName:@"HelveticaNeue-Light" size:12];
         cellView.timestampLabel.font = [NSFont fontWithName:@"HelveticaNeue-Light" size:12];
     }
+    
+    CKDebug(@"[+] MasterViewController, viewForTableColumn, selectedRow: %li", self.tableView.selectedRow);
+    if (row == self.tableView.selectedRow) {
+        [self.detailViewController updateTextFieldPlaceholderText:contact];
+    }
+    
     return cellView;
     
     /*
@@ -249,7 +255,6 @@
     
 }
 
-
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
 {
     NSInteger selectedRow = self.tableView.selectedRow;
@@ -286,8 +291,8 @@
     
     // update selected contact
     CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
-    self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
     self.detailViewController.enabled = (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
+    self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
     CKDebug(@"[+] tableViewSelectionDidChange: %li", self.tableView.selectedRow);
     
     self.previouslySelectedRow = selectedRow;

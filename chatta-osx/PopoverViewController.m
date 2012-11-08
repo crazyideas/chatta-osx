@@ -35,8 +35,10 @@
         [self.popoverView.leftButton setTarget:self];
         [self.popoverView.leftButton setAction:@selector(leftButtonAction:)];
 
-        [self.popoverView.nameTextField  setDelegate:self];
-        
+        [self.popoverView.nameTextField setDelegate:self];
+        [self.popoverView.nameTextField setTarget:self];
+        [self.popoverView.nameTextField setAction:@selector(rightButtonAction:)];
+
         [self.popoverView.phoneTextField setDelegate:self];
         [self.popoverView.phoneTextField setTarget:self];
         [self.popoverView.phoneTextField setAction:@selector(rightButtonAction:)];
