@@ -148,6 +148,12 @@
     return YES;
 }
 
+- (void)keyDown:(NSEvent *)event
+{
+    CKDebug(@"[+] DetailView, keyDown, %@", event.characters);
+    [super keyDown:event];
+}
+
 - (void)drawRect:(NSRect)dirtyRect
 {
     [super drawRect:dirtyRect];

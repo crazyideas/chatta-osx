@@ -51,22 +51,21 @@
         CGFloat detailViewWidth = self.splitView.frame.size.width * 0.7;
         [self.splitView setPosition:masterViewWidth ofDividerAtIndex:0];
         
-        
         // adjust master views
-        CGFloat masterButtonW = detailViewWidth;
-        CGFloat masterButtonH = 50;
-        CGFloat masterButtonX = (masterViewWidth - masterButtonW) / 2;
-        CGFloat masterButtonY = 0;
+        CGFloat masterAddButtonW = masterViewWidth;
+        CGFloat masterAddButtonH = 50;
+        CGFloat masterAddButtonX = 0;
+        CGFloat masterAddButtonY = 0;
         self.masterViewController.addContactButton.frame =
-            NSMakeRect(masterButtonX, masterButtonY, masterButtonW, masterButtonH);
+            NSMakeRect(masterAddButtonX, masterAddButtonY, masterAddButtonW, masterAddButtonH);
         
         CGFloat masterScrollW = masterViewWidth;
-        CGFloat masterScrollH = self.splitView.frame.size.height - masterButtonH;
+        CGFloat masterScrollH = self.splitView.frame.size.height - masterAddButtonH;
         CGFloat masterScrollX = 0;
         CGFloat masterScrollY = 50;
         self.masterViewController.scrollView.frame =
             NSMakeRect(masterScrollX, masterScrollY, masterScrollW, masterScrollH);
-        
+
         // adjust detail views
         CGFloat detailTextFieldW = detailViewWidth - 20;
         CGFloat detailTextFieldH = 30;
@@ -76,7 +75,7 @@
             NSMakeRect(detailTextFieldX, detailTextFieldY, detailTextFieldW, detailTextFieldH);
         
         CGFloat detailScrollW = detailViewWidth;
-        CGFloat detailScrollH = self.splitView.frame.size.height - masterButtonH - 1;
+        CGFloat detailScrollH = self.splitView.frame.size.height - masterAddButtonH - 1;
         CGFloat detailScrollX = 0;
         CGFloat detailScrollY = 50 + 1;
         self.detailViewController.detailView.scrollView.frame =
@@ -139,6 +138,16 @@
 - (void)receivedAccountPressedNotification:(id)sender
 {
     [self showConfigureWindow];
+}
+
+- (void)receivedUpdateContactNotification:(id)sender
+{
+    [self.masterViewController updateSelectedContact:sender];
+}
+
+- (void)receivedRemoveContactNotification:(id)sender
+{
+    [self.masterViewController removeSelectedContact:sender];
 }
 
 #pragma mark - ChattaKit Delegates
@@ -235,6 +244,14 @@
     }
 }
 
+#pragma mark - MasterViewController Delegates
+
+- (void)selectedContactDidChange:(CKContact *)contact
+{
+    if (self.delegate != nil) {
+        [self.delegate selectedContactDidChange:contact];
+    }
+}
 
 #pragma mark - Sheet Methods
 

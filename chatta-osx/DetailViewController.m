@@ -79,7 +79,6 @@
                 [self.detailView.textField.cell setPlaceholderString:@"Update contact email address to chat..."];
                 break;
             }
-            CKDebug(@"Online, %@, Google Talk...", contact.displayName);
             [self.detailView.textField setEnabled:YES];
             [self.detailView.textField.cell setPlaceholderString:@"Google Talk..."];
             break;
@@ -91,21 +90,18 @@
                 [self.detailView.textField.cell setPlaceholderString:@"Update contact phone number to chat..."];
                 break;
             }
-            CKDebug(@"Offline, %@, Google Voice...", contact.displayName);
             [self.detailView.textField setEnabled:YES];
             [self.detailView.textField.cell setPlaceholderString:@"Google Voice..."];
             break;
         }
         case ContactStateIndeterminate:
         {
-            CKDebug(@"Indeterminate, %@, Google Voice...", contact.displayName);
             [self.detailView.textField setEnabled:NO];
             [self.detailView.textField.cell setPlaceholderString:@"Sign in to chat..."];
             break;
         }
         default:
         {
-            CKDebug(@"default");
             break;
         }
     }

@@ -103,6 +103,42 @@
     return self;
 }
 
+- (void)updateSelectedContact:(id)sender
+{
+    self.popoverViewController.popoverType =
+        ([sender isKindOfClass:[NSButton class]]) ? PopoverTypeAddContact : PopoverTypeUpdateContact;
+    
+    if ([sender isKindOfClass:[NSButton class]]) {
+        [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+    } else {
+        NSInteger selectedRow = self.tableView.selectedRow;
+        sender = [self.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
+        self.popoverViewController.contact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+        [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
+    }
+}
+
+- (void)removeSelectedContact:(id)sender
+{
+    NSInteger selectedRow = self.tableView.selectedRow;
+    CKDebug(@"[+] MasterViewController: removeSelectedContact: %li", selectedRow);
+
+    if (selectedRow < 0) {
+        return;
+    }
+    
+    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+    [[CKContactList sharedInstance] removeContact:rmContact];
+    
+    [self.tableView deselectAll:self];
+    [self.tableView reloadData];
+}
+
+- (void)keyDown:(NSEvent *)event
+{
+    [super keyDown:event];
+}
+
 #pragma mark - Properties
 
 - (void)setConnectionState:(ChattaState)connectionState
@@ -213,7 +249,6 @@
         cellView.timestampLabel.font = [NSFont fontWithName:@"HelveticaNeue-Light" size:12];
     }
     
-    CKDebug(@"[+] MasterViewController, viewForTableColumn, selectedRow: %li", self.tableView.selectedRow);
     if (row == self.tableView.selectedRow) {
         [self.detailViewController updateTextFieldPlaceholderText:contact];
     }
@@ -259,26 +294,9 @@
 {
     NSInteger selectedRow = self.tableView.selectedRow;
     id sender = [tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
+    //self.popoverViewController.contact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     
-    self.popoverViewController.popoverType = PopoverTypeUpdateContact;
-    self.popoverViewController.contact     = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
-
-    [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
-}
-
-- (void)tableView:(CKTableView *)tableView didRequestDeleteRow:(NSInteger)row
-{
-    CKDebug(@"[+] MasterViewController: tableView:didRequestDeleteRow: %li", row);
-
-    if (row < 0) {
-        return;
-    }
-    
-    CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:row];
-    [[CKContactList sharedInstance] removeContact:rmContact];
-    
-    [self.tableView deselectAll:self];
-    [self.tableView reloadData];
+    [self updateSelectedContact:sender];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
@@ -294,6 +312,10 @@
     self.detailViewController.enabled = (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
     self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
     CKDebug(@"[+] tableViewSelectionDidChange: %li", self.tableView.selectedRow);
+    
+    if (self.delegate != nil) {
+        [self.delegate selectedContactDidChange:(selectedRow < 0) ? nil : selectedContact];
+    }
     
     self.previouslySelectedRow = selectedRow;
 }
@@ -337,9 +359,7 @@
 
 - (void)showPopoverAction:(id)sender
 {
-    self.popoverViewController.popoverType =
-        ([sender isKindOfClass:[NSButton class]]) ? PopoverTypeAddContact : PopoverTypeUpdateContact;
-    [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+    [self updateSelectedContact:sender];
 }
 
 @end

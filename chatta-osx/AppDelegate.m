@@ -41,7 +41,10 @@
     
     // create and set window controller
     self.rootWindowController = [[RootWindowController alloc] initWithWindow:self.window];
+    self.rootWindowController.delegate = self;
     self.window.windowController = self.rootWindowController;
+    
+    [self.contactMenuItem setEnabled:NO];
     
     // order front
     [self.window makeKeyAndOrderFront:self];
@@ -81,7 +84,30 @@
     [self.rootWindowController receivedWakeNotification:notification];
 }
 
+#pragma mark - RootWindowController Delegates
+
+- (void)selectedContactDidChange:(CKContact *)contact
+{
+    if (contact == nil) {
+        [self.contactMenuItem setEnabled:NO];
+    } else {
+        [self.contactMenuItem setEnabled:YES];
+    }
+}
+
 #pragma mark - Actions
+
+- (IBAction)updateContactMenuAction:(id)sender
+{
+    CKDebug(@"[+] AppDelegate, updateContactMenuAction");
+    [self.rootWindowController receivedUpdateContactNotification:sender];
+}
+
+- (IBAction)removeContactMenuAction:(id)sender
+{
+    CKDebug(@"[+] AppDelegate, removeContactMenuAction");
+    [self.rootWindowController receivedRemoveContactNotification:sender];
+}
 
 - (IBAction)accountPressedAction:(id)sender
 {

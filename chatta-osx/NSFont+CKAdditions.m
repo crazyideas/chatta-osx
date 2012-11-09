@@ -41,7 +41,6 @@
         font = [NSFont fontWithName:@"HelveticaNeue-Light" size:14.0];
     }
     return font;
-    
 }
 
 + (NSFont *)applicationLightLarge
@@ -51,9 +50,7 @@
         font = [NSFont fontWithName:@"HelveticaNeue-Light" size:18.0];
     }
     return font;
-    
 }
-
 
 
 + (NSFont *)applicationRegularSmall

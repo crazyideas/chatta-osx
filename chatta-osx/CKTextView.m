@@ -30,4 +30,9 @@
     return NSMakeRange(NSNotFound, 0);
 }
 
+- (BOOL)acceptsFirstResponder
+{
+    return NO;
+}
+
 @end

@@ -25,8 +25,7 @@
 
 @protocol MasterViewDelegate <NSObject>
 @optional
-- (void)logoutOfChatta;
-- (void)loginToChatta;
+- (void)selectedContactDidChange:(CKContact *)contact;
 @end
 
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
@@ -48,5 +47,7 @@
 @property (nonatomic) NSInteger previouslySelectedRow;
 @property (nonatomic) BOOL isVisible;
 
+- (void)updateSelectedContact:(id)sender;
+- (void)removeSelectedContact:(id)sender;
 
 @end
