@@ -20,8 +20,7 @@
 @class ChattaKit;
 @class DetailViewController;
 @class PopoverViewController;
-@class CKTableView;
-@class CKScrollView;
+@class MasterView;
 
 @protocol MasterViewDelegate <NSObject>
 @optional
@@ -31,12 +30,7 @@
 @interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
                                                     CKContactListDelegate, PopoverDelegate>
 
-@property (nonatomic, strong) CKScrollView *scrollView;
-@property (nonatomic, strong) CKTableView *tableView;
-@property (nonatomic, strong) NSTableColumn *tableColumn;
-@property (nonatomic, strong) NSBox *lineSeparator;
-@property (nonatomic, strong) NSButton *addContactButton;
-
+@property (nonatomic, strong) MasterView *masterView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
 @property (nonatomic, strong) PopoverViewController *popoverViewController;
 @property (nonatomic, strong) NSPopover *popover;

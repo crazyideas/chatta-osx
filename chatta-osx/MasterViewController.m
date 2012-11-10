@@ -24,6 +24,7 @@
 #import "CKTableHeaderCell.h"
 #import "CKTableCellView.h"
 
+#import "MasterView.h"
 #import "PopoverView.h"
 #import "PopoverViewController.h"
 #import "DetailViewController.h"
@@ -34,64 +35,20 @@
 {
     self = [super init];
     if (self) {
-        self.view = [[NSView alloc] initWithFrame:NSZeroRect];
-        [self.view setAutoresizesSubviews:YES];
-        [self.view setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin |
+        self.masterView = [[MasterView alloc] initWithFrame:NSZeroRect];
+        [self.masterView setAutoresizesSubviews:YES];
+        [self.masterView setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin |
             NSViewMinYMargin | NSViewMaxYMargin];
         
-        self.scrollView            = [[CKScrollView alloc] initWithFrame:NSZeroRect];
-        self.tableView             = [[CKTableView alloc] initWithFrame:NSZeroRect];
-        self.tableColumn           = [[NSTableColumn alloc] initWithIdentifier:@"contactColumn"];
-        self.lineSeparator         = [[NSBox alloc] initWithFrame:NSZeroRect];
-        self.addContactButton      = [[NSButton alloc] initWithFrame:NSZeroRect];
+        [self.masterView.tableView setDelegate:self];
+        [self.masterView.tableView setDataSource:self];
+        
+        [self.masterView.addContactButton setTarget:self];
+        [self.masterView.addContactButton setAction:@selector(showPopoverAction:)];
+        
         self.popoverViewController = [[PopoverViewController alloc] init];
-
-        NSTableHeaderView *tableHeaderView =
-            [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 0, 26)];
-        
-        [self.tableView addTableColumn:self.tableColumn];
-        [self.tableView setDelegate:self];
-        [self.tableView setDataSource:self];        
-        [self.tableView setBackgroundColor:[NSColor lightBackgroundNoiseColor]];
-        [self.tableView setBackgroundColor:[NSColor clearColor]];
-        [self.tableView setHeaderView:tableHeaderView];
-        [self.tableView setAllowsEmptySelection:YES];
-        [self.tableView setGridStyleMask:NSTableViewSolidHorizontalGridLineMask];
-        
-        // replace column header
-        for (NSTableColumn *column in self.tableView.tableColumns) {
-            [column setHeaderCell:[[CKTableHeaderCell alloc] init]];
-            [column.headerCell setStringValue:@"Contacts"];
-        }
-        
-        [self.scrollView setDocumentView:self.tableView];
-        [self.scrollView setHasVerticalScroller:YES];
-        [self.scrollView setAutohidesScrollers:NO];
-        [self.scrollView setAutoresizesSubviews:YES];
-        [self.scrollView setDrawsBackground:NO];
-        [self.scrollView setBackgroundColor:[NSColor clearColor]];
-        
-        [self.scrollView setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable |
-            NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin ];
-        
-        [self.lineSeparator setBorderColor:[NSColor purpleColor]];
-        [self.lineSeparator setFrame:NSMakeRect(0, 50, 400, 1.5)];
-        [self.lineSeparator setAutoresizesSubviews:NSViewWidthSizable];
-        
-        [self.addContactButton setTitle:@"+ Add Contact"];
-        [self.addContactButton setFont:[NSFont applicationLightLarge]];
-        [self.addContactButton setTitleColor:[NSColor darkGrayColor]];
-        [self.addContactButton setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
-        [self.addContactButton setTarget:self];
-        [self.addContactButton setAction:@selector(showPopoverAction:)];
-        [self.addContactButton setBordered:NO];
-        
         [self.popoverViewController setDelegate:self];
-        
-        [self.view addSubview:self.scrollView];
-        [self.view addSubview:self.lineSeparator];
-        [self.view addSubview:self.addContactButton];
-        
+           
         self.detailViewController.contact = nil;
         self.detailViewController.enabled =
             (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
@@ -99,6 +56,8 @@
         [CKContactList sharedInstance].delegate = self;
         self.connectionState = ChattaStateDisconnected;
         self.previouslySelectedRow = -1;
+        
+        self.view = self.masterView;
     }
     return self;
 }
@@ -111,8 +70,8 @@
     if ([sender isKindOfClass:[NSButton class]]) {
         [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
     } else {
-        NSInteger selectedRow = self.tableView.selectedRow;
-        sender = [self.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
+        NSInteger selectedRow = self.masterView.tableView.selectedRow;
+        sender = [self.masterView.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
         self.popoverViewController.contact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
         [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
     }
@@ -120,7 +79,7 @@
 
 - (void)removeSelectedContact:(id)sender
 {
-    NSInteger selectedRow = self.tableView.selectedRow;
+    NSInteger selectedRow = self.masterView.tableView.selectedRow;
     CKDebug(@"[+] MasterViewController: removeSelectedContact: %li", selectedRow);
 
     if (selectedRow < 0) {
@@ -130,8 +89,8 @@
     CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     [[CKContactList sharedInstance] removeContact:rmContact];
     
-    [self.tableView deselectAll:self];
-    [self.tableView reloadData];
+    [self.masterView.tableView deselectAll:self];
+    [self.masterView.tableView reloadData];
 }
 
 - (void)keyDown:(NSEvent *)event
@@ -153,14 +112,14 @@
 - (void)addedContact:(CKContact *)contact
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
+        [self.masterView.tableView reloadData];
     });
 }
 
 - (void)removedContact:(CKContact *)contact
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
+        [self.masterView.tableView reloadData];
     });
 }
 
@@ -168,7 +127,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         __block MasterViewController *block_self = self;
-        NSInteger selectedRow = block_self.tableView.selectedRow;
+        NSInteger selectedRow = block_self.masterView.tableView.selectedRow;
         CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
         
         // if new message is not for the selected contact, update unread count
@@ -194,7 +153,7 @@
         }
         
         //[block_self updateUnreadCount];
-        [block_self.tableView reloadData];
+        [block_self.masterView.tableView reloadData];
     });
 }
 
@@ -202,7 +161,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         __block MasterViewController *block_self = self;
-        [block_self.tableView reloadData];
+        [block_self.masterView.tableView reloadData];
     });
 }
 
@@ -249,7 +208,7 @@
         cellView.timestampLabel.font = [NSFont fontWithName:@"HelveticaNeue-Light" size:12];
     }
     
-    if (row == self.tableView.selectedRow) {
+    if (row == self.masterView.tableView.selectedRow) {
         [self.detailViewController updateTextFieldPlaceholderText:contact];
     }
     
@@ -276,21 +235,20 @@
     
     // update unread count
     selectedContact.unreadCount = 0;
-    [self.tableView reloadData];
+    [self.masterView.tableView reloadData];
 }
 
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
 {
-    NSInteger selectedRow = self.tableView.selectedRow;
+    NSInteger selectedRow = self.masterView.tableView.selectedRow;
     id sender = [tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
-    //self.popoverViewController.contact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     
     [self updateSelectedContact:sender];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
-    NSInteger selectedRow = self.tableView.selectedRow;
+    NSInteger selectedRow = self.masterView.tableView.selectedRow;
         
     if (selectedRow == self.previouslySelectedRow) {
         return;
@@ -300,7 +258,7 @@
     CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     self.detailViewController.enabled = (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
     self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
-    CKDebug(@"[+] tableViewSelectionDidChange: %li", self.tableView.selectedRow);
+    CKDebug(@"[+] tableViewSelectionDidChange: %li", self.masterView.tableView.selectedRow);
     
     if (self.delegate != nil) {
         [self.delegate selectedContactDidChange:(selectedRow < 0) ? nil : selectedContact];
@@ -323,7 +281,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
+        [self.masterView.tableView reloadData];
     });
 }
 
@@ -335,13 +293,13 @@
     contact.phoneNumber      = number;
     
     // force a update of the detail view controller
-    NSInteger selectedRow = self.tableView.selectedRow;
+    NSInteger selectedRow = self.masterView.tableView.selectedRow;
     CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
     self.detailViewController.contact = (selectedRow < 0) ? nil : selectedContact;
     self.detailViewController.enabled = (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
     
     [self.chattaKit requestContactStatus:contact];
-    [self.tableView reloadData];
+    [self.masterView.tableView reloadData];
 }
 
 #pragma mark - Actions

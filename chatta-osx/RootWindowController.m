@@ -15,6 +15,7 @@
 #import "CKMessage.h"
 #import "CKTableView.h"
 #import "CKScrollView.h"
+#import "MasterView.h"
 
 #import "ConfigureView.h"
 
@@ -56,14 +57,14 @@
         CGFloat masterAddButtonH = 50;
         CGFloat masterAddButtonX = 0;
         CGFloat masterAddButtonY = 0;
-        self.masterViewController.addContactButton.frame =
+        self.masterViewController.masterView.addContactButton.frame =
             NSMakeRect(masterAddButtonX, masterAddButtonY, masterAddButtonW, masterAddButtonH);
         
         CGFloat masterScrollW = masterViewWidth;
         CGFloat masterScrollH = self.splitView.frame.size.height - masterAddButtonH;
         CGFloat masterScrollX = 0;
         CGFloat masterScrollY = 50;
-        self.masterViewController.scrollView.frame =
+        self.masterViewController.masterView.scrollView.frame =
             NSMakeRect(masterScrollX, masterScrollY, masterScrollW, masterScrollH);
 
         // adjust detail views
@@ -98,7 +99,7 @@
         
         //[self showConfigureSheet:self.window];
         [CKPersistence loadContactsFromPersistentStorage];
-        [self.masterViewController.tableView reloadData];
+        [self.masterViewController.masterView.tableView reloadData];
         
         self.masterViewController.chattaKit = self.chattaKit;
         self.masterViewController.detailViewController = self.detailViewController;
@@ -217,7 +218,7 @@
 - (void)deleteAndReimportContacts:(id)sender
 {
     [[CKContactList sharedInstance] removeAllContacts];
-    [self.masterViewController.tableView reloadData];
+    [self.masterViewController.masterView.tableView reloadData];
     [self.chattaKit requestMostContacted];
 }
 
