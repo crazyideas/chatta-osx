@@ -49,22 +49,16 @@
         [self.leftButton setTitle:@"Cancel"];
         [self.leftButton setBezelStyle:NSRoundedBezelStyle];
         [self.leftButton setAutoresizingMask:NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
-        [self.leftButton setTarget:self];
-        [self.leftButton setAction:@selector(leftButtonPressed:)];
         
         [self.rightButton setTitle:@"Login"];
         [self.rightButton setBezelStyle:NSRoundedBezelStyle];
         [self.rightButton setAutoresizingMask:NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
-        [self.rightButton setTarget:self];
-        [self.rightButton setAction:@selector(rightButtonPressed:)];
         [self.rightButton setEnabled:NO];
 
         [self.usernameTextField.cell setPlaceholderString:@"username@gmail.com"];
         [self.usernameTextField setAutoresizingMask:NSViewMinYMargin];
 
         [self.passwordTextField.cell setPlaceholderString:@"supersecretpassword"];
-        [self.passwordTextField setTarget:self];
-        [self.passwordTextField setAction:@selector(rightButtonPressed:)];
         [self.passwordTextField setAutoresizingMask:NSViewMinYMargin];
 
         [self changeViewState:ConfigureViewStateNormalDisconnected];
@@ -80,7 +74,6 @@
     
     return self;
 }
-
 
 - (void)changeViewState:(ConfigureViewState)newConfigureState
 {
@@ -176,22 +169,6 @@
 {
     [[NSColor mediumBackgroundNoiseColor] setFill];
     NSRectFill(dirtyRect);
-}
-
-#pragma mark - NSButton Delegates
-
-- (void)leftButtonPressed:(id)sender
-{
-    if (self.delegate != nil) {
-        [self.delegate leftButtonAction:sender];
-    }
-}
-
-- (void)rightButtonPressed:(id)sender
-{
-    if (self.delegate != nil) {
-        [self.delegate rightButtonAction:sender];
-    }
 }
 
 @end

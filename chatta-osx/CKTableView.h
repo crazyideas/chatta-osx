@@ -13,7 +13,6 @@
 @optional
 - (void)tableView:(CKTableView *)tableView didSingleClickRow:(NSInteger)row;
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row;
-- (void)tableView:(CKTableView *)tableView didRequestDeleteRow:(NSInteger)row;
 @end
 
 @interface CKTableView : NSTableView

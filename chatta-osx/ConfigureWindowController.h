@@ -17,7 +17,7 @@
 - (void)removeWindowRequested:(id)sender;
 @end
 
-@interface ConfigureWindowController : NSWindowController <ConfigureViewDelegate, NSTextFieldDelegate>
+@interface ConfigureWindowController : NSWindowController <NSTextFieldDelegate>
 
 @property (nonatomic) ChattaState chattaState;
 @property (nonatomic, strong) ConfigureView *configureView;

@@ -23,10 +23,21 @@
         
         self.emailAddressFormatter = [[CKEmailAddressFormatter alloc] init];
         
-        self.configureView.delegate = self;
+        [self.configureView.usernameTextField setDelegate:self];
+        [self.configureView.usernameTextField setFormatter:self.emailAddressFormatter];
+        
+        [self.configureView.passwordTextField setTarget:self];
+        [self.configureView.passwordTextField setAction:@selector(rightButtonAction:)];
+        
+        [self.configureView.leftButton setTarget:self];
+        [self.configureView.leftButton setAction:@selector(leftButtonAction:)];
+        
+        [self.configureView.rightButton setTarget:self];
+        [self.configureView.rightButton setAction:@selector(rightButtonAction:)];
+        
         self.configureView.passwordTextField.delegate = self;
-        self.configureView.usernameTextField.delegate = self;
-        self.configureView.usernameTextField.formatter = self.emailAddressFormatter;
+        
+
         
         [self validateFieldsAndUpdateButtons];
         
@@ -86,12 +97,19 @@
 - (void)rightButtonAction:(id)sender
 {
     CKDebug(@"[+] ConfigureWindowController: rightButtonAction");
+    
+    if (self.configureView.rightButton.isEnabled == NO) {
+        return;
+    }
+    
     if (self.delegate != nil) {
         if (self.chattaState == ChattaStateDisconnected || self.chattaState == ChattaStateErrorDisconnected) {
             [self.delegate loginRequested:sender
                 withUsername:self.configureView.usernameTextField.stringValue
                 password:self.configureView.passwordTextField.stringValue];
         } else {
+            [self.configureView.usernameTextField setStringValue:@""];
+            [self.configureView.passwordTextField setStringValue:@""];
             [self.delegate logoutRequested:sender];
         }
     }

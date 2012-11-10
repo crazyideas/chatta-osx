@@ -217,7 +217,7 @@
 - (void)deleteAndReimportContacts:(id)sender
 {
     [[CKContactList sharedInstance] removeAllContacts];
-    //[self.masterViewController.contactListTableView reloadData];
+    [self.masterViewController.tableView reloadData];
     [self.chattaKit requestMostContacted];
 }
 
@@ -239,8 +239,8 @@
             (contact.phoneNumber == nil) ? contact.jabberIdentifier : contact.phoneNumber;
         }
         
-        //[self.masterViewController addContactWithName:contact.displayName
-        //  email:contact.jabberIdentifier phone:contact.phoneNumber];
+        [self.masterViewController addContactWithName:contact.displayName
+            email:contact.jabberIdentifier phone:contact.phoneNumber];
     }
 }
 

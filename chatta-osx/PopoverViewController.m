@@ -81,6 +81,11 @@
 - (void)rightButtonAction:(id)sender
 {
     CKDebug(@"[+] PopoverViewController: rightButtonAction");
+    
+    if (self.popoverView.rightButton.isEnabled == NO) {
+        return;
+    }
+    
     NSString *name  = self.popoverView.nameTextField.stringValue;
     NSString *phone = self.popoverView.phoneTextField.stringValue;
     NSString *email = self.popoverView.emailTextField.stringValue;

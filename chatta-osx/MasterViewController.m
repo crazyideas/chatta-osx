@@ -254,21 +254,6 @@
     }
     
     return cellView;
-    
-    /*
-     NSTextField *result = [tableView makeViewWithIdentifier:@"contactView" owner:self];
-     if (result == nil) {
-     result = [[NSTextField alloc] init];
-     [result setBezeled:NO];
-     [result setDrawsBackground:NO];
-     [result setEditable:NO];
-     [result setSelectable:NO];
-     result.identifier = @"contactView";
-     }
-     
-     result.stringValue = [NSString stringWithFormat:@"Row: %ld", row];
-     return result;
-     */
 }
 
 
@@ -287,7 +272,11 @@
 
 - (void)tableView:(CKTableView *)tableView didSingleClickRow:(NSInteger)row
 {
+    CKContact *selectedContact = [[CKContactList sharedInstance] contactWithIndex:row];
     
+    // update unread count
+    selectedContact.unreadCount = 0;
+    [self.tableView reloadData];
 }
 
 - (void)tableView:(CKTableView *)tableView didDoubleClickRow:(NSInteger)row
