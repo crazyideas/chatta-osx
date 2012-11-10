@@ -15,26 +15,26 @@
 
 @implementation DetailViewController
 
-- (id)init
+- (id)initWithFrame:(NSRect)frame
 {
     self = [super init];
     if (self) {
-        self.detailView       = [[DetailView alloc] initWithFrame:NSZeroRect];
+        self.detailView       = [[DetailView alloc] initWithFrame:frame];
         self.textStorageCache = [[NSMutableDictionary alloc] init];
         
         [self setEnabled:NO];
-
+        
         [self.detailView setAutoresizesSubviews:YES];
         [self.detailView setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin |
-            NSViewMinYMargin | NSViewMaxYMargin];
-
+         NSViewMinYMargin | NSViewMaxYMargin];
+        
         [self.detailView.textField setTarget:self];
         [self.detailView.textField setAction:@selector(newMessageAction:)];
         [self.detailView.textField setDelegate:self];
         
         // needed to propogate first responder information up
         [self.detailView.textView setDelegate:self];
-                
+        
         self.view = self.detailView;
     }
     return self;

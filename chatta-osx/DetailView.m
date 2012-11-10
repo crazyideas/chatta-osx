@@ -27,7 +27,7 @@
         self.textView       = [[CKTextView alloc] initWithFrame:NSZeroRect];
         self.textField      = [[NSTextField alloc] initWithFrame:NSZeroRect];
         self.inputSeparator = [[CKInputSeparator alloc] initWithFrame:NSZeroRect];
-        
+                
         [self.textView setAutoresizesSubviews:YES];
         [self.textView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable ];
         [self.textView setBackgroundColor:[NSColor lightBackgroundNoiseColor]];
@@ -51,6 +51,26 @@
         [self.inputSeparator setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
         [self.inputSeparator setWantsLayer:YES];
         
+        // adjust text field
+        CGFloat detailTextFieldW = frame.size.width - 20;
+        CGFloat detailTextFieldH = 30;
+        CGFloat detailTextFieldX = (frame.size.width - detailTextFieldW) / 2;
+        CGFloat detailTextFieldY = 9.0 - 3;
+        self.textField.frame =
+        NSMakeRect(detailTextFieldX, detailTextFieldY, detailTextFieldW, detailTextFieldH);
+        
+        // adjust scrollview, textview, and inputseparator
+        CGFloat detailScrollW = frame.size.width;
+        CGFloat detailScrollH = frame.size.height - 50 - 1;
+        CGFloat detailScrollX = 0;
+        CGFloat detailScrollY = 50 + 1;
+        self.scrollView.frame =
+            NSMakeRect(detailScrollX, detailScrollY, detailScrollW, detailScrollH);
+        self.textView.frame =
+            NSMakeRect(detailScrollX, detailScrollY, detailScrollW, detailScrollH);
+        self.inputSeparator.frame =
+            NSMakeRect(0, 35 + 1, detailScrollW, 15);
+
         [self addSubview:self.scrollView];
         [self addSubview:self.inputSeparator];
         [self addSubview:self.textField];

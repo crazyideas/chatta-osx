@@ -29,7 +29,7 @@
         self.tableColumn           = [[NSTableColumn alloc] initWithIdentifier:@"contactColumn"];
         self.lineSeparator         = [[NSBox alloc] initWithFrame:NSZeroRect];
         self.addContactButton      = [[NSButton alloc] initWithFrame:NSZeroRect];
-        
+
         NSTableHeaderView *tableHeaderView =
             [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 0, 26)];
         
@@ -66,6 +66,21 @@
         [self.addContactButton setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
         [self.addContactButton setBordered:NO];
 
+        // adjust add button
+        CGFloat masterAddButtonW = frame.size.width;
+        CGFloat masterAddButtonH = 50;
+        CGFloat masterAddButtonX = 0;
+        CGFloat masterAddButtonY = 0;
+        self.addContactButton.frame =
+        NSMakeRect(masterAddButtonX, masterAddButtonY, masterAddButtonW, masterAddButtonH);
+        
+        // adjust scroll view
+        CGFloat masterScrollW = frame.size.width;
+        CGFloat masterScrollH = frame.size.height - masterAddButtonH;
+        CGFloat masterScrollX = 0;
+        CGFloat masterScrollY = 50;
+        self.scrollView.frame =
+        NSMakeRect(masterScrollX, masterScrollY, masterScrollW, masterScrollH);
         
         [self addSubview:self.scrollView];
         [self addSubview:self.lineSeparator];

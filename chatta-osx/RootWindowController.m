@@ -27,12 +27,16 @@
     if (self) {        
         NSView *windowContentView = self.window.contentView;
         
-        // set window delegate
-        self.window.delegate = self;
+        // master view will start out to be 30% of the window
+        CGFloat masterViewWidth = windowContentView.bounds.size.width * 0.3;
+        CGFloat detailViewWidth = windowContentView.bounds.size.width * 0.7;
+        
+        NSRect masterViewRect = NSMakeRect(0, 0, masterViewWidth, windowContentView.bounds.size.height);
+        NSRect detailViewRect = NSMakeRect(0, 0, detailViewWidth, windowContentView.bounds.size.height);
         
         // create master and detail view controllers
-        self.masterViewController      = [[MasterViewController alloc] init];
-        self.detailViewController      = [[DetailViewController alloc] init];
+        self.masterViewController      = [[MasterViewController alloc] initWithFrame:masterViewRect];
+        self.detailViewController      = [[DetailViewController alloc] initWithFrame:detailViewRect];
         self.configureWindowController = [[ConfigureWindowController alloc] init];
         
         self.detailViewController.delegate = self;
@@ -46,58 +50,18 @@
         [self.splitView setVertical:YES];
         [self.splitView setDelegate:self];
         [self.splitView adjustSubviews];
-        
-        // adjust the size of the contacts view to be 30% of the window
-        CGFloat masterViewWidth = self.splitView.frame.size.width * 0.3;
-        CGFloat detailViewWidth = self.splitView.frame.size.width * 0.7;
         [self.splitView setPosition:masterViewWidth ofDividerAtIndex:0];
         
-        // adjust master views
-        CGFloat masterAddButtonW = masterViewWidth;
-        CGFloat masterAddButtonH = 50;
-        CGFloat masterAddButtonX = 0;
-        CGFloat masterAddButtonY = 0;
-        self.masterViewController.masterView.addContactButton.frame =
-            NSMakeRect(masterAddButtonX, masterAddButtonY, masterAddButtonW, masterAddButtonH);
-        
-        CGFloat masterScrollW = masterViewWidth;
-        CGFloat masterScrollH = self.splitView.frame.size.height - masterAddButtonH;
-        CGFloat masterScrollX = 0;
-        CGFloat masterScrollY = 50;
-        self.masterViewController.masterView.scrollView.frame =
-            NSMakeRect(masterScrollX, masterScrollY, masterScrollW, masterScrollH);
-
-        // adjust detail views
-        CGFloat detailTextFieldW = detailViewWidth - 20;
-        CGFloat detailTextFieldH = 30;
-        CGFloat detailTextFieldX = (detailViewWidth - detailTextFieldW) / 2;
-        CGFloat detailTextFieldY = 9.0 - 3;
-        self.detailViewController.detailView.textField.frame =
-            NSMakeRect(detailTextFieldX, detailTextFieldY, detailTextFieldW, detailTextFieldH);
-        
-        CGFloat detailScrollW = detailViewWidth;
-        CGFloat detailScrollH = self.splitView.frame.size.height - masterAddButtonH - 1;
-        CGFloat detailScrollX = 0;
-        CGFloat detailScrollY = 50 + 1;
-        self.detailViewController.detailView.scrollView.frame =
-            NSMakeRect(detailScrollX, detailScrollY, detailScrollW, detailScrollH);
-        self.detailViewController.detailView.textView.frame =
-            NSMakeRect(detailScrollX, detailScrollY, detailScrollW, detailScrollH);
-        self.detailViewController.detailView.inputSeparator.frame =
-            NSMakeRect(0, 35 + 1, detailScrollW, 15);
-        
-        //[self.window makeFirstResponder:self.detailViewController.detailView];
+        // setup window
+        [self.window setDelegate:self];
         [self.window setBackgroundColor:[NSColor mediumBackgroundNoiseColor]];
+        [self.window setContentView:self.splitView];
         
-        // set split view as window content view
-        self.window.contentView = self.splitView;
-        
-        
+        // setup model
         CKContact *me = [[CKContact alloc] initWithJabberIdentifier:nil andDisplayName:@"Me" andPhoneNumber:nil];
         self.chattaKit = [[ChattaKit alloc] initWithMe:me];
         self.chattaKit.delegate = self;
         
-        //[self showConfigureSheet:self.window];
         [CKPersistence loadContactsFromPersistentStorage];
         [self.masterViewController.masterView.tableView reloadData];
         
@@ -129,11 +93,13 @@
 - (void)receivedSleepNotification:(NSNotification *)notification
 {
     CKDebug(@"[+] RootWindowController: receivedSleepNotification");
+    [self logoutRequested:self];
 }
 
 - (void)receivedWakeNotification:(NSNotification *)notification
 {
     CKDebug(@"[+] RootWindowController: receivedWakeNotification");
+    [self showConfigureWindow];
 }
 
 - (void)receivedAccountPressedNotification:(id)sender

@@ -31,14 +31,14 @@
 
 @implementation MasterViewController
 
-- (id)init
+- (id)initWithFrame:(NSRect)frame
 {
     self = [super init];
     if (self) {
-        self.masterView = [[MasterView alloc] initWithFrame:NSZeroRect];
+        self.masterView = [[MasterView alloc] initWithFrame:frame];
         [self.masterView setAutoresizesSubviews:YES];
         [self.masterView setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin |
-            NSViewMinYMargin | NSViewMaxYMargin];
+         NSViewMinYMargin | NSViewMaxYMargin];
         
         [self.masterView.tableView setDelegate:self];
         [self.masterView.tableView setDataSource:self];
@@ -48,10 +48,10 @@
         
         self.popoverViewController = [[PopoverViewController alloc] init];
         [self.popoverViewController setDelegate:self];
-           
+        
         self.detailViewController.contact = nil;
         self.detailViewController.enabled =
-            (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
+        (self.chattaKit.chattaState == ChattaStateConnected) ? YES : NO;
         
         [CKContactList sharedInstance].delegate = self;
         self.connectionState = ChattaStateDisconnected;

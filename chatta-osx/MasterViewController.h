@@ -41,6 +41,8 @@
 @property (nonatomic) NSInteger previouslySelectedRow;
 @property (nonatomic) BOOL isVisible;
 
+- (id)initWithFrame:(NSRect)frame;
+
 - (void)updateSelectedContact:(id)sender;
 - (void)removeSelectedContact:(id)sender;
 

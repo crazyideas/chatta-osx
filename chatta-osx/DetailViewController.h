@@ -29,6 +29,8 @@
 
 @property (nonatomic, assign) id <DetailViewDelegate> delegate;
 
+- (id)initWithFrame:(NSRect)frame;
+
 - (void)appendNewMessage:(CKMessage *)message forContact:(CKContact *)contact;
 - (void)updateTextFieldPlaceholderText:(CKContact *)contact;
 
