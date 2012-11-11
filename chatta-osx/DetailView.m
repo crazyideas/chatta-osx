@@ -100,18 +100,6 @@
                        value:[NSColor disabledControlTextColor]
                        range:greyRange];
     [attrString endEditing];
-
-    /*
-    [attrString addAttribute:NSFontAttributeName
-                       value:[NSFont fontWithName:@"Helvetica" size:14]
-                       range:NSMakeRange(0, [attrString length])];
-    [attrString addAttribute:NSFontAttributeName
-                       value:[NSFont fontWithName:@"Helvetica-Bold" size:14]
-                       range:boldRange];
-    [attrString addAttribute:NSForegroundColorAttributeName
-                       value:[NSColor disabledControlTextColor]
-                       range:greyRange];
-    */
     
     return attrString;
 }
@@ -127,7 +115,8 @@
             NSRange range = NSMakeRange(self.textView.attributedString.length, 0);
             [self.textView scrollRangeToVisible:range];
         } else {
-            [self.scrollView scrollToBottom];
+            NSRange range = NSMakeRange(self.textView.attributedString.length, 0);
+            [self.textView scrollRangeToVisible:range];
         }
         [self.textView setNeedsDisplay:YES];
     });

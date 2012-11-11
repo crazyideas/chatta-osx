@@ -32,7 +32,6 @@
         [self.detailView.textField setAction:@selector(newMessageAction:)];
         [self.detailView.textField setDelegate:self];
         
-        // needed to propogate first responder information up
         [self.detailView.textView setDelegate:self];
         
         self.view = self.detailView;
