@@ -14,10 +14,10 @@
     NSPoint newScrollOrigin;
     
     if ([[self documentView] isFlipped]) {
-        newScrollOrigin = NSMakePoint(10.0, NSMaxY([[self documentView] frame]) -
+        newScrollOrigin = NSMakePoint(0.0, NSMaxY([[self documentView] frame]) -
                                       NSHeight([[self contentView] bounds]) + 0.0);
     } else {
-        newScrollOrigin = NSMakePoint(10.0, 0.0);
+        newScrollOrigin = NSMakePoint(0.0, 0.0);
     }
     
     [[self documentView] scrollPoint:newScrollOrigin];

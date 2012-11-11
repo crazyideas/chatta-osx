@@ -118,6 +118,9 @@
             NSRange range = NSMakeRange(self.textView.attributedString.length, 0);
             [self.textView scrollRangeToVisible:range];
         }
+        
+        [self.textView setEnabledTextCheckingTypes:NSTextCheckingTypeLink];
+        [self.textView checkTextInDocument:self];
         [self.textView setNeedsDisplay:YES];
     });
 }
