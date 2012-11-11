@@ -93,6 +93,9 @@
         {
             [self.rightButton setTitle:@"Logout"];
             [self.rightButton setEnabled:YES];
+            
+            [self.usernameTextField setEnabled:NO];
+            [self.passwordTextField setEnabled:NO];
 
             newWindowFrame = CKCopyRect(normalFrame);
             break;
@@ -101,6 +104,9 @@
         {
             [self.rightButton setTitle:@"Login"];
             [self.rightButton setEnabled:YES];
+            
+            [self.usernameTextField setEnabled:YES];
+            [self.passwordTextField setEnabled:YES];
 
             newWindowFrame = CKCopyRect(normalFrame);
             break;
@@ -113,6 +119,9 @@
             [self addSubview:self.progressOrErrorView];
             [self.rightButton setEnabled:NO];
             
+            [self.usernameTextField setEnabled:NO];
+            [self.passwordTextField setEnabled:NO];
+            
             newWindowFrame = CKCopyRect(progressFrame);
             break;
         }
@@ -124,8 +133,10 @@
             [(CKLabel *)self.progressOrErrorView setTextColor:[NSColor redColor]];
             [self addSubview:self.progressOrErrorView];
             [self.rightButton setEnabled:YES];
-
             
+            [self.usernameTextField setEnabled:YES];
+            [self.passwordTextField setEnabled:YES];
+
             newWindowFrame = CKCopyRect(errorFrame);
             break;
         }
