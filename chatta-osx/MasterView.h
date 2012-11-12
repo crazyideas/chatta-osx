@@ -7,8 +7,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class CKLabel;
 @class CKTableView;
 @class CKScrollView;
+
+typedef enum {
+    MasterViewStateNormal,
+    MasterViewStateNoContacts
+} MasterViewState;
 
 @interface MasterView : NSView
 
@@ -17,5 +23,8 @@
 @property (nonatomic, strong) NSTableColumn *tableColumn;
 @property (nonatomic, strong) NSBox *lineSeparator;
 @property (nonatomic, strong) NSButton *addContactButton;
+@property (nonatomic, strong) CKLabel *placeholderString;
+
+- (void)changeViewState:(MasterViewState)newMasterViewState;
 
 @end

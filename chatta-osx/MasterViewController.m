@@ -174,7 +174,16 @@
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return [[CKContactList sharedInstance] count];
+    NSUInteger rows = [[CKContactList sharedInstance] count];
+    
+    // add placeholder if there are not contacts
+    if (rows <= 0) {
+        [self.masterView changeViewState:MasterViewStateNoContacts];
+    } else {
+        [self.masterView changeViewState:MasterViewStateNormal];
+    }
+    
+    return rows;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn

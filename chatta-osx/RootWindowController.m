@@ -261,13 +261,13 @@
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinPosition
          ofSubviewAt:(NSInteger)dividerIndex
 {
-    return 200;
+    return masterViewMinSize;
 }
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition
          ofSubviewAt:(NSInteger)dividerIndex
 {
-    return 375;
+    return masterViewMaxSize;
 }
 
 #pragma mark - NSWindow Delegate

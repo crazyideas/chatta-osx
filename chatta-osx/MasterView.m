@@ -29,7 +29,8 @@
         self.tableColumn           = [[NSTableColumn alloc] initWithIdentifier:@"contactColumn"];
         self.lineSeparator         = [[NSBox alloc] initWithFrame:NSZeroRect];
         self.addContactButton      = [[NSButton alloc] initWithFrame:NSZeroRect];
-
+        self.placeholderString     = [[CKLabel alloc] initWithFrame:NSZeroRect];
+        
         NSTableHeaderView *tableHeaderView =
             [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 0, 26)];
         
@@ -72,7 +73,7 @@
         CGFloat masterAddButtonX = 0;
         CGFloat masterAddButtonY = 0;
         self.addContactButton.frame =
-        NSMakeRect(masterAddButtonX, masterAddButtonY, masterAddButtonW, masterAddButtonH);
+            NSMakeRect(masterAddButtonX, masterAddButtonY, masterAddButtonW, masterAddButtonH);
         
         // adjust scroll view
         CGFloat masterScrollW = frame.size.width;
@@ -80,7 +81,15 @@
         CGFloat masterScrollX = 0;
         CGFloat masterScrollY = 50;
         self.scrollView.frame =
-        NSMakeRect(masterScrollX, masterScrollY, masterScrollW, masterScrollH);
+            NSMakeRect(masterScrollX, masterScrollY, masterScrollW, masterScrollH);
+        
+        // config no contacts placeholder
+        CGFloat placeholderX = (frame.size.width - 157) / 2.0;
+        NSRect placeholderRect = NSMakeRect(placeholderX, frame.size.height/2, 157, 22);
+        [self.placeholderString setFrame:placeholderRect];
+        [self.placeholderString setTextColor:[NSColor darkGrayColor]];
+        [self.placeholderString setAttributedStringValue:[NSFont etchedString:@"No Contacts Found" withFont:[NSFont applicationLightLarge]]];
+        [self.placeholderString setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin];
         
         [self addSubview:self.scrollView];
         [self addSubview:self.lineSeparator];
@@ -88,6 +97,26 @@
     }
     
     return self;
+}
+
+- (void)changeViewState:(MasterViewState)newMasterViewState
+{
+    switch (newMasterViewState) {
+        case MasterViewStateNormal:
+        {
+            [self.placeholderString removeFromSuperview];
+            break;
+        }
+        case MasterViewStateNoContacts:
+        {
+            [self addSubview:self.placeholderString];
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
 }
 
 @end
