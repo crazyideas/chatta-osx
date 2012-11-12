@@ -364,9 +364,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		27DA222315ABCBBA00CEB105 /* chatta-osx */ = {
+		27DA222315ABCBBA00CEB105 /* chatta */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27DA224215ABCBBA00CEB105 /* Build configuration list for PBXNativeTarget "chatta-osx" */;
+			buildConfigurationList = 27DA224215ABCBBA00CEB105 /* Build configuration list for PBXNativeTarget "chatta" */;
 			buildPhases = (
 				27DA222015ABCBBA00CEB105 /* Sources */,
 				27DA222115ABCBBA00CEB105 /* Frameworks */,
@@ -377,7 +377,7 @@
 			);
 			dependencies = (
 			);
-			name = "chatta-osx";
+			name = chatta;
 			productName = "chatta-osx";
 			productReference = 27DA222415ABCBBA00CEB105 /* chatta-osx.app */;
 			productType = "com.apple.product-type.application";
@@ -402,7 +402,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				27DA222315ABCBBA00CEB105 /* chatta-osx */,
+				27DA222315ABCBBA00CEB105 /* chatta */,
 			);
 		};
 /* End PBXProject section */
@@ -597,7 +597,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27DA224215ABCBBA00CEB105 /* Build configuration list for PBXNativeTarget "chatta-osx" */ = {
+		27DA224215ABCBBA00CEB105 /* Build configuration list for PBXNativeTarget "chatta" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				27DA224315ABCBBA00CEB105 /* Debug */,
