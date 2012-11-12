@@ -75,7 +75,7 @@
         {
             if (contact.jabberIdentifier == nil) {
                 [self.detailView.textField setEnabled:NO];
-                [self.detailView.textField.cell setPlaceholderString:@"Update contact email address to chat..."];
+                [self.detailView.textField.cell setPlaceholderString:@"Double click contact and add email address to chat..."];
                 break;
             }
             [self.detailView.textField setEnabled:YES];
@@ -86,7 +86,7 @@
         {
             if (contact.phoneNumber == nil) {
                 [self.detailView.textField setEnabled:NO];
-                [self.detailView.textField.cell setPlaceholderString:@"Update contact phone number to chat..."];
+                [self.detailView.textField.cell setPlaceholderString:@"Double click contact and add phone number to chat..."];
                 break;
             }
             [self.detailView.textField setEnabled:YES];
