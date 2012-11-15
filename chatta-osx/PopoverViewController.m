@@ -175,4 +175,12 @@
     }
 }
 
+- (void)popoverWillClose:(NSNotification *)notification
+{
+    CKDebug(@"[+] PopoverViewController, popoverWillClose");
+    if (self.delegate != nil) {
+        [self.delegate popoverWillClose:self];
+    }
+}
+
 @end

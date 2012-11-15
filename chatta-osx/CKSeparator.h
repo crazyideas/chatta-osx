@@ -7,8 +7,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CKInputSeparator : NSView
+@interface CKSeparator : NSView
 
 @property (nonatomic, strong) NSColor *backgroundColor;
+@property (nonatomic) BOOL hasNotch;
 
 @end

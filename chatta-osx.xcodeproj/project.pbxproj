@@ -11,11 +11,15 @@
 		27138ED916378F2700694D4F /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED616378F2700694D4F /* PopoverViewController.m */; };
 		27138EDA16378F2700694D4F /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED816378F2700694D4F /* PopoverView.m */; };
 		27138EE91638CDB300694D4F /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138EE81638CDB300694D4F /* DetailView.m */; };
-		27138EEE1638CDC600694D4F /* CKInputSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138EED1638CDC600694D4F /* CKInputSeparator.m */; };
+		27138EEE1638CDC600694D4F /* CKSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138EED1638CDC600694D4F /* CKSeparator.m */; };
 		2742073016437A9300A77F92 /* NSButton+CKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742072F16437A9300A77F92 /* NSButton+CKAdditions.m */; };
 		274355BB164DF336007B60DB /* MasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 274355BA164DF336007B60DB /* MasterView.m */; };
 		274D907B15BB2E2D002C168A /* libChattaKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274D907A15BB2E2D002C168A /* libChattaKit.a */; };
 		2774A42B15B34F9700D45B47 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2712B37C15B263D000D73FEA /* QuartzCore.framework */; };
+		278DDB1516521ADD0085A790 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278DDB1416521ADD0085A790 /* MessageViewController.m */; };
+		278DDB1916521AF60085A790 /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278DDB1816521AF60085A790 /* MessageView.m */; };
+		278DDB71165496F80085A790 /* CKButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 278DDB6E165496F80085A790 /* CKButton.m */; };
+		278DDB72165496F80085A790 /* CKButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278DDB70165496F80085A790 /* CKButtonCell.m */; };
 		279021F71636283E00A64F24 /* NSColor+CKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 279021F61636283E00A64F24 /* NSColor+CKAdditions.m */; };
 		279021FC1636297D00A64F24 /* ConfigureWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279021F91636297D00A64F24 /* ConfigureWindowController.m */; };
 		279021FD1636297D00A64F24 /* ConfigureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 279021FB1636297D00A64F24 /* ConfigureView.m */; };
@@ -76,13 +80,21 @@
 		27138ED816378F2700694D4F /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
 		27138EE71638CDB300694D4F /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
 		27138EE81638CDB300694D4F /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
-		27138EEC1638CDC600694D4F /* CKInputSeparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKInputSeparator.h; sourceTree = "<group>"; };
-		27138EED1638CDC600694D4F /* CKInputSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKInputSeparator.m; sourceTree = "<group>"; };
+		27138EEC1638CDC600694D4F /* CKSeparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSeparator.h; sourceTree = "<group>"; };
+		27138EED1638CDC600694D4F /* CKSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSeparator.m; sourceTree = "<group>"; };
 		2742072E16437A9300A77F92 /* NSButton+CKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+CKAdditions.h"; sourceTree = "<group>"; };
 		2742072F16437A9300A77F92 /* NSButton+CKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+CKAdditions.m"; sourceTree = "<group>"; };
 		274355B9164DF336007B60DB /* MasterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterView.h; sourceTree = "<group>"; };
 		274355BA164DF336007B60DB /* MasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterView.m; sourceTree = "<group>"; };
 		274D907A15BB2E2D002C168A /* libChattaKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libChattaKit.a; path = "../../../Library/Developer/Xcode/DerivedData/chatta-fmqjzekevcvcawcwydtxhxcpyluh/Build/Products/Debug/libChattaKit.a"; sourceTree = "<group>"; };
+		278DDB1316521ADD0085A790 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		278DDB1416521ADD0085A790 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		278DDB1716521AF60085A790 /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
+		278DDB1816521AF60085A790 /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
+		278DDB6D165496F80085A790 /* CKButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKButton.h; sourceTree = "<group>"; };
+		278DDB6E165496F80085A790 /* CKButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKButton.m; sourceTree = "<group>"; };
+		278DDB6F165496F80085A790 /* CKButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKButtonCell.h; sourceTree = "<group>"; };
+		278DDB70165496F80085A790 /* CKButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKButtonCell.m; sourceTree = "<group>"; };
 		279021F51636283E00A64F24 /* NSColor+CKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+CKAdditions.h"; sourceTree = "<group>"; };
 		279021F61636283E00A64F24 /* NSColor+CKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+CKAdditions.m"; sourceTree = "<group>"; };
 		279021F81636297C00A64F24 /* ConfigureWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigureWindowController.h; sourceTree = "<group>"; };
@@ -117,7 +129,7 @@
 		27BAF56115C602EC009B12F3 /* CKTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTableView.m; sourceTree = "<group>"; };
 		27D74F5F15BF9624009F522A /* CKProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKProgressIndicator.h; sourceTree = "<group>"; };
 		27D74F6015BF9624009F522A /* CKProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKProgressIndicator.m; sourceTree = "<group>"; };
-		27DA222415ABCBBA00CEB105 /* chatta-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chatta-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27DA222415ABCBBA00CEB105 /* chatta-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "chatta-osx.app"; path = chatta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27DA222815ABCBBA00CEB105 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		27DA222B15ABCBBA00CEB105 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		27DA222C15ABCBBA00CEB105 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -169,6 +181,17 @@
 				27138ED816378F2700694D4F /* PopoverView.m */,
 			);
 			name = PopoverViewControllers;
+			sourceTree = "<group>";
+		};
+		278DDB1A16521AFA0085A790 /* NewMessageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				278DDB1316521ADD0085A790 /* MessageViewController.h */,
+				278DDB1416521ADD0085A790 /* MessageViewController.m */,
+				278DDB1716521AF60085A790 /* MessageView.h */,
+				278DDB1816521AF60085A790 /* MessageView.m */,
+			);
+			name = NewMessageViewController;
 			sourceTree = "<group>";
 		};
 		279021F31636281C00A64F24 /* Categories */ = {
@@ -239,12 +262,16 @@
 				2790221E16378D1E00A64F24 /* Table Views */,
 				279021FF16362A1E00A64F24 /* CKLabel.h */,
 				2790220016362A1E00A64F24 /* CKLabel.m */,
+				278DDB6D165496F80085A790 /* CKButton.h */,
+				278DDB6E165496F80085A790 /* CKButton.m */,
+				278DDB6F165496F80085A790 /* CKButtonCell.h */,
+				278DDB70165496F80085A790 /* CKButtonCell.m */,
 				27E95B9115D0BC34008C7D68 /* CKTextView.h */,
 				27E95B9215D0BC34008C7D68 /* CKTextView.m */,
 				27E95B9515D0C2D5008C7D68 /* CKScrollView.h */,
 				27E95B9615D0C2D5008C7D68 /* CKScrollView.m */,
-				27138EEC1638CDC600694D4F /* CKInputSeparator.h */,
-				27138EED1638CDC600694D4F /* CKInputSeparator.m */,
+				27138EEC1638CDC600694D4F /* CKSeparator.h */,
+				27138EED1638CDC600694D4F /* CKSeparator.m */,
 				27D74F5F15BF9624009F522A /* CKProgressIndicator.h */,
 				27D74F6015BF9624009F522A /* CKProgressIndicator.m */,
 			);
@@ -304,6 +331,7 @@
 				27FAA84815AFCDFA00C1C75E /* MasterViewControllers */,
 				279021FE1636299300A64F24 /* ConfigureWindowController */,
 				27138EDB16378F2B00694D4F /* PopoverViewControllers */,
+				278DDB1A16521AFA0085A790 /* NewMessageViewController */,
 				27FAA84915AFCE2900C1C75E /* DetailViewControllers */,
 				279200C615B7D525006CC188 /* Formatters */,
 				27DA222F15ABCBBA00CEB105 /* Supporting Files */,
@@ -454,11 +482,15 @@
 				27138ED916378F2700694D4F /* PopoverViewController.m in Sources */,
 				27138EDA16378F2700694D4F /* PopoverView.m in Sources */,
 				27138EE91638CDB300694D4F /* DetailView.m in Sources */,
-				27138EEE1638CDC600694D4F /* CKInputSeparator.m in Sources */,
+				27138EEE1638CDC600694D4F /* CKSeparator.m in Sources */,
 				279F50891638D65B00F5DC25 /* NSFont+CKAdditions.m in Sources */,
 				27AB3390163DBBEF002556DD /* NSSound+CKAdditions.m in Sources */,
 				2742073016437A9300A77F92 /* NSButton+CKAdditions.m in Sources */,
 				274355BB164DF336007B60DB /* MasterView.m in Sources */,
+				278DDB1516521ADD0085A790 /* MessageViewController.m in Sources */,
+				278DDB1916521AF60085A790 /* MessageView.m in Sources */,
+				278DDB71165496F80085A790 /* CKButton.m in Sources */,
+				278DDB72165496F80085A790 /* CKButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

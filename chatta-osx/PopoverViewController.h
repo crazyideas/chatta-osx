@@ -18,6 +18,7 @@
 - (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number;
 - (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address
                 phone:(NSString *)number;
+- (void)popoverWillClose:(id)sender;
 @end
 
 

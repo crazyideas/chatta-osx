@@ -15,7 +15,7 @@
 
 #import "CKTextView.h"
 #import "CKScrollView.h"
-#import "CKInputSeparator.h"
+#import "CKSeparator.h"
 
 @implementation DetailView
 
@@ -26,7 +26,7 @@
         self.scrollView     = [[CKScrollView alloc] initWithFrame:NSZeroRect];
         self.textView       = [[CKTextView alloc] initWithFrame:NSZeroRect];
         self.textField      = [[NSTextField alloc] initWithFrame:NSZeroRect];
-        self.inputSeparator = [[CKInputSeparator alloc] initWithFrame:NSZeroRect];
+        self.inputSeparator = [[CKSeparator alloc] initWithFrame:NSZeroRect];
                 
         [self.textView setAutoresizesSubviews:YES];
         [self.textView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable ];
@@ -47,6 +47,7 @@
         [self.textField.cell setFont:[NSFont applicationLightLarge]];
         [self.textField.cell setLineBreakMode:NSLineBreakByTruncatingTail];
         
+        [self.inputSeparator setHasNotch:YES];
         [self.inputSeparator setBackgroundColor:[NSColor lightBackgroundNoiseColor]];
         [self.inputSeparator setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
         [self.inputSeparator setWantsLayer:YES];

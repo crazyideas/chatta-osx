@@ -8,6 +8,8 @@
 #import <Cocoa/Cocoa.h>
 
 @class CKLabel;
+@class CKButton;
+@class CKSeparator;
 @class CKTableView;
 @class CKScrollView;
 
@@ -21,8 +23,10 @@ typedef enum {
 @property (nonatomic, strong) CKScrollView *scrollView;
 @property (nonatomic, strong) CKTableView *tableView;
 @property (nonatomic, strong) NSTableColumn *tableColumn;
-@property (nonatomic, strong) NSBox *lineSeparator;
-@property (nonatomic, strong) NSButton *addContactButton;
+@property (nonatomic, strong) CKSeparator *horizontalSeparator;
+@property (nonatomic, strong) CKSeparator *verticalSeparator;
+@property (nonatomic, strong) CKButton *addContactButton;
+@property (nonatomic, strong) CKButton *addMessageButton;
 @property (nonatomic, strong) CKLabel *placeholderString;
 
 - (void)changeViewState:(MasterViewState)newMasterViewState;

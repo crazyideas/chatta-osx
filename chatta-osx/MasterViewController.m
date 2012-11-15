@@ -18,6 +18,7 @@
 #import "NSSound+CKAdditions.h"
 #import "NSButton+CKAdditions.h"
 
+#import "CKButton.h"
 #import "CKTableView.h"
 #import "CKScrollView.h"
 #import "CKTableRowView.h"
@@ -309,6 +310,12 @@
     
     [self.chattaKit requestContactStatus:contact];
     [self.masterView.tableView reloadData];
+}
+
+- (void)popoverWillClose:(id)sender
+{
+    CKDebug(@"[+] MasterViewController: popoverWillClose");
+    self.masterView.addContactButton.state = NSOffState;
 }
 
 #pragma mark - Actions
