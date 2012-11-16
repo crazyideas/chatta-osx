@@ -6,6 +6,7 @@
 //
 
 #import "MessageView.h"
+#import "NSColor+CKAdditions.h"
 
 @implementation MessageView
 
@@ -13,15 +14,17 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code here.
+        
     }
-    
     return self;
 }
 
+#pragma mark - Overridden Methods
+
 - (void)drawRect:(NSRect)dirtyRect
 {
-    // Drawing code here.
+    [[NSColor mediumBackgroundNoiseColor] setFill];
+    NSRectFill(dirtyRect);
 }
 
 @end

@@ -17,6 +17,7 @@
         [self createTrackingArea];
         self.buttonCell = [[CKButtonCell alloc] init];
         [self setCell:self.buttonCell];
+        [self setBezelStyle:NSShadowlessSquareBezelStyle];
     }
     
     return self;

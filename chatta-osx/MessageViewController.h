@@ -6,7 +6,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MessageView.h"
 
-@interface MessageViewController : NSViewController
+@protocol MessageViewControllerDelegate <NSObject>
+@optional
+- (void)popoverWillClose:(id)sender;
+@end
+
+@interface MessageViewController : NSViewController <NSPopoverDelegate>
+
+@property (nonatomic, strong) NSPopover *popover;
+@property (nonatomic, strong) MessageView *messageView;
+
+@property (nonatomic, assign) id <MessageViewControllerDelegate> delegate;
 
 @end

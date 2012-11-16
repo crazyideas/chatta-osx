@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2700383E15CA2A8E00F2320C /* CKPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 2700383D15CA2A8E00F2320C /* CKPersistence.m */; };
-		27138ED916378F2700694D4F /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED616378F2700694D4F /* PopoverViewController.m */; };
-		27138EDA16378F2700694D4F /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED816378F2700694D4F /* PopoverView.m */; };
+		27138ED916378F2700694D4F /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED616378F2700694D4F /* ContactViewController.m */; };
+		27138EDA16378F2700694D4F /* ContactView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED816378F2700694D4F /* ContactView.m */; };
 		27138EE91638CDB300694D4F /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138EE81638CDB300694D4F /* DetailView.m */; };
 		27138EEE1638CDC600694D4F /* CKSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138EED1638CDC600694D4F /* CKSeparator.m */; };
 		2742073016437A9300A77F92 /* NSButton+CKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2742072F16437A9300A77F92 /* NSButton+CKAdditions.m */; };
@@ -74,10 +74,10 @@
 		2700383C15CA2A8E00F2320C /* CKPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPersistence.h; sourceTree = "<group>"; };
 		2700383D15CA2A8E00F2320C /* CKPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPersistence.m; sourceTree = "<group>"; };
 		2712B37C15B263D000D73FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		27138ED516378F2700694D4F /* PopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverViewController.h; sourceTree = "<group>"; };
-		27138ED616378F2700694D4F /* PopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverViewController.m; sourceTree = "<group>"; };
-		27138ED716378F2700694D4F /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
-		27138ED816378F2700694D4F /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
+		27138ED516378F2700694D4F /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		27138ED616378F2700694D4F /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
+		27138ED716378F2700694D4F /* ContactView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactView.h; sourceTree = "<group>"; };
+		27138ED816378F2700694D4F /* ContactView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactView.m; sourceTree = "<group>"; };
 		27138EE71638CDB300694D4F /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
 		27138EE81638CDB300694D4F /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
 		27138EEC1638CDC600694D4F /* CKSeparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSeparator.h; sourceTree = "<group>"; };
@@ -175,15 +175,24 @@
 		27138EDB16378F2B00694D4F /* PopoverViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				27138ED516378F2700694D4F /* PopoverViewController.h */,
-				27138ED616378F2700694D4F /* PopoverViewController.m */,
-				27138ED716378F2700694D4F /* PopoverView.h */,
-				27138ED816378F2700694D4F /* PopoverView.m */,
+				278DDB911655F22A0085A790 /* Contact */,
+				278DDB921655F2310085A790 /* Message */,
 			);
 			name = PopoverViewControllers;
 			sourceTree = "<group>";
 		};
-		278DDB1A16521AFA0085A790 /* NewMessageViewController */ = {
+		278DDB911655F22A0085A790 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				27138ED516378F2700694D4F /* ContactViewController.h */,
+				27138ED616378F2700694D4F /* ContactViewController.m */,
+				27138ED716378F2700694D4F /* ContactView.h */,
+				27138ED816378F2700694D4F /* ContactView.m */,
+			);
+			name = Contact;
+			sourceTree = "<group>";
+		};
+		278DDB921655F2310085A790 /* Message */ = {
 			isa = PBXGroup;
 			children = (
 				278DDB1316521ADD0085A790 /* MessageViewController.h */,
@@ -191,7 +200,7 @@
 				278DDB1716521AF60085A790 /* MessageView.h */,
 				278DDB1816521AF60085A790 /* MessageView.m */,
 			);
-			name = NewMessageViewController;
+			name = Message;
 			sourceTree = "<group>";
 		};
 		279021F31636281C00A64F24 /* Categories */ = {
@@ -331,7 +340,6 @@
 				27FAA84815AFCDFA00C1C75E /* MasterViewControllers */,
 				279021FE1636299300A64F24 /* ConfigureWindowController */,
 				27138EDB16378F2B00694D4F /* PopoverViewControllers */,
-				278DDB1A16521AFA0085A790 /* NewMessageViewController */,
 				27FAA84915AFCE2900C1C75E /* DetailViewControllers */,
 				279200C615B7D525006CC188 /* Formatters */,
 				27DA222F15ABCBBA00CEB105 /* Supporting Files */,
@@ -479,8 +487,8 @@
 				2790221716378BD000A64F24 /* CKTableHeaderCell.m in Sources */,
 				2790221C16378D1800A64F24 /* CKTableRowView.m in Sources */,
 				2790221D16378D1800A64F24 /* CKTableCellView.m in Sources */,
-				27138ED916378F2700694D4F /* PopoverViewController.m in Sources */,
-				27138EDA16378F2700694D4F /* PopoverView.m in Sources */,
+				27138ED916378F2700694D4F /* ContactViewController.m in Sources */,
+				27138EDA16378F2700694D4F /* ContactView.m in Sources */,
 				27138EE91638CDB300694D4F /* DetailView.m in Sources */,
 				27138EEE1638CDC600694D4F /* CKSeparator.m in Sources */,
 				279F50891638D65B00F5DC25 /* NSFont+CKAdditions.m in Sources */,

@@ -50,6 +50,7 @@
     [[NSColor gridSeparatorColor] setStroke];
     [bezierPath setLineWidth:1.0];
     [bezierPath stroke];
+
 }
 
 @end

@@ -9,14 +9,36 @@
 
 @implementation MessageViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Initialization code here.
+        self.popover     = [[NSPopover alloc] init];
+        self.messageView = [[MessageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 185)];
+        
+        [self.popover setContentViewController:self];
+        [self.popover setAnimates:YES];
+        [self.popover setBehavior:NSPopoverBehaviorTransient];
+        [self.popover setDelegate:self];
+        
+        self.view = self.messageView;
     }
-    
     return self;
+}
+
+#pragma mark - NSPopover Delegates
+
+- (void)popoverWillShow:(NSNotification *)notification
+{
+    CKDebug(@"[+] MessageViewController, popoverWillShow");
+}
+
+- (void)popoverWillClose:(NSNotification *)notification
+{
+    CKDebug(@"[+] MessageViewController, popoverWillClose");
+    if (self.delegate != nil) {
+        [self.delegate popoverWillClose:self];
+    }
 }
 
 @end

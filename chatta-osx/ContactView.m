@@ -5,11 +5,11 @@
 //  Copyright (c) 2012 CRAZY IDEAS. All rights reserved.
 //
 
-#import "PopoverView.h"
+#import "ContactView.h"
 #import "NSFont+CKAdditions.h"
 #import "NSColor+CKAdditions.h"
 
-@implementation PopoverView
+@implementation ContactView
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -78,11 +78,11 @@
 
 #pragma mark - Properties
 
-- (void)setPopoverType:(PopoverType)popoverType
+- (void)setContactViewType:(ContactViewType)contactViewType
 {
     self.leftButton.title  = @"Cancel";
-    self.rightButton.title = (popoverType == PopoverTypeAddContact) ? @"Add" : @"Update";
-    _popoverType = popoverType;
+    self.rightButton.title = (contactViewType == ContactViewTypeAddContact) ? @"Add" : @"Update";
+    _contactViewType = contactViewType;
 }
 
 #pragma mark - Overridden Methods

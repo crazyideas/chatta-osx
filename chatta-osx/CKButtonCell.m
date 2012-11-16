@@ -10,7 +10,7 @@
 @implementation CKButtonCell
 
 - (void)drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
-{
+{    
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
 
     NSRect underlineRect = CKCopyRect(frame);
@@ -29,7 +29,8 @@
 
     // detect if pressed
     if (self.isEnabled && self.state == NSOnState) {
-        CGContextSetRGBFillColor(context, 0.80, 0.85, 0.92, 1);
+        //CGContextSetRGBFillColor(context, 0.80, 0.85, 0.92, 1);
+        CGContextSetRGBFillColor(context, 0.60, 0.80, 0.95, 1);
         CGContextFillRect(context, underlineRect);
     }
 }

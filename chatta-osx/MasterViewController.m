@@ -26,8 +26,8 @@
 #import "CKTableCellView.h"
 
 #import "MasterView.h"
-#import "PopoverView.h"
-#import "PopoverViewController.h"
+#import "ContactView.h"
+#import "ContactViewController.h"
 #import "DetailViewController.h"
 
 @implementation MasterViewController
@@ -45,10 +45,16 @@
         [self.masterView.tableView setDataSource:self];
         
         [self.masterView.addContactButton setTarget:self];
-        [self.masterView.addContactButton setAction:@selector(showPopoverAction:)];
+        [self.masterView.addContactButton setAction:@selector(showContactAction:)];
         
-        self.popoverViewController = [[PopoverViewController alloc] init];
-        [self.popoverViewController setDelegate:self];
+        [self.masterView.addMessageButton setTarget:self];
+        [self.masterView.addMessageButton setAction:@selector(showMessageAction:)];
+        
+        self.contactViewController = [[ContactViewController alloc] init];
+        [self.contactViewController setDelegate:self];
+        
+        self.messageViewController = [[MessageViewController alloc] init];
+        [self.messageViewController setDelegate:self];
         
         self.detailViewController.contact = nil;
         self.detailViewController.enabled =
@@ -65,16 +71,16 @@
 
 - (void)updateSelectedContact:(id)sender
 {
-    self.popoverViewController.popoverType =
-        ([sender isKindOfClass:[NSButton class]]) ? PopoverTypeAddContact : PopoverTypeUpdateContact;
+    self.contactViewController.contactViewType =
+        ([sender isKindOfClass:[NSButton class]]) ? ContactViewTypeAddContact : ContactViewTypeUpdateContact;
     
     if ([sender isKindOfClass:[NSButton class]]) {
-        [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+        [self.contactViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
     } else {
         NSInteger selectedRow = self.masterView.tableView.selectedRow;
         sender = [self.masterView.tableView rowViewAtRow:selectedRow makeIfNecessary:YES];
-        self.popoverViewController.contact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
-        [self.popoverViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
+        self.contactViewController.contact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+        [self.contactViewController.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
     }
 }
 
@@ -316,13 +322,22 @@
 {
     CKDebug(@"[+] MasterViewController: popoverWillClose");
     self.masterView.addContactButton.state = NSOffState;
+    self.masterView.addMessageButton.state = NSOffState;
 }
 
 #pragma mark - Actions
 
-- (void)showPopoverAction:(id)sender
+- (void)showContactAction:(id)sender
 {
+    CKDebug(@"[+] MasterViewController, showContactAction");
     [self updateSelectedContact:sender];
+}
+
+- (void)showMessageAction:(id)sender
+{
+    CKDebug(@"[+] MasterViewController, showMessageAction");
+    [self.messageViewController.popover showRelativeToRect:[sender bounds]
+        ofView:sender preferredEdge:NSMaxYEdge];
 }
 
 @end

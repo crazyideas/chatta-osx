@@ -8,12 +8,12 @@
 #import <Cocoa/Cocoa.h>
 #import "CKLabel.h"
 
-@interface PopoverView : NSView
+@interface ContactView : NSView
 
 typedef enum {
-    PopoverTypeAddContact,
-    PopoverTypeUpdateContact
-} PopoverType;
+    ContactViewTypeAddContact,
+    ContactViewTypeUpdateContact
+} ContactViewType;
 
 @property (nonatomic, strong) CKLabel *titleLabel;
 @property (nonatomic, strong) CKLabel *nameLabel;
@@ -27,6 +27,6 @@ typedef enum {
 @property (nonatomic, strong) NSButton *leftButton;
 @property (nonatomic, strong) NSButton *rightButton;
 
-@property (nonatomic) PopoverType popoverType;
+@property (nonatomic) ContactViewType contactViewType;
 
 @end

@@ -9,7 +9,8 @@
 #import "CKContactList.h"
 #import "CKTableView.h"
 #import "DetailViewController.h"
-#import "PopoverViewController.h"
+#import "ContactViewController.h"
+#import "MessageViewController.h"
 
 @protocol PopoverDelegate;
 @protocol ContactPopoverDelegate;
@@ -19,7 +20,7 @@
 
 @class ChattaKit;
 @class DetailViewController;
-@class PopoverViewController;
+@class ContactViewController;
 @class MasterView;
 
 @protocol MasterViewDelegate <NSObject>
@@ -27,13 +28,16 @@
 - (void)selectedContactDidChange:(CKContact *)contact;
 @end
 
-@interface MasterViewController : NSViewController <CKTableViewDelegate, NSTableViewDataSource,
-                                                    CKContactListDelegate, PopoverDelegate>
+@interface MasterViewController : NSViewController <NSTableViewDataSource,
+                                                    CKTableViewDelegate,
+                                                    CKContactListDelegate,
+                                                    ContactViewControllerDelegate,
+                                                    MessageViewControllerDelegate>
 
 @property (nonatomic, strong) MasterView *masterView;
 @property (nonatomic, strong) DetailViewController *detailViewController;
-@property (nonatomic, strong) PopoverViewController *popoverViewController;
-@property (nonatomic, strong) NSPopover *popover;
+@property (nonatomic, strong) ContactViewController *contactViewController;
+@property (nonatomic, strong) MessageViewController *messageViewController;
 
 @property (nonatomic, assign) id <MasterViewDelegate> delegate;
 @property (nonatomic, strong) ChattaKit *chattaKit;

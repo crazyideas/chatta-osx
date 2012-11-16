@@ -29,8 +29,8 @@
         self.scrollView          = [[CKScrollView alloc] initWithFrame:NSZeroRect];
         self.tableView           = [[CKTableView alloc] initWithFrame:NSZeroRect];
         self.tableColumn         = [[NSTableColumn alloc] initWithIdentifier:@"contactColumn"];
-        self.horizontalSeparator = [[CKSeparator alloc] initWithFrame:NSZeroRect];
-        self.verticalSeparator   = [[CKSeparator alloc] initWithFrame:NSZeroRect];
+        self.horizontalSeparator = [[NSBox alloc] initWithFrame:NSZeroRect];
+        self.verticalSeparator   = [[NSBox alloc] initWithFrame:NSZeroRect];
         self.addContactButton    = [[CKButton alloc] initWithFrame:NSZeroRect];
         self.addMessageButton    = [[CKButton alloc] initWithFrame:NSZeroRect];
         self.placeholderString   = [[CKLabel alloc] initWithFrame:NSZeroRect];
@@ -59,32 +59,28 @@
         [self.scrollView setBackgroundColor:[NSColor clearColor]];
         
         [self.scrollView setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable |
-         NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin ];
+            NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin ];
         
-        [self.horizontalSeparator setBackgroundColor:[NSColor mediumBackgroundNoiseColor]];
-        [self.horizontalSeparator setFrame:NSMakeRect(0, 50.5, 400, 1.5)];
+        [self.horizontalSeparator setFrame:NSMakeRect(0, 50.0, 400, 1)];
         [self.horizontalSeparator setAutoresizesSubviews:NSViewWidthSizable];
         [self.horizontalSeparator setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
-        [self.horizontalSeparator setHasNotch:NO];
-        [self.verticalSeparator setWantsLayer:YES];
-        
-        [self.verticalSeparator setBackgroundColor:[NSColor darkBackgroundNoiseColor]];
+        [self.horizontalSeparator setBoxType:NSBoxCustom];
+        [self.horizontalSeparator setBorderColor:[NSColor gridSeparatorColor]];
+
         [self.verticalSeparator setFrame:NSMakeRect(self.frame.size.width/2.0, 0, 1.5, 50)];
         [self.verticalSeparator setAutoresizesSubviews:NSViewWidthSizable];
         [self.verticalSeparator setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin];
-        [self.verticalSeparator setHasNotch:NO];
-        [self.verticalSeparator setWantsLayer:YES];
+        [self.verticalSeparator setBoxType:NSBoxCustom];
+        [self.verticalSeparator setBorderColor:[NSColor gridSeparatorColor]];
 
         [self.addContactButton setTitle:@"ADD CONTACT"];
         [self.addContactButton setFont:[NSFont applicationRegularSmall]];
         [self.addContactButton setTitleColor:[NSColor darkGrayColor]];
-        [self.addContactButton setBezelStyle:NSRoundedBezelStyle];
         [self.addContactButton setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
         
         [self.addMessageButton setTitle:@"NEW MESSAGE"];
         [self.addMessageButton setFont:[NSFont applicationRegularSmall]];
         [self.addMessageButton setTitleColor:[NSColor darkGrayColor]];
-        [self.addMessageButton setBezelStyle:NSRoundedBezelStyle];
         [self.addMessageButton setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
 
         // adjust add button
@@ -94,14 +90,14 @@
         CGFloat masterAddButtonY = 0;
         self.addContactButton.frame =
             NSMakeRect(masterAddButtonX, masterAddButtonY, masterAddButtonW, masterAddButtonH);
-        
+
         CGFloat masterNewButtonW = frame.size.width / 2.0;
         CGFloat masterNewButtonH = 50;
         CGFloat masterNewButtonX = masterAddButtonW;
         CGFloat masterNewButtonY = 0;
         self.addMessageButton.frame =
-        NSMakeRect(masterNewButtonX, masterNewButtonY, masterNewButtonW, masterNewButtonH);
-        
+            NSMakeRect(masterNewButtonX, masterNewButtonY, masterNewButtonW, masterNewButtonH);
+
         // adjust scroll view
         CGFloat masterScrollW = frame.size.width;
         CGFloat masterScrollH = frame.size.height - masterAddButtonH;

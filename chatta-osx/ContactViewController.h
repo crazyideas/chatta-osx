@@ -6,14 +6,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PopoverView.h"
+#import "ContactView.h"
 
 @class CKPhoneNumberFormatter;
 @class CKEmailAddressFormatter;
 @class CKContact;
 
 
-@protocol PopoverDelegate <NSObject>
+@protocol ContactViewControllerDelegate <NSObject>
 @optional
 - (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number;
 - (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address
@@ -22,17 +22,17 @@
 @end
 
 
-@interface PopoverViewController : NSViewController <NSPopoverDelegate, NSTextFieldDelegate>
+@interface ContactViewController : NSViewController <NSPopoverDelegate, NSTextFieldDelegate>
 
 @property (nonatomic, strong) NSPopover *popover;
-@property (nonatomic, strong) PopoverView *popoverView;
+@property (nonatomic, strong) ContactView *contactView;
 
 @property (nonatomic, strong) CKContact *contact;
 @property (nonatomic, strong) CKPhoneNumberFormatter *phoneNumberFormatter;
 @property (nonatomic, strong) CKEmailAddressFormatter *emailAddressFormatter;
 
-@property (nonatomic, assign) id <PopoverDelegate> delegate;
+@property (nonatomic, assign) id <ContactViewControllerDelegate> delegate;
 
-@property (nonatomic) PopoverType popoverType;
+@property (nonatomic) ContactViewType contactViewType;
 
 @end
