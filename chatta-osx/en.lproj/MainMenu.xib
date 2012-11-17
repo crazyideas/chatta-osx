@@ -891,6 +891,7 @@
 						<string key="NSFrame">{{11, 150}, {301, 24}}</string>
 						<reference key="NSSuperview" ref="776044715"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1040625720"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSegmentedCell" key="NSCell" id="279611303">
@@ -932,6 +933,7 @@
 						<string key="NSFrame">{{216, 5}, {100, 32}}</string>
 						<reference key="NSSuperview" ref="776044715"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="845004211">
@@ -990,7 +992,7 @@
 					<object class="NSTextField" id="1040625720">
 						<reference key="NSNextResponder" ref="776044715"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{9, 120}, {98, 17}}</string>
+						<string key="NSFrame">{{13, 120}, {94, 17}}</string>
 						<reference key="NSSuperview" ref="776044715"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="25440643"/>
@@ -999,7 +1001,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="480306588">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Phone Number</string>
+							<string key="NSContents">Email Address</string>
 							<reference key="NSSupport" ref="729942441"/>
 							<string key="NSCellIdentifier">_NS:1535</string>
 							<reference key="NSControlView" ref="1040625720"/>
@@ -1102,7 +1104,7 @@
 				<string key="NSFrameSize">{320, 185}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
+				<reference key="NSNextKeyView" ref="652156305"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -2218,10 +2220,10 @@
 							<reference ref="365922517"/>
 							<reference ref="727972118"/>
 							<reference ref="496291981"/>
-							<reference ref="1040625720"/>
 							<reference ref="25440643"/>
 							<reference ref="1001783154"/>
 							<reference ref="652156305"/>
+							<reference ref="1040625720"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>

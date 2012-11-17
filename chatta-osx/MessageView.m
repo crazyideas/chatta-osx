@@ -19,7 +19,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.segmentedControl = [[NSSegmentedControl alloc] initWithFrame:NSMakeRect( 11, 150, 301, 24)];
-        self.serviceLabel     = [[CKLabel alloc] initWithFrame:NSMakeRect           (  9, 120,  98, 17)];
+        self.serviceLabel     = [[CKLabel alloc] initWithFrame:NSMakeRect           ( 13, 120,  94, 17)];
         self.messageLabel     = [[CKLabel alloc] initWithFrame:NSMakeRect           ( 48,  88,  59, 17)];
         self.serviceTextField = [[NSTextField alloc] initWithFrame:NSMakeRect       (112, 117, 198, 22)];
         self.messageTextField = [[NSTextField alloc] initWithFrame:NSMakeRect       (112,  41, 198, 66)];
@@ -36,17 +36,21 @@
         [self.segmentedControl setAction:@selector(segmentedControlAction:)];
         
         [self.serviceLabel setTextColor:[NSColor darkGrayColor]];
-        [self.serviceLabel setAttributedStringValue:[NSFont etchedString:@"Phone Number"
+        [self.serviceLabel setAttributedStringValue:[NSFont etchedString:@"Email Address"
             withFont:[NSFont systemFontOfSize:0]]];
         
         [self.messageLabel setTextColor:[NSColor darkGrayColor]];
         [self.messageLabel setAttributedStringValue:[NSFont etchedString:@"Message"
             withFont:[NSFont systemFontOfSize:0]]];
         
+        [self.serviceTextField.cell setPlaceholderString:@"1-800-555-1212"];
+        [self.messageTextField.cell setPlaceholderString:@"Message..."];
+        
         [self.sendButton setTitle:@"Send"];
         [self.sendButton setBezelStyle:NSRoundedBezelStyle];
         [self.sendButton setTarget:self];
         [self.sendButton setAction:@selector(sendAction:)];
+        [self.sendButton setEnabled:NO];
         
         [self.noteLabel setTextColor:[NSColor darkGrayColor]];
         [self.noteLabel setAttributedStringValue:[NSFont etchedString:@"Message will be sent if contact is online"
@@ -64,6 +68,38 @@
     return self;
 }
 
+- (void)setMessageViewState:(MessageViewState)messageViewState
+{
+    switch (messageViewState) {
+        case MessageViewStateInstantService: // Google Talk
+        {
+            [self.serviceLabel setFrame:NSMakeRect(13, 120, 94,17)];
+            [self.serviceLabel setAttributedStringValue:[NSFont etchedString:@"Email Address"
+                withFont:[NSFont systemFontOfSize:0]]];
+            [self.serviceTextField.cell setPlaceholderString:@"jsmith@gmail.com"];
+            [self.noteLabel setHidden:NO];
+            
+            break;
+        }
+        case MessageViewStateTextService: // Google Voice
+        {
+            [self.serviceLabel setFrame:NSMakeRect(9, 120, 98, 17)];
+            [self.serviceLabel setAttributedStringValue:[NSFont etchedString:@"Phone Number"
+                withFont:[NSFont systemFontOfSize:0]]];
+            [self.serviceTextField.cell setPlaceholderString:@"1-800-555-1212"];
+            [self.noteLabel setHidden:YES];
+            
+            break;
+        }
+        default:
+        {
+            CKDebug(@"invalid segment selected");
+            break;
+        }
+    }
+    _messageViewState = messageViewState;
+}
+
 #pragma mark - Overridden Methods
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -78,6 +114,24 @@
 {
     NSInteger selectedSegment = [sender selectedSegment];
     CKDebug(@"[+] MessageView, segmentedControlAction, %li", selectedSegment);
+    
+    switch (selectedSegment) {
+        case 0: // Google Talk
+        {
+            self.messageViewState = MessageViewStateInstantService;
+            break;
+        }
+        case 1: // Google Voice
+        {
+            self.messageViewState = MessageViewStateTextService;
+            break;
+        }
+        default:
+        {
+            CKDebug(@"invalid segment selected");
+            break;
+        }
+    }
 }
 
 - (void)sendAction:(id)sender

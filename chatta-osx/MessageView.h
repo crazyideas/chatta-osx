@@ -10,6 +10,11 @@
 @class CKButton;
 @class CKLabel;
 
+typedef enum {
+    MessageViewStateTextService,
+    MessageViewStateInstantService
+} MessageViewState;
+
 @interface MessageView : NSView
 
 @property (nonatomic, strong) NSSegmentedControl *segmentedControl;
@@ -19,5 +24,7 @@
 @property (nonatomic, strong) NSTextField *messageTextField;
 @property (nonatomic, strong) NSButton *sendButton;
 @property (nonatomic ,strong) CKLabel *noteLabel;
+
+@property (nonatomic) MessageViewState messageViewState;
 
 @end
