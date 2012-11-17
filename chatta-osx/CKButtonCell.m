@@ -16,7 +16,7 @@
 
     NSRect underlineRect = CKCopyRect(frame);
     underlineRect.size.height = 5;
-    underlineRect.origin.y = frame.size.height - underlineRect.size.height - 0; // -5?
+    underlineRect.origin.y = frame.size.height - underlineRect.size.height - 0;
     
     // normal
     CGContextSetRGBFillColor(context, 0.80, 0.80, 0.80, 1);
@@ -37,6 +37,7 @@
 
 - (NSRect)drawTitle:(NSAttributedString *)title withFrame:(NSRect)frame inView:(NSView *)controlView
 {
+    
     NSShadow *shadow = [[NSShadow alloc] init];
     [shadow setShadowColor:[NSColor whiteColor]];
     [shadow setShadowOffset:NSMakeSize(-0.0, -2.0)];
@@ -50,13 +51,13 @@
                                        shadow,                  NSShadowAttributeName,
                                        paragraphStyle,          NSParagraphStyleAttributeName,
                                        nil];
-    
+
     NSRect newFrame = CKCopyRect(frame);
     newFrame.origin.y -= 3;
     
     [self.title drawInRect:newFrame withAttributes:[attributes copy]];
-    
-    return frame;
+        
+    return newFrame;
 }
 
 @end
