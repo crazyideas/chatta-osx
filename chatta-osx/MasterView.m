@@ -75,12 +75,10 @@
 
         [self.addContactButton setTitle:@"ADD CONTACT"];
         [self.addContactButton setFont:[NSFont applicationRegularSmall]];
-        [self.addContactButton setTitleColor:[NSColor darkGrayColor]];
         [self.addContactButton setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
         
         [self.addMessageButton setTitle:@"NEW MESSAGE"];
         [self.addMessageButton setFont:[NSFont applicationRegularSmall]];
-        [self.addMessageButton setTitleColor:[NSColor darkGrayColor]];
         [self.addMessageButton setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin | NSViewMinXMargin | NSViewMaxXMargin];
 
         // adjust add button
