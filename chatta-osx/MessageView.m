@@ -25,7 +25,7 @@
         self.serviceTextField = [[NSTextField alloc] initWithFrame:NSMakeRect       (112, 117, 198, 22)];
         self.messageTextField = [[NSTextField alloc] initWithFrame:NSMakeRect       (112,  41, 198, 66)];
         self.sendButton       = [[NSButton alloc] initWithFrame:NSMakeRect          (216,   5, 100, 32)];
-        self.noteLabel        = [[CKLabel alloc] initWithFrame:NSMakeRect           ( 10,  11, 221, 17)];
+        self.noteLabel        = [[CKLabel alloc] initWithFrame:NSMakeRect           ( 10,  11, 197, 17)];
         
         [self.segmentedControl setSegmentCount:2];
         [self.segmentedControl setLabel:@"Google Talk" forSegment:0];
