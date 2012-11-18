@@ -17,6 +17,7 @@ typedef enum {
 
 @interface MessageView : NSView
 
+@property (nonatomic, strong) CKLabel *titleLabel;
 @property (nonatomic, strong) NSSegmentedControl *segmentedControl;
 @property (nonatomic, strong) CKLabel *serviceLabel;
 @property (nonatomic, strong) CKLabel *messageLabel;

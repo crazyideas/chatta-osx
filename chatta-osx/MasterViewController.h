@@ -25,6 +25,7 @@
 
 @protocol MasterViewDelegate <NSObject>
 @optional
+- (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact;
 - (void)selectedContactDidChange:(CKContact *)contact;
 @end
 

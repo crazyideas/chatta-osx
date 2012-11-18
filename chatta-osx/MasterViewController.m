@@ -283,9 +283,24 @@
     self.previouslySelectedRow = selectedRow;
 }
 
-#pragma mark - Popover delegates
+#pragma mark - MessageView delegates
 
-- (void)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
+- (void)sendNewMessage:(NSString *)message toContact:(CKContact *)contact newContact:(BOOL)newContact
+{
+    CKContact *contactInList;
+    if (newContact == YES) {
+        contactInList = [self addContactWithName:contact.displayName email:contact.jabberIdentifier
+                                           phone:contact.phoneNumber];
+    }
+    
+    if (self.delegate != nil && contactInList != nil) {
+        [self.delegate sendNewMessage:message toContact:contactInList];
+    }
+}
+
+#pragma mark - ConfigureView delegates
+
+- (CKContact *)addContactWithName:(NSString *)name email:(NSString *)address phone:(NSString *)number
 {
     CKDebug(@"[+] MasterViewController: addContactWithName");
     CKContact *contact = [[CKContact alloc] initWithJabberIdentifier:address
@@ -299,9 +314,12 @@
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         [self.masterView.tableView reloadData];
     });
+    
+    return contact;
 }
 
-- (void)updateContact:(CKContact *)contact withName:(NSString *)name email:(NSString *)address phone:(NSString *)number
+- (CKContact *)updateContact:(CKContact *)contact withName:(NSString *)name
+                       email:(NSString *)address phone:(NSString *)number
 {
     CKDebug(@"[+] MasterViewController: updateContact");
     contact.displayName      = name;
@@ -316,6 +334,8 @@
     
     [self.chattaKit requestContactStatus:contact];
     [self.masterView.tableView reloadData];
+    
+    return contact;
 }
 
 - (void)popoverWillClose:(id)sender

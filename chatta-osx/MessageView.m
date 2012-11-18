@@ -18,6 +18,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.titleLabel       = [[CKLabel alloc] initWithFrame:NSMakeRect           (116, 188,  90, 17)];
         self.segmentedControl = [[NSSegmentedControl alloc] initWithFrame:NSMakeRect( 11, 150, 301, 24)];
         self.serviceLabel     = [[CKLabel alloc] initWithFrame:NSMakeRect           ( 13, 120,  94, 17)];
         self.messageLabel     = [[CKLabel alloc] initWithFrame:NSMakeRect           ( 48,  88,  59, 17)];
@@ -35,6 +36,10 @@
         [self.segmentedControl setTarget:self];
         [self.segmentedControl setAction:@selector(segmentedControlAction:)];
         
+        [self.titleLabel setTextColor:[NSColor darkGrayColor]];
+        [self.titleLabel setAttributedStringValue:[NSFont etchedString:@"New Message"
+            withFont:[NSFont systemFontOfSize:0]]];
+        
         [self.serviceLabel setTextColor:[NSColor darkGrayColor]];
         [self.serviceLabel setAttributedStringValue:[NSFont etchedString:@"Email Address"
             withFont:[NSFont systemFontOfSize:0]]];
@@ -42,20 +47,14 @@
         [self.messageLabel setTextColor:[NSColor darkGrayColor]];
         [self.messageLabel setAttributedStringValue:[NSFont etchedString:@"Message"
             withFont:[NSFont systemFontOfSize:0]]];
-        
-        [self.serviceTextField.cell setPlaceholderString:@"1-800-555-1212"];
-        [self.messageTextField.cell setPlaceholderString:@"Message..."];
-        
+                
         [self.sendButton setTitle:@"Send"];
         [self.sendButton setBezelStyle:NSRoundedBezelStyle];
-        [self.sendButton setTarget:self];
-        [self.sendButton setAction:@selector(sendAction:)];
         [self.sendButton setEnabled:NO];
         
         [self.noteLabel setTextColor:[NSColor darkGrayColor]];
-        [self.noteLabel setAttributedStringValue:[NSFont etchedString:@"Message will be sent if contact is online"
-            withFont:[NSFont systemFontOfSize:10]]];
         
+        [self addSubview:self.titleLabel];
         [self addSubview:self.segmentedControl];
         [self addSubview:self.serviceLabel];
         [self addSubview:self.messageLabel];
@@ -63,13 +62,16 @@
         [self addSubview:self.messageTextField];
         [self addSubview:self.sendButton];
         [self addSubview:self.noteLabel];
+        
+        // set initial state
+        self.messageViewState = MessageViewStateInstantService;
     }
     
     return self;
 }
 
 - (void)setMessageViewState:(MessageViewState)messageViewState
-{
+{    
     switch (messageViewState) {
         case MessageViewStateInstantService: // Google Talk
         {
@@ -97,6 +99,13 @@
             break;
         }
     }
+    
+    [self.serviceTextField setStringValue:@""];
+    
+    [self.messageTextField.cell setPlaceholderString:@"Message..."];
+    [self.noteLabel setAttributedStringValue:[NSFont etchedString:@"Message will be sent if contact is online"
+        withFont:[NSFont systemFontOfSize:10]]];
+    
     _messageViewState = messageViewState;
 }
 
@@ -132,11 +141,6 @@
             break;
         }
     }
-}
-
-- (void)sendAction:(id)sender
-{
-    CKDebug(@"[+] MessageView, sendButtonAction");
 }
 
 @end
