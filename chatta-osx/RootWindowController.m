@@ -129,6 +129,7 @@
             CKDebug(@"[+] received ChattaStateConnecting notification");
             
             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [block_self.masterViewController setConnectionState:ChattaStateConnecting];
                 [block_self.configureWindowController.configureView
                     changeViewState:ConfigureViewStateProgress];
             });
@@ -139,6 +140,7 @@
             CKDebug(@"[+] received ChattaStateConnected notification");
             
             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [block_self.masterViewController setConnectionState:ChattaStateConnected];
                 [block_self.configureWindowController.configureView
                     changeViewState:ConfigureViewStateNormalConnected];
                 [block_self removeConfigureWindow];
@@ -154,6 +156,7 @@
         {
             CKDebug(@"[+] received ChattaStateErrorDisconnected notification");
             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [block_self.masterViewController setConnectionState:ChattaStateErrorDisconnected];
                 [block_self.configureWindowController.configureView
                     changeViewState:ConfigureViewStateError];
             });
@@ -164,6 +167,7 @@
             CKDebug(@"[+] received ChattaStateDisconnected notification");
             
             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [block_self.masterViewController setConnectionState:ChattaStateDisconnected];
                 [block_self.configureWindowController.configureView
                     changeViewState:ConfigureViewStateNormalDisconnected];
                 [block_self showConfigureWindow];

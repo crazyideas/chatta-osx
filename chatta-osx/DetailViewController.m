@@ -109,6 +109,15 @@
     [self.detailView setNeedsDisplay:YES];
 }
 
+- (void)flushCacheForContact:(CKContact *)contact
+{
+    // remove contact from cache and update interface
+    if (contact != nil) {
+        [self.textStorageCache removeObjectForKey:contact.displayName];
+        [self.detailView clearMessageView];
+    }
+}
+
 #pragma mark - Properties
 
 - (void)setEnabled:(BOOL)enabled

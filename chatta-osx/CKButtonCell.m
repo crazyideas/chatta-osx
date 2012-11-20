@@ -23,13 +23,13 @@
     CGContextFillRect(context, underlineRect);
     
     // detect if hovered
-    if (self.isHover) {
+    if (self.isEnabled && self.isHover) {
         CGContextSetRGBFillColor(context, 0.65, 0.65, 0.65, 1);
         CGContextFillRect(context, underlineRect);
     }
 
     // detect if pressed
-    if (self.acceptsFirstResponder && self.state == NSOnState) {
+    if (self.isEnabled && self.state == NSOnState) {
         CGContextSetRGBFillColor(context, 0.60, 0.80, 0.95, 1);
         CGContextFillRect(context, underlineRect);
     }
@@ -37,6 +37,7 @@
 
 - (NSRect)drawTitle:(NSAttributedString *)title withFrame:(NSRect)frame inView:(NSView *)controlView
 {
+    NSColor *textColor = (self.isEnabled)? [NSColor darkGrayColor] : [NSColor lightGrayColor];
     
     NSShadow *shadow = [[NSShadow alloc] init];
     [shadow setShadowColor:[NSColor whiteColor]];
@@ -46,10 +47,10 @@
     [paragraphStyle setAlignment:NSCenterTextAlignment];
     
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                       self.font,               NSFontAttributeName,
-                                       [NSColor darkGrayColor], NSForegroundColorAttributeName,
-                                       shadow,                  NSShadowAttributeName,
-                                       paragraphStyle,          NSParagraphStyleAttributeName,
+                                       self.font,       NSFontAttributeName,
+                                       textColor,       NSForegroundColorAttributeName,
+                                       shadow,          NSShadowAttributeName,
+                                       paragraphStyle,  NSParagraphStyleAttributeName,
                                        nil];
 
     NSRect newFrame = CKCopyRect(frame);

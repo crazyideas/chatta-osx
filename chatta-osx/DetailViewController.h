@@ -33,5 +33,6 @@
 
 - (void)appendNewMessage:(CKMessage *)message forContact:(CKContact *)contact;
 - (void)updateTextFieldPlaceholderText:(CKContact *)contact;
+- (void)flushCacheForContact:(CKContact *)contact;
 
 @end

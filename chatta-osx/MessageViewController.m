@@ -125,7 +125,7 @@
         contact = [[CKContactList sharedInstance] contactWithPhoneNumber:phoneNumberServiceFormat];
         
         if (contact == nil) {
-            contact = [[CKContact alloc] initWithJabberIdentifier:nil andDisplayName:serviceString andPhoneNumber:serviceString andContactState:ContactStateOffline];
+            contact = [[CKContact alloc] initWithJabberIdentifier:nil andDisplayName:serviceString andPhoneNumber:phoneNumberServiceFormat andContactState:ContactStateOffline];
             createNewContact = YES;
         }
     }

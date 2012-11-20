@@ -94,8 +94,14 @@
     }
     
     CKContact *rmContact = [[CKContactList sharedInstance] contactWithIndex:selectedRow];
+    
+    // flush detail views cache of the conversation
+    [self.detailViewController flushCacheForContact:rmContact];
+
+    // remove contact from contact list
     [[CKContactList sharedInstance] removeContact:rmContact];
     
+    // update master view interface
     [self.masterView.tableView deselectAll:self];
     [self.masterView.tableView reloadData];
 }
@@ -109,7 +115,11 @@
 
 - (void)setConnectionState:(ChattaState)connectionState
 {
-    self.detailViewController.enabled = (connectionState == ChattaStateConnected) ? YES : NO;
+    BOOL newState = (connectionState == ChattaStateConnected) ? YES : NO;
+    
+    //[self.detailViewController setEnabled:newState];
+    [self.masterView.addMessageButton setEnabled:newState];
+    //[self.masterView.addMessageButton setNeedsDisplay:YES];
     
     _connectionState = connectionState;
 }
@@ -290,7 +300,9 @@
     CKContact *contactInList;
     if (newContact == YES) {
         contactInList = [self addContactWithName:contact.displayName email:contact.jabberIdentifier
-                                           phone:contact.phoneNumber];
+            phone:contact.phoneNumber];
+    } else {
+        contactInList = contact;
     }
     
     if (self.delegate != nil && contactInList != nil) {
