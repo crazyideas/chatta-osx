@@ -97,4 +97,26 @@
     NSRectFill(separatorRect);
 }
 
+- (NSArray *)draggingImageComponents
+{
+    NSMutableArray *result = [[super draggingImageComponents] mutableCopy];
+    
+    NSImage *controlImage = [NSImage imageNamed:@"dark_noise.png"];
+    NSBitmapImageRep *imageRep = [[controlImage representations] objectAtIndex:0];
+
+    NSImage *draggedImage = [[NSImage alloc] initWithSize:[imageRep size]];
+    [draggedImage addRepresentation:imageRep];
+    
+    NSDraggingImageComponent *colorComponent = [NSDraggingImageComponent draggingImageComponentWithKey:@"Color"];
+    colorComponent.contents = draggedImage;
+    
+    NSRect viewBounds = self.bounds;
+    viewBounds = [self convertRect:viewBounds fromView:self];
+    colorComponent.frame = viewBounds;
+    
+    [result insertObject:colorComponent atIndex:0];
+    
+    return [result copy];
+}
+
 @end

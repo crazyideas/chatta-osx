@@ -35,4 +35,19 @@
     return NO;
 }
 
+- (NSArray *)acceptableDragTypes
+{
+    return nil;
+}
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
+{
+    return NSDragOperationNone;
+}
+
+- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender
+{
+    return NSDragOperationNone;
+}
+
 @end

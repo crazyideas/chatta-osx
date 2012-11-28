@@ -43,6 +43,8 @@
         
         [self.masterView.tableView setDelegate:self];
         [self.masterView.tableView setDataSource:self];
+        [self.masterView.tableView registerForDraggedTypes:[NSArray arrayWithObjects:(id)kUTTypeText, nil]];
+        [self.masterView.tableView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
         
         [self.masterView.addContactButton setTarget:self];
         [self.masterView.addContactButton setAction:@selector(showContactAction:)];
@@ -292,6 +294,89 @@
     
     self.previouslySelectedRow = selectedRow;
 }
+
+#pragma mark - TableView dragging delegates
+
+- (id <NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row
+{
+    return [[CKContactList sharedInstance] contactWithIndex:row];
+
+}
+
+- (void)tableView:(NSTableView *)tableView updateDraggingItemsForDrag:(id<NSDraggingInfo>)draggingInfo
+{
+    NSTableColumn *tableColumn = tableView.tableColumns[0];
+    
+    CKTableCellView *tableCellView = [tableView makeViewWithIdentifier:@"ckRow" owner:self];
+    NSArray *classes = [NSArray arrayWithObject:[CKContact class]];
+    NSRect cellFrame = NSMakeRect(0, 0, tableColumn.width, tableView.rowHeight);
+
+    [draggingInfo enumerateDraggingItemsWithOptions:0 forView:tableView classes:classes searchOptions:nil usingBlock:
+        ^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
+            draggingItem.draggingFrame = cellFrame;
+            draggingItem.imageComponentsProvider =
+                ^(void) {
+                    tableCellView.objectValue = draggingItem.item;
+                    tableCellView.frame = cellFrame;
+                    return [tableCellView draggingImageComponents];
+                };
+        }
+    ];
+}
+
+- (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info
+    proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
+{
+    info.animatesToDestination = YES;
+    
+    if (dropOperation == NSTableViewDropOn) {
+        return NSDragOperationNone;
+    }
+    
+    return NSDragOperationMove;
+}
+
+- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row
+    dropOperation:(NSTableViewDropOperation)dropOperation
+{
+    __block NSInteger destinationRow = row;
+    __block MasterViewController *block_self = self;
+    NSArray *classes = [NSArray arrayWithObject:[CKContact class]];
+    
+    [info enumerateDraggingItemsWithOptions:0 forView:tableView classes:classes searchOptions:nil usingBlock:
+        ^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
+        
+            CKContact *dragContact = (CKContact *)draggingItem.item;
+            CKContact *contactInList = [[CKContactList sharedInstance] contactWithName:dragContact.displayName];
+            NSInteger sourceRow = [[CKContactList sharedInstance] indexOfContact:contactInList];
+        
+            NSLog(@"[+] MasterViewController, source row: %lu", sourceRow);
+
+            if (sourceRow < 0) {
+                return;
+            }
+            
+            if (sourceRow == destinationRow) {
+                return;
+            }
+        
+            [block_self.masterView.tableView beginUpdates];
+        
+            NSUInteger fromRow = sourceRow;
+            NSUInteger toRow   = (fromRow > destinationRow) ? destinationRow + 0 : destinationRow - 1;
+        
+            NSLog(@"[+] MasterViewController, swapping row: %lu and %lu", fromRow, toRow);
+            
+            [block_self.masterView.tableView moveRowAtIndex:fromRow toIndex:toRow];
+            [[CKContactList sharedInstance] swapContactsFrom:fromRow to:toRow];
+                        
+            [block_self.masterView.tableView endUpdates];
+            [block_self.masterView.tableView reloadData];
+    }];
+    
+    return YES;
+}
+
 
 #pragma mark - MessageView delegates
 
