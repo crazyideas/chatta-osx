@@ -6,7 +6,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CKConstants.h"
 
-@interface CKStatus : NSView
+@interface CKStatusView : NSView
+
+@property (nonatomic) ContactState contactState;
 
 @end

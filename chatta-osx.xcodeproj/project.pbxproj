@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2700383E15CA2A8E00F2320C /* CKPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 2700383D15CA2A8E00F2320C /* CKPersistence.m */; };
-		2703CD061665C4A800EF6E3E /* CKStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703CD051665C4A800EF6E3E /* CKStatus.m */; };
+		2703CD061665C4A800EF6E3E /* CKStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703CD051665C4A800EF6E3E /* CKStatusView.m */; };
 		27138ED916378F2700694D4F /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED616378F2700694D4F /* ContactViewController.m */; };
 		27138EDA16378F2700694D4F /* ContactView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138ED816378F2700694D4F /* ContactView.m */; };
 		27138EE91638CDB300694D4F /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27138EE81638CDB300694D4F /* DetailView.m */; };
@@ -74,8 +74,8 @@
 /* Begin PBXFileReference section */
 		2700383C15CA2A8E00F2320C /* CKPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPersistence.h; sourceTree = "<group>"; };
 		2700383D15CA2A8E00F2320C /* CKPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPersistence.m; sourceTree = "<group>"; };
-		2703CD041665C4A800EF6E3E /* CKStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKStatus.h; sourceTree = "<group>"; };
-		2703CD051665C4A800EF6E3E /* CKStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKStatus.m; sourceTree = "<group>"; };
+		2703CD041665C4A800EF6E3E /* CKStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKStatusView.h; sourceTree = "<group>"; };
+		2703CD051665C4A800EF6E3E /* CKStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKStatusView.m; sourceTree = "<group>"; };
 		2712B37C15B263D000D73FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		27138ED516378F2700694D4F /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
 		27138ED616378F2700694D4F /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
@@ -274,8 +274,6 @@
 				2790221E16378D1E00A64F24 /* Table Views */,
 				279021FF16362A1E00A64F24 /* CKLabel.h */,
 				2790220016362A1E00A64F24 /* CKLabel.m */,
-				2703CD041665C4A800EF6E3E /* CKStatus.h */,
-				2703CD051665C4A800EF6E3E /* CKStatus.m */,
 				278DDB6D165496F80085A790 /* CKButton.h */,
 				278DDB6E165496F80085A790 /* CKButton.m */,
 				278DDB6F165496F80085A790 /* CKButtonCell.h */,
@@ -288,6 +286,8 @@
 				27138EED1638CDC600694D4F /* CKSeparator.m */,
 				27D74F5F15BF9624009F522A /* CKProgressIndicator.h */,
 				27D74F6015BF9624009F522A /* CKProgressIndicator.m */,
+				2703CD041665C4A800EF6E3E /* CKStatusView.h */,
+				2703CD051665C4A800EF6E3E /* CKStatusView.m */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -504,7 +504,7 @@
 				278DDB1916521AF60085A790 /* MessageView.m in Sources */,
 				278DDB71165496F80085A790 /* CKButton.m in Sources */,
 				278DDB72165496F80085A790 /* CKButtonCell.m in Sources */,
-				2703CD061665C4A800EF6E3E /* CKStatus.m in Sources */,
+				2703CD061665C4A800EF6E3E /* CKStatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

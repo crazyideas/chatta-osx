@@ -14,10 +14,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.nameLabel      = [[CKLabel alloc] initWithFrame:NSMakeRect(30,  58, 148,  20)];
-        self.messageLabel   = [[CKLabel alloc] initWithFrame:NSMakeRect(30,  12, 210,  40)];
-        self.timestampLabel = [[CKLabel alloc] initWithFrame:NSMakeRect(190, 58, 70,   19)];
-        
+        self.nameLabel      = [[CKLabel alloc] initWithFrame:NSMakeRect     (30,  58, 148, 20)];
+        self.messageLabel   = [[CKLabel alloc] initWithFrame:NSMakeRect     (30,  12, 210, 40)];
+        self.timestampLabel = [[CKLabel alloc] initWithFrame:NSMakeRect     (190, 58,  70, 19)];
+        self.statusView     = [[CKStatusView alloc] initWithFrame:NSMakeRect(0,    0,  13, 82)];
+                
         self.nameLabel.font                  = [NSFont fontWithName:@"HelveticaNeue-Bold" size:14];
         self.nameLabel.textColor             = [NSColor darkGrayColor];
         self.nameLabel.autoresizingMask      = NSViewWidthSizable | NSViewMaxXMargin;
@@ -35,6 +36,7 @@
         [self addSubview:self.nameLabel];
         [self addSubview:self.messageLabel];
         [self addSubview:self.timestampLabel];
+        [self addSubview:self.statusView];
     }
     
     return self;
@@ -43,58 +45,6 @@
 - (BOOL)wantsDefaultClipping
 {
     return NO;
-}
-
-- (void)drawRect:(NSRect)dirtyRect
-{
-    [super drawRect:dirtyRect];
-    
-    NSColor *outlineRectColor;
-    NSColor *bodyRectColor;
-    NSColor *separatorRectColor;
-    
-    switch (self.contactState) {
-        case ContactStateOnline:
-            outlineRectColor = [NSColor greenStatusOutlineColor];
-            bodyRectColor = [NSColor greenStatusColor];
-            separatorRectColor = [NSColor gridSeparatorColor];
-            break;
-            /*
-        case ContactStateAway:
-            outlineRectColor = [NSColor yellowStatusOutlineColor];
-            bodyRectColor = [NSColor yellowStatusColor];
-            separatorRectColor = [NSColor gridSeparatorColor];
-            break;
-             */
-        case ContactStateOffline:
-            outlineRectColor = [NSColor blueStatusOutlineColor];
-            bodyRectColor = [NSColor blueStatusColor];
-            separatorRectColor = [NSColor gridSeparatorColor];
-            break;
-        case ContactStateIndeterminate:
-            outlineRectColor = [NSColor mediumBackgroundNoiseColor];
-            bodyRectColor = [NSColor mediumBackgroundNoiseColor];
-            separatorRectColor = [NSColor mediumBackgroundNoiseColor];
-            break;
-        default:
-            outlineRectColor = [NSColor mediumBackgroundNoiseColor];
-            bodyRectColor = [NSColor mediumBackgroundNoiseColor];
-            separatorRectColor = [NSColor mediumBackgroundNoiseColor];
-            break;
-    }
-    
-    // draw status indicator, should eventually move to its own class
-    NSRect borderRect = CKCopyRect(dirtyRect);
-    borderRect.origin.x -= 1;
-    borderRect.origin.y += 0;
-    borderRect.size.width = 13;
-    borderRect.size.height += 1;
-    [bodyRectColor set];
-    NSRectFill(borderRect);
-    
-    CGRect separatorRect = NSMakeRect(borderRect.size.width - 1, 0, 1, self.frame.size.height + 1);
-    [separatorRectColor set];
-    NSRectFill(separatorRect);
 }
 
 - (NSArray *)draggingImageComponents
@@ -117,6 +67,14 @@
     [result insertObject:colorComponent atIndex:0];
     
     return [result copy];
+}
+
+#pragma mark - Properties
+
+- (void)setContactState:(ContactState)contactState
+{
+    self.statusView.contactState = contactState;
+    _contactState = contactState;
 }
 
 @end
