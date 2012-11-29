@@ -41,9 +41,13 @@
         tableCellView.nameLabel.attributedStringValue =
             [self etchedStringWithFont:[NSFont applicationBoldMedium]
                              andString:tableCellView.nameLabel.stringValue];
-        tableCellView.messageLabel.attributedStringValue =
-            [self etchedStringWithFont:[NSFont applicationLightSmall]
-                             andString:tableCellView.messageLabel.stringValue];
+        
+        // this is a hack
+        [tableCellView.messageLabel.cell setBackgroundStyle:NSBackgroundStyleRaised];
+        //tableCellView.messageLabel.attributedStringValue =
+        //    [self etchedStringWithFont:[NSFont applicationLightSmall]
+        //                     andString:tableCellView.messageLabel.stringValue];
+        
         tableCellView.timestampLabel.attributedStringValue =
             [self etchedStringWithFont:[NSFont applicationLightSmall]
                              andString:tableCellView.timestampLabel.stringValue];
@@ -51,8 +55,12 @@
         tableCellView.nameLabel.textColor      = [NSColor darkGrayColor];
         tableCellView.messageLabel.textColor   = [NSColor grayColor];
         tableCellView.timestampLabel.textColor = [NSColor alternateSelectedControlColor];
-    }
         
+        [tableCellView.nameLabel.cell setBackgroundStyle:NSBackgroundStyleLight];
+        [tableCellView.messageLabel.cell setBackgroundStyle:NSBackgroundStyleLight];
+        [tableCellView.timestampLabel.cell setBackgroundStyle:NSBackgroundStyleLight];
+    }
+    
     // draw white border
     NSRect borderRect = CKCopyRect(dirtyRect);
     borderRect.origin.x = 14;
